@@ -1,0 +1,2338 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>STA Enrolment Form - Pages 1 & 2</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+
+  <!-- Your print/PDF CSS -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <!-- Toolbar -->
+  <div class="toolbar d-flex gap-2 justify-content-end">
+    <button class="btn btn-outline-secondary fw-bold rounded-3 px-3" id="btnPrint">Print A4</button>
+  </div>
+
+  <!-- ======================= PAGE 1 ======================= -->
+  <div class="sheet" id="page1">
+    <!-- Header -->
+    <div class="row g-0 align-items-start mb-2">
+      <div class="col-3">
+        <img class="sta-logo" src="logo.svg" alt="STA logo">
+      </div>
+      <div class="col-6 text-center">
+        <div class="fw-black sta-title">SAFETY TRAINING ACADEMY</div>
+        <div class="fw-black sta-subtitle">ENROLMENT FORM</div>
+        <div class="fw-black sta-rto">RTO : 45234</div>
+      </div>
+      <div class="col-3"></div>
+    </div>
+
+    <p class="fst-italic mb-2 sta-instruction">
+      PLEASE COMPLETE ALL SECTIONS clearly and carefully by writing in
+      <span class="fw-bold">BLOCK LETTERS</span> using a black or blue pen.
+    </p>
+
+    <div class="fw-black sta-section mb-2">SECTION 1 – APPLICANT INFORMATION</div>
+
+    <!-- Applicant Details -->
+    <table class="sta-table mb-3">
+      <colgroup>
+        <col style="width:24%">
+        <col style="width:26%">
+        <col style="width:12%">
+        <col style="width:16%">
+        <col style="width:12%">
+        <col style="width:10%">
+      </colgroup>
+
+      <tr><td class="sta-bar" colspan="6">APPLICANT DETAILS</td></tr>
+      <tr><td class="sta-subnote fw-bold" colspan="6">Please complete full name and date of birth as listed on your ID documents</td></tr>
+
+      <tr>
+        <td class="fw-bold">Title (please tick)</td>
+        <td colspan="5">
+          <div class="d-flex flex-wrap align-items-center gap-4">
+            <span class="d-inline-flex align-items-center"><span class="cb" data-check="title" data-value="Mr"></span>Mr</span>
+            <span class="d-inline-flex align-items-center"><span class="cb" data-check="title" data-value="Mrs"></span>Mrs</span>
+            <span class="d-inline-flex align-items-center"><span class="cb" data-check="title" data-value="Miss"></span>Miss</span>
+            <span class="d-inline-flex align-items-center"><span class="cb" data-check="title" data-value="Ms"></span>Ms</span>
+            <span class="d-inline-flex align-items-center"><span class="cb" data-check="title" data-value="Dr"></span>Dr</span>
+            <span class="d-inline-flex align-items-center"><span class="cb" data-check="title" data-value="Other"></span>Other</span>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td class="fw-bold">Surname</td>
+        <td colspan="5"><span class="value" data-field="surname"></span></td>
+      </tr>
+
+      <tr>
+        <td class="fw-bold">Given name</td>
+        <td colspan="2"><span class="value" data-field="givenName"></span></td>
+        <td class="fw-bold">Middle name</td>
+        <td colspan="2"><span class="value" data-field="middleName"></span></td>
+      </tr>
+
+      <tr>
+        <td class="fw-bold">
+          Preferred name
+          <div class="small">If different to above</div>
+        </td>
+        <td colspan="2"><span class="value" data-field="preferredName"></span></td>
+        <td class="fw-bold">
+          Date of Birth
+          <div class="small">Day/Month/Year</div>
+        </td>
+        <td colspan="2"><span class="value text-center" data-field="dobDMY"></span></td>
+      </tr>
+
+      <tr>
+        <td class="fw-bold">Gender (please tick)</td>
+        <td colspan="2">
+          <div class="d-flex flex-wrap align-items-center gap-4">
+            <span class="d-inline-flex align-items-center"><span class="cb" data-check="gender" data-value="Male"></span>Male</span>
+            <span class="d-inline-flex align-items-center"><span class="cb" data-check="gender" data-value="Female"></span>Female</span>
+          </div>
+        </td>
+        <td class="fw-bold">Email</td>
+        <td colspan="2"><span class="value" data-field="email"></span></td>
+      </tr>
+
+      <tr>
+        <td class="fw-bold">Home Phone</td>
+        <td colspan="2"><span class="value" data-field="homePhone"></span></td>
+        <td class="fw-bold">Work Phone</td>
+        <td colspan="2"><span class="value" data-field="workPhone"></span></td>
+      </tr>
+
+      <tr>
+        <td class="fw-bold">Mobile Phone</td>
+        <td colspan="5"><span class="value" data-field="mobilePhone"></span></td>
+      </tr>
+    </table>
+
+    <!-- Address block EXACT like your screenshot (7 columns) -->
+    <table class="sta-table mb-3">
+      <colgroup>
+        <col style="width:26%">
+        <col style="width:10%">
+        <col style="width:30%">
+        <col style="width:8%">
+        <col style="width:10%">
+        <col style="width:10%">
+        <col style="width:6%">
+      </colgroup>
+
+      <tr>
+        <td class="fw-bold">Residential Address</td>
+        <td colspan="6"><span class="value" data-field="resAddress"></span></td>
+      </tr>
+
+      <tr>
+        <td></td>
+        <td class="fw-bold">Suburb</td>
+        <td><span class="value" data-field="resSuburb"></span></td>
+        <td class="fw-bold">State</td>
+        <td><span class="value" data-field="resState"></span></td>
+        <td class="fw-bold">Postcode</td>
+        <td><span class="value" data-field="resPostcode"></span></td>
+      </tr>
+
+      <tr>
+        <td class="fw-bold">Postal Address</td>
+        <td colspan="6"><span class="value" data-field="postalAddress"></span></td>
+      </tr>
+
+      <tr>
+        <td class="sta-ifdiff">If different from above</td>
+        <td class="fw-bold">Suburb</td>
+        <td><span class="value" data-field="postalSuburb"></span></td>
+        <td class="fw-bold">State</td>
+        <td><span class="value" data-field="postalState"></span></td>
+        <td class="fw-bold">Postcode</td>
+        <td><span class="value" data-field="postalPostcode"></span></td>
+      </tr>
+    </table>
+
+    <!-- Emergency Contact -->
+    <table class="sta-table mb-3">
+      <colgroup>
+        <col style="width:18%">
+        <col style="width:34%">
+        <col style="width:18%">
+        <col style="width:30%">
+      </colgroup>
+
+      <tr><td class="sta-bar" colspan="4">EMERGENCY CONTACT</td></tr>
+
+      <tr>
+        <td class="fw-bold">Full<br/>Name</td>
+        <td><span class="value" data-field="emgName"></span></td>
+        <td class="fw-bold">Relationship</td>
+        <td><span class="value" data-field="emgRelation"></span></td>
+      </tr>
+
+      <tr>
+        <td class="fw-bold">Contact Number</td>
+        <td colspan="3"><span class="value" data-field="emgContact"></span></td>
+      </tr>
+
+      <tr>
+        <td colspan="4" class="small">
+          In the event of an emergency do you give the STA permission to organise emergency transport and treatment and do you agree
+          to pay all costs related to the emergency?
+          <span class="ms-3 d-inline-flex align-items-center"><span class="cb" data-check="emgConsent" data-value="Yes"></span>Yes</span>
+          <span class="ms-3 d-inline-flex align-items-center"><span class="cb" data-check="emgConsent" data-value="No"></span>No</span>
+        </td>
+      </tr>
+    </table>
+
+    <!-- USI -->
+  <table class="sta-table">
+  <tr><td class="sta-bar" colspan="6">UNIQUE STUDENT IDENTIFIER (USI)</td></tr>
+
+  <tr>
+    <td colspan="6" class="pb-5">
+      <p class="usiText mb-2">
+        From 1 January 2015, Safety Training Academy can be prevented from issuing you with a nationally recognised VET qualification
+        or statement of attainment when you complete your course if you do not have a Unique Student Identifier (USI). In addition, we
+        are required to include your USI in the data we submit to NCVER. If you have not yet obtained a USI you can apply for it directly
+        at
+        <a href="https://www.usi.gov.au/students/create-your-usi" target="_blank" rel="noopener">
+          https://www.usi.gov.au/students/create-your-usi
+        </a>
+        on a computer or mobile device.
+      </p>
+
+      <p class="usiText mb-2">
+        Enter your Unique Student Identifier (USI) (if you already have one) You may already have a USI if you have done any nationally
+        recognised training, which could include training at work, completing a first aid course or RSA (Responsible Service of Alcohol)
+        course, getting a white card, or studying at a TAFE or training organisation. It is important that you try to find out whether you
+        already have a USI before attempting to create a new one. You should not have more than one USI. To check if you already have
+        a USI, use the ‘Forgotten USI’ link on the USI website at
+        <a href="https://www.usi.gov.au/faqs/i-have-forgotten-my-usi/" target="_blank" rel="noopener">
+          https://www.usi.gov.au/faqs/i-have-forgotten-my-usi/
+        </a>
+      </p>
+
+      <div class="usiText mb-1"><b><i>17) Unique Student Identifier (USI)</i></b></div>
+
+      <div class="d-grid" style="grid-template-columns: 1fr 58mm; gap: 8mm;">
+        <div class="usiText">
+          <span class="cb" data-check="usiPermission" data-value="true"></span>
+          I give permission for Safety Training Academy to access my Unique Student Identifier (USI) for the purpose of recording my results.
+        </div>
+
+        <div class="d-flex justify-content-end">
+          <span class="usiBoxes" id="usiBoxes" aria-label="USI boxes">
+            <span>USI</span>
+            <span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span>
+          </span>
+        </div>
+      </div>
+    </td>
+  </tr>
+</table>
+
+    <!-- Footer -->
+    <div class="footerCompany">
+      Australian International Education and Training Pty Ltd Trading as Safety Training Academy<br/>
+      14- 16 Marjorie Street Sefton NSW 2162 &nbsp;--&nbsp; Ph: 1300 976 097
+    </div>
+    <div class="footerHr"></div>
+    <div class="footerLine">
+      <div>Form 36.</div>
+      <div>Page 1 of 14</div>
+      <div>230802</div>
+    </div>
+  </div>
+
+
+<!-- ======================= PAGE 2 ======================= -->
+<div class="sheet" id="page2">
+  <!-- Header (same as page 1) -->
+  <div class="row g-0 align-items-start mb-2">
+    <div class="col-3">
+      <img class="sta-logo" src="logo.svg" alt="STA logo">
+    </div>
+    <div class="col-6 text-center">
+      <div class="fw-black sta-title">SAFETY TRAINING ACADEMY</div>
+      <div class="fw-black sta-subtitle">ENROLMENT FORM</div>
+      <div class="fw-black sta-rto">RTO : 45234</div>
+    </div>
+    <div class="col-3"></div>
+  </div>
+
+  <!-- ================= BIG BOX #1 (Outer) ================= -->
+  <div class="p2Outer">
+
+    <div class="p2Heading">USI application through STA (if you do not already have one)</div>
+
+    <!-- ===== Section A (Text block) ===== -->
+    <div class="p2Pad p2Blue">
+      <div class="fw-bold">Application for Unique Student Identifier (USI)</div>
+
+      <p class="mb-2">
+        If you would like us Safety Training Academy to apply for a USI on your behalf you must authorise us to do so and declare that
+        you have read the privacy information at
+        <a href="https://www.usi.gov.au/documents/privacynotice-when-rto-applies-their-behalf" target="_blank" rel="noopener">
+          https://www.usi.gov.au/documents/privacynotice-when-rto-applies-their-behalf
+        </a>.
+        You must also provide some additional information as noted at the end of this form so that we can apply for a USI on your behalf.
+      </p>
+
+      <div class="mb-2">
+        I [ Name ]
+        <span class="fillLine1 w-110" data-line="usiApplyName"><span class="fillVal"></span></span>
+        authorise Safety Training Academy to apply pursuant to sub-section 9(2) of the Student Identifiers Act 2014, for a USI on my behalf.
+      </div>
+
+      <div class="mb-2">
+        <span class="cb" data-check="usiApplyConsent" data-value="true"></span>
+        I have read and I consent to the collection, use and disclosure of my personal information (which may include sensitive information)
+        pursuant to the information detailed at
+        <a href="https://www.usi.gov.au/documents/privacy-notice-when-rto-applies-their-behalf" target="_blank" rel="noopener">
+          https://www.usi.gov.au/documents/privacy-notice-when-rto-applies-their-behalf
+        </a>
+      </div>
+
+      <div class="mb-0">
+        Town/City of Birth
+        <span class="fillLine1 w-95" data-line="townCityBirth"><span class="fillVal"></span></span>
+        <span class="p2SmallNote">(please write the name of the Australian or overseas town or city where you were born)</span>
+      </div>
+    </div>
+
+    <!-- ===== Section B (Box inside box) ===== -->
+    <div class="p2InnerBox p2Blue">
+      <div class="fw-bold p2Under">We will also need to verify your identity to create your USI.</div>
+      <div class="fw-bold">Please provide details for <u>one</u> of the forms of identity below (numbered 1 to 8).</div>
+      <div class="fw-bold">
+        Please ensure that the name written in ‘Personal Details’ section is exactly the same as written in the document you provide below.
+      </div>
+    </div>
+
+    <!-- ===== Section C (Identity table box inside box) ===== -->
+    <div class="p2InnerTableWrap">
+      <table class="idTable">
+        <colgroup>
+          <col style="width:22%">
+          <col style="width:28%">
+          <col style="width:18%">
+          <col style="width:32%">
+        </colgroup>
+
+        <!-- 1 -->
+        <tr>
+          <td class="idTitle">1. Australian Driver’s Licence:</td>
+          <td>
+            <div class="idSmall">
+              <span class="fw-bold">State:</span>
+              <span class="fillLine w-45" data-line="dlState"><span class="fillVal"></span></span>
+            </div>
+          </td>
+          <td colspan="2">
+            <div class="idSmall">
+              <span class="fw-bold">Licence number:</span>
+              <span class="fillLine w-80" data-line="dlNumber"><span class="fillVal"></span></span>
+            </div>
+          </td>
+        </tr>
+
+        <!-- 2 -->
+        <tr>
+          <td class="idTitle">2. Medicare Card:</td>
+          <td>
+            <div class="idSmall">
+              <span class="fw-bold">Medicare card number:</span><br/>
+              <span class="fillLine w-95" data-line="medicareNumber"><span class="fillVal"></span></span>
+            </div>
+          </td>
+          <td colspan="2">
+            <div class="idSmall">
+              <span class="fw-bold">Individual reference number (next to your name on medicare card):</span><br/>
+              <span class="fillLine w-35" data-line="medicareIrn"><span class="fillVal"></span></span>
+            </div>
+          </td>
+        </tr>
+
+        <tr>
+          <td></td>
+          <td>
+            <div class="idSmall">
+              <span class="fw-bold">Card colour:</span>
+              <span class="ms-2 d-inline-flex align-items-center"><span class="cb" data-check="medicareColour" data-value="Green"></span>Green</span>
+              <span class="ms-2 d-inline-flex align-items-center"><span class="cb" data-check="medicareColour" data-value="Yellow"></span>Yellow</span>
+              <span class="ms-2 d-inline-flex align-items-center"><span class="cb" data-check="medicareColour" data-value="Blue"></span>Blue</span>
+            </div>
+          </td>
+          <td colspan="2">
+            <div class="idSmall">
+              <span class="fw-bold">Expiry date</span>
+              <span class="fillLine w-55" data-line="medicareExpiry"><span class="fillVal"></span></span>
+              <span class="dateHint">(format DD/MM/YYYY)</span>
+            </div>
+          </td>
+        </tr>
+
+        <!-- 3 + 4 -->
+        <tr>
+          <td class="idTitle">3. Australian Birth Certificate:</td>
+          <td>
+            <div class="idSmall">
+              <span class="fw-bold">State/Territory:</span>
+              <span class="fillLine w-55" data-line="bcState"><span class="fillVal"></span></span>
+            </div>
+          </td>
+          <td class="idTitle">4. Immicard:</td>
+          <td>
+            <div class="idSmall">
+              <span class="fw-bold">Immicard Number:</span>
+              <span class="fillLine w-80" data-line="immicardNumber"><span class="fillVal"></span></span>
+            </div>
+          </td>
+        </tr>
+
+        <!-- 5 -->
+        <tr>
+          <td class="idTitle">5. Australian Passport:</td>
+          <td colspan="3">
+            <div class="idSmall">
+              <span class="fw-bold">Passport number:</span>
+              <span class="fillLine w-80" data-line="ausPassportNumber"><span class="fillVal"></span></span>
+            </div>
+          </td>
+        </tr>
+
+        <!-- 6 -->
+        <tr>
+          <td class="idTitle">
+            6. Non-Australian Passport:<br/>
+            <span class="idSmall">(with Australian Visa)</span>
+          </td>
+          <td>
+            <div class="idSmall">
+              <span class="fw-bold">Passport number:</span><br/>
+              <span class="fillLine w-80" data-line="nonAusPassportNumber"><span class="fillVal"></span></span>
+            </div>
+          </td>
+          <td colspan="2">
+            <div class="idSmall">
+              <span class="fw-bold">Country of issue:</span><br/>
+              <span class="fillLine w-80" data-line="nonAusPassportCountry"><span class="fillVal"></span></span>
+            </div>
+          </td>
+        </tr>
+
+        <!-- 7 -->
+        <tr>
+          <td class="idTitle">7. Citizenship Certificate:</td>
+          <td>
+            <div class="idSmall">
+              <span class="fw-bold">Stock number:</span>
+              <span class="fillLine w-65" data-line="citizenshipStock"><span class="fillVal"></span></span>
+            </div>
+          </td>
+          <td colspan="2">
+            <div class="idSmall">
+              <span class="fw-bold">Acquisition date</span>
+              <span class="fillLine w-55" data-line="citizenshipAcqDate"><span class="fillVal"></span></span>
+              <span class="dateHint">(day/month/year)</span>
+            </div>
+          </td>
+        </tr>
+
+        <!-- 8 -->
+        <tr>
+          <td class="idTitle">8. Certificate of Registration by Descent:</td>
+          <td colspan="3">
+            <div class="idSmall">
+              <span class="fw-bold">Acquisition date</span>
+              <span class="fillLine w-55" data-line="descentAcqDate"><span class="fillVal"></span></span>
+              <span class="dateHint">(day/month/year)</span>
+            </div>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+  </div><!-- end Big Box #1 -->
+
+<!-- ================= BIG BOX #2 (Office use) ================= -->
+<div class="p2OfficeOuter">
+  <div class="officeBar">OFFICE USE Only</div>
+
+  <table class="officeTable">
+    <colgroup>
+      <col style="width:22%">
+      <col style="width:39%">
+      <col style="width:39%">
+    </colgroup>
+
+    <tr>
+      <td colspan="3" class="officeNote">
+        In accordance with section 11 of the <i>Student Identifiers Act 2014</i>, Safety Training Academy will securely destroy personal
+        information which we collect from <br>
+        individuals solely for the purpose of applying for a USI on their behalf as soon as practicable
+        after we have made the application or the information <br>is no longer needed for that purpose.
+      </td>
+    </tr>
+
+    <!-- PHOTO ID VERIFIED -->
+    <tr>
+      <td class="fw-bold p2BlueText" rowspan="2">PHOTO ID VERIFIED:</td>
+
+      <td>
+        <span class="cb" data-check="photoIdType" data-value="Passport"></span>
+        Passport number:
+        <span class="fillLine w-65" data-line="officePassportNumber"><span class="fillVal"></span></span>
+      </td>
+
+      <td>
+        <span class="cb" data-check="photoIdType" data-value="DriverLicence"></span>
+        Driver licence number:
+        <span class="fillLine w-80" data-line="officeDriverLicenceNumber"><span class="fillVal"></span></span>
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan="2">
+        <span class="cb" data-check="photoIdType" data-value="Other"></span>
+        Other, please state:
+        <span class="fillLine w-110" data-line="officeOtherText"><span class="fillVal"></span></span>
+      </td>
+    </tr>
+  </table>
+</div>
+
+
+
+  <!-- Footer -->
+  <div class="footerCompany">
+    Australian International Education and Training Pty Ltd Trading as Safety Training Academy<br/>
+    14- 16 Marjorie Street Sefton NSW 2162 &nbsp;--&nbsp; Ph: 1300 976 097
+  </div>
+  <div class="footerHr"></div>
+  <div class="footerLine">
+    <div>Form 36.</div>
+    <div>Page 2 of 14</div>
+    <div>230802</div>
+  </div>
+</div>
+
+<!-- ======================= PAGE 3 ======================= -->
+<div class="sheet" id="page3">
+  <!-- Header (same as page 1) -->
+  <div class="row g-0 align-items-start mb-2">
+    <div class="col-3">
+      <img class="sta-logo" src="logo.svg" alt="STA logo">
+    </div>
+    <div class="col-6 text-center">
+      <div class="fw-black sta-title">SAFETY TRAINING ACADEMY</div>
+      <div class="fw-black sta-subtitle">ENROLMENT FORM</div>
+      <div class="fw-black sta-rto">RTO : 45234</div>
+    </div>
+    <div class="col-3"></div>
+  </div>
+
+  <div class="p3SectionTitle">SECTION 2 – EDUCATION AND EMPLOYMENT INFORMATION</div>
+
+  <div class="p3Intro">
+    <div class="p3IntroHead">AVETMISS DATA COLLECTION</div>
+    <div><i>Information collected in this section is used for the purposes of National reporting and planning.</i></div>
+    <div><i>Please <b>COMPLETE ALL SECTIONS</b>.</i></div>
+  </div>
+
+  <!-- ================= PRIOR EDUCATION ================= -->
+  <table class="sta-table mb-3">
+    <colgroup>
+      <col style="width:50%">
+      <col style="width:50%">
+    </colgroup>
+
+    <tr><td class="sta-bar" colspan="2">PRIOR EDUCATION</td></tr>
+
+    <tr>
+      <td colspan="2">What was your highest <b><i>completed</i></b> level at school?</td>
+    </tr>
+
+    <tr>
+      <td>
+        <div class="p3Opt"><span class="cb" data-check="priorEdu" data-value="12"></span><span class="p3Code">12</span> Year 12 or equivalent</div>
+      </td>
+      <td>
+        <div class="p3Opt"><span class="cb" data-check="priorEdu" data-value="09"></span><span class="p3Code">09</span> Year 9 or equivalent</div>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <div class="p3Opt"><span class="cb" data-check="priorEdu" data-value="11"></span><span class="p3Code">11</span> Year 11 or equivalent</div>
+      </td>
+      <td>
+        <div class="p3Opt"><span class="cb" data-check="priorEdu" data-value="08"></span><span class="p3Code">08</span> Year 8 or below</div>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <div class="p3Opt"><span class="cb" data-check="priorEdu" data-value="10"></span><span class="p3Code">10</span> Year 10 or equivalent</div>
+      </td>
+      <td>
+        <div class="p3Opt"><span class="cb" data-check="priorEdu" data-value="02"></span><span class="p3Code">02</span> Never attended school</div>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        In what <b><i>year</i></b> did you complete that level?
+        <span class="fillLine1 w-45" data-line="p3YearCompleted"><span class="fillVal"></span></span>
+      </td>
+      <td>
+        Name of School:
+        <span class="fillLine1 w-95" data-line="p3SchoolName"><span class="fillVal"></span></span>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        If in Australia, State:
+        <span class="fillLine1 w-35" data-line="p3SchoolState"><span class="fillVal"></span></span>
+        &nbsp;&nbsp;Postcode:
+        <span class="fillLine1 w-35" data-line="p3SchoolPostcode"><span class="fillVal"></span></span>
+      </td>
+      <td>
+        If not in Australia, Country
+        <span class="fillLine1 w-95" data-line="p3SchoolCountry"><span class="fillVal"></span></span>
+      </td>
+    </tr>
+  </table>
+
+  <!-- ================= QUALIFICATIONS ================= -->
+  <table class="sta-table mb-3">
+    <colgroup>
+      <col style="width:50%">
+      <col style="width:50%">
+    </colgroup>
+
+    <tr><td class="sta-bar" colspan="2">QUALIFICATIONS</td></tr>
+
+    <tr>
+      <td colspan="2">
+        Do you have post-secondary or vocational/trade qualifications from any accredited/recognised educational institution(s)?
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <div class="p3Opt">
+          <span class="cb" data-check="qualHave" data-value="Yes"></span> Yes – <i>Please specify</i> and <u><i>provide a copy</i></u>
+        </div>
+      </td>
+      <td>
+        <div class="p3Opt">
+          <span class="cb" data-check="qualHave" data-value="No"></span> No - go to next question <i><b>‘Employment Status’</b></i>
+        </div>
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan="2">
+        If YES, then tick ANY applicable boxes.
+        <div class="p3QualGrid mt-1">
+          <div class="p3Opt"><span class="cb" data-check="qualType" data-value="008"></span><span class="p3Code">008</span> Bachelor Degree or Higher Degree</div>
+          <div class="p3Opt"><span class="cb" data-check="qualType" data-value="410"></span><span class="p3Code">410</span> Advanced Diploma or Associate Degree</div>
+          <div class="p3Opt"><span class="cb" data-check="qualType" data-value="420"></span><span class="p3Code">420</span> Diploma (or Associate Diploma)</div>
+          <div class="p3Opt"><span class="cb" data-check="qualType" data-value="511"></span><span class="p3Code">511</span> Certificate IV (or Advanced Certificate/Technician)</div>
+          <div class="p3Opt"><span class="cb" data-check="qualType" data-value="514"></span><span class="p3Code">514</span> Certificate III (or Trade Certificate)</div>
+          <div class="p3Opt"><span class="cb" data-check="qualType" data-value="521"></span><span class="p3Code">521</span> Certificate II</div>
+          <div class="p3Opt"><span class="cb" data-check="qualType" data-value="524"></span><span class="p3Code">524</span> Certificate I</div>
+          <div class="p3Opt"><span class="cb" data-check="qualType" data-value="990"></span><span class="p3Code">990</span> Other education (including certificates or overseas qualifications not listed above)</div>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <!-- ================= EMPLOYMENT STATUS ================= -->
+  <table class="sta-table mb-3">
+    <colgroup>
+      <col style="width:50%">
+      <col style="width:50%">
+    </colgroup>
+
+    <tr><td class="sta-bar" colspan="2">EMPLOYMENT STATUS</td></tr>
+
+    <tr>
+      <td colspan="2">
+        Of the following, which best describes your current employment status? &nbsp;(please tick ONE box only)
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <div class="p3Opt"><span class="cb" data-check="empStatus" data-value="01"></span><span class="p3Code">01</span> Full-time employee</div>
+      </td>
+      <td>
+        <div class="p3Opt"><span class="cb" data-check="empStatus" data-value="06"></span><span class="p3Code">06</span> Unemployed – seeking full-time work</div>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <div class="p3Opt"><span class="cb" data-check="empStatus" data-value="02"></span><span class="p3Code">02</span> Part-time employee</div>
+      </td>
+      <td>
+        <div class="p3Opt"><span class="cb" data-check="empStatus" data-value="07"></span><span class="p3Code">07</span> Unemployed – seeking part-time work</div>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <div class="p3Opt"><span class="cb" data-check="empStatus" data-value="03"></span><span class="p3Code">03</span> Self-employed - not employing others</div>
+      </td>
+      <td>
+        <div class="p3Opt"><span class="cb" data-check="empStatus" data-value="08"></span><span class="p3Code">08</span> Not employed – not seeking employment</div>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <div class="p3Opt"><span class="cb" data-check="empStatus" data-value="04"></span><span class="p3Code">04</span> Self employed – employing others</div>
+      </td>
+      <td></td>
+    </tr>
+
+    <tr>
+      <td>
+        <div class="p3Opt"><span class="cb" data-check="empStatus" data-value="05"></span><span class="p3Code">05</span> Employed – unpaid worker in family business</div>
+      </td>
+      <td></td>
+    </tr>
+
+    <tr><td class="sta-bar" colspan="2">EMPLOYMENT DETAILS</td></tr>
+
+    <!-- Employment details table layout (matches PDF proportions) -->
+    <tr>
+      <td style="padding:0" colspan="2">
+        <table class="p3InnerTable">
+          <colgroup>
+            <col style="width:22%">
+            <col style="width:38%">
+            <col style="width:14%">
+            <col style="width:26%">
+          </colgroup>
+
+          <tr>
+            <td>Employer’s name</td>
+            <td><span class="value" data-field="p3EmployerName"></span></td>
+            <td>Supervisor’s name</td>
+            <td><span class="value" data-field="p3SupervisorName"></span></td>
+          </tr>
+
+          <tr>
+            <td>Address</td>
+            <td colspan="3"><span class="value" data-field="p3EmployerAddress"></span></td>
+          </tr>
+
+          <tr>
+            <td>Email</td>
+            <td><span class="value" data-field="p3EmployerEmail"></span></td>
+            <td>Phone</td>
+            <td><span class="value" data-field="p3EmployerPhone"></span></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+  <!-- Footer (Page 3) -->
+  <div class="footerCompany">
+    Australian International Education and Training Pty Ltd Trading as Safety Training Academy<br/>
+    14- 16 Marjorie Street Sefton NSW 2162 &nbsp;--&nbsp; Ph: 1300 976 097
+  </div>
+  <div class="footerHr"></div>
+  <div class="footerLine">
+    <div>Form 36.</div>
+    <div>Page 3 of 14</div>
+    <div>230802</div>
+  </div>
+</div>
+
+
+<!-- ======================= PAGE 4 ======================= -->
+<div class="sheet" id="page4">
+  <!-- Header (same as page 1) -->
+  <div class="row g-0 align-items-start mb-2">
+    <div class="col-3">
+      <img class="sta-logo" src="logo.svg" alt="STA logo">
+    </div>
+    <div class="col-6 text-center">
+      <div class="fw-black sta-title">SAFETY TRAINING ACADEMY</div>
+      <div class="fw-black sta-subtitle">ENROLMENT FORM</div>
+      <div class="fw-black sta-rto">RTO : 45234</div>
+    </div>
+    <div class="col-3"></div>
+  </div>
+
+  <!-- ================= REASON FOR UNDERTAKING TRAINING / RPL ================= -->
+  <table class="sta-table mb-3">
+    <colgroup>
+      <col style="width:50%">
+      <col style="width:50%">
+    </colgroup>
+
+    <tr>
+      <td class="sta-bar" colspan="2">
+        REASON FOR UNDERTAKING TRAINING / RPL
+        <span class="p4Note">(tick ONE box only)</span>
+      </td>
+    </tr>
+
+    <tr>
+      <td colspan="2">
+        Of the following, which best describes your main reason for gaining this qualification?
+      </td>
+    </tr>
+
+    <tr>
+      <td><div class="p4Opt"><span class="cb" data-check="reasonTrain" data-value="01"></span><span class="p4Code">01</span> To get a job</div></td>
+      <td><div class="p4Opt"><span class="cb" data-check="reasonTrain" data-value="06"></span><span class="p4Code">06</span> It is a requirement for my job</div></td>
+    </tr>
+    <tr>
+      <td><div class="p4Opt"><span class="cb" data-check="reasonTrain" data-value="02"></span><span class="p4Code">02</span> To develop my existing business</div></td>
+      <td><div class="p4Opt"><span class="cb" data-check="reasonTrain" data-value="07"></span><span class="p4Code">07</span> I wanted extra skills for my job</div></td>
+    </tr>
+    <tr>
+      <td><div class="p4Opt"><span class="cb" data-check="reasonTrain" data-value="03"></span><span class="p4Code">03</span> To start my own business</div></td>
+      <td><div class="p4Opt"><span class="cb" data-check="reasonTrain" data-value="08"></span><span class="p4Code">08</span> To get into another course of study</div></td>
+    </tr>
+    <tr>
+      <td><div class="p4Opt"><span class="cb" data-check="reasonTrain" data-value="04"></span><span class="p4Code">04</span> To try for a different career</div></td>
+      <td><div class="p4Opt"><span class="cb" data-check="reasonTrain" data-value="12"></span><span class="p4Code">12</span> For personal interest or self-development</div></td>
+    </tr>
+    <tr>
+      <td><div class="p4Opt"><span class="cb" data-check="reasonTrain" data-value="05"></span><span class="p4Code">05</span> To get a better job or promotion</div></td>
+      <td>
+        <div class="p4Opt">
+          <span class="cb" data-check="reasonTrain" data-value="11"></span><span class="p4Code">11</span>
+          Other <i>(please provide details)</i>:
+          <span class="fillLine1 w-80" data-line="p4ReasonOther"><span class="fillVal"></span></span>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <!-- ================= SECTION 3 ================= -->
+  <div class="p4SectionTitle">SECTION 3 – ADDITIONAL INFORMATION</div>
+  <div class="p4SectionSub">
+    <i>Information collected in this section is strictly confidential, available only to limited college staff and for the purposes of reporting and planning.</i>
+  </div>
+
+  <!-- ================= SPECIAL NEEDS ================= -->
+  <table class="sta-table mb-3">
+    <colgroup>
+      <col style="width:50%">
+      <col style="width:50%">
+    </colgroup>
+
+    <tr><td class="sta-bar" colspan="2">SPECIAL NEEDS</td></tr>
+
+    <tr>
+      <td>
+        Do you consider that you have any type of disability that may affect your ability to undertake assessment?
+      </td>
+      <td>
+        <div class="p4Opt">
+          <span class="cb" data-check="specialNeedsYN" data-value="No"></span>
+          No - go to next question <b><i>‘Language &amp; Cultural Diversity’</i></b>
+        </div>
+        <div class="p4Opt mt-1">
+          <span class="cb" data-check="specialNeedsYN" data-value="Yes"></span>
+          Yes – please provide details below
+        </div>
+      </td>
+    </tr>
+
+    <tr>
+      <td><div class="p4Opt"><span class="cb" data-check="specialNeedType" data-value="11"></span><span class="p4Code">11</span> Hearing</div></td>
+      <td><div class="p4Opt"><span class="cb" data-check="specialNeedType" data-value="16"></span><span class="p4Code">16</span> Acquired Brain Impairment</div></td>
+    </tr>
+    <tr>
+      <td><div class="p4Opt"><span class="cb" data-check="specialNeedType" data-value="12"></span><span class="p4Code">12</span> Physical</div></td>
+      <td><div class="p4Opt"><span class="cb" data-check="specialNeedType" data-value="17"></span><span class="p4Code">17</span> Vision</div></td>
+    </tr>
+    <tr>
+      <td><div class="p4Opt"><span class="cb" data-check="specialNeedType" data-value="13"></span><span class="p4Code">13</span> Intellectual</div></td>
+      <td><div class="p4Opt"><span class="cb" data-check="specialNeedType" data-value="18"></span><span class="p4Code">18</span> Medical Condition</div></td>
+    </tr>
+    <tr>
+      <td><div class="p4Opt"><span class="cb" data-check="specialNeedType" data-value="14"></span><span class="p4Code">14</span> Learning</div></td>
+      <td><div class="p4Opt"><span class="cb" data-check="specialNeedType" data-value="19"></span><span class="p4Code">19</span> Other <i>(please specify)</i>:
+        <span class="fillLine1 w-65" data-line="p4SpecialOther"><span class="fillVal"></span></span>
+      </div></td>
+    </tr>
+    <tr>
+      <td><div class="p4Opt"><span class="cb" data-check="specialNeedType" data-value="15"></span><span class="p4Code">15</span> Mental Illness</div></td>
+      <td></td>
+    </tr>
+
+    <tr>
+      <td colspan="2" class="p4Foot">
+        If you indicated the presence of a disability, impairment or long-term condition, please select the area(s) from the list on page 6.
+      </td>
+    </tr>
+  </table>
+
+  <!-- ================= LANGUAGE AND CULTURAL DIVERSITY ================= -->
+<table class="sta-table">
+  <colgroup>
+    <col style="width:26%">
+    <col style="width:20%">
+    <col style="width:54%">
+  </colgroup>
+
+  <tr>
+    <td class="sta-bar" colspan="3">LANGUAGE AND CULTURAL DIVERSITY</td>
+  </tr>
+
+  <!-- Row: Country of Birth -->
+  <tr>
+    <td class="fw-bold">Country of Birth</td>
+
+    <td>
+      <div class="p4Opt">
+        <span class="cb" data-check="countryBirth" data-value="Australia"></span>
+        <span class="p4Code">1101</span> Australia
+      </div>
+    </td>
+
+    <td>
+      <div class="p4CobRight">
+        <span class="p4Opt">
+          <span class="cb" data-check="countryBirth" data-value="Other"></span>
+          <b>Other</b> <i>(please specify)</i>:
+          <span class="fillLine1 p4LineGrow" data-line="p4CountryBirthOther"><span class="fillVal"></span></span>
+        </span>
+
+        <span class="p4Opt p4CobPlace">
+          Place of Birth:
+          <span class="fillLine1 p4LinePlace" data-line="p4PlaceOfBirth"><span class="fillVal"></span></span>
+        </span>
+      </div>
+    </td>
+  </tr>
+
+  <!-- Row group: Aboriginal &/or Torres Strait Islander Origin (2 rows) -->
+  <tr>
+    <td class="fw-bold" rowspan="2">Aboriginal &amp;/or Torres Strait Islander Origin</td>
+
+    <td>
+      <div class="p4Opt">
+        <span class="cb" data-check="atsi" data-value="No"></span>
+        <span class="p4Code">4</span> No
+      </div>
+    </td>
+
+    <td>
+      <div class="p4Opt">
+        <span class="cb" data-check="atsi" data-value="Torres"></span>
+        <span class="p4Code">2</span> Torres Strait Islander
+      </div>
+    </td>
+  </tr>
+
+  <tr>
+    <td>
+      <div class="p4Opt">
+        <span class="cb" data-check="atsi" data-value="Aboriginal"></span>
+        <span class="p4Code">13</span> Aboriginal
+      </div>
+    </td>
+
+    <td>
+      <div class="p4Opt">
+        <span class="cb" data-check="atsi" data-value="Both"></span>
+        <span class="p4Code">13</span> Aboriginal &amp; Torres Strait Islander
+      </div>
+    </td>
+  </tr>
+
+  <!-- Row: Language spoken at home -->
+  <tr>
+    <td class="fw-bold">Language spoken at home</td>
+
+    <td>
+      <div class="p4Opt">
+        <span class="cb" data-check="langHome" data-value="EnglishOnly"></span>
+        <span class="p4Code">1201</span> English Only
+        <span class="p4Small">(skip the next question)</span>
+      </div>
+    </td>
+
+    <td>
+      <div class="p4Opt">
+        <span class="cb" data-check="langHome" data-value="Other"></span>
+        <b>Other</b> <i>(please specify)</i>:
+        <span class="fillLine1 p4LineGrow" data-line="p4LangHomeOther"><span class="fillVal"></span></span>
+      </div>
+    </td>
+  </tr>
+
+  <!-- Row: English level -->
+  <tr>
+    <td class="fw-bold">How well do you speak English?</td>
+
+    <td colspan="2">
+      <span class="p4Inline"><span class="cb" data-check="englishLevel" data-value="VeryWell"></span> Very Well</span>
+      <span class="p4Inline ms-3"><span class="cb" data-check="englishLevel" data-value="Well"></span> Well</span>
+      <span class="p4Inline ms-3"><span class="cb" data-check="englishLevel" data-value="NotWell"></span> Not well</span>
+      <span class="p4Inline ms-3"><span class="cb" data-check="englishLevel" data-value="NotAtAll"></span> Not at all</span>
+    </td>
+  </tr>
+</table>
+
+
+  <!-- Footer (Page 4) -->
+  <div class="footerCompany">
+    Australian International Education and Training Pty Ltd Trading as Safety Training Academy<br/>
+    14- 16 Marjorie Street Sefton NSW 2162 &nbsp;--&nbsp; Ph: 1300 976 097
+  </div>
+  <div class="footerHr"></div>
+  <div class="footerLine">
+    <div>Form 36.</div>
+    <div>Page 4 of 14</div>
+    <div>230802</div>
+  </div>
+</div>
+
+<!-- ======================= PAGE 5 ======================= -->
+<div class="sheet" id="page5">
+  <!-- Header (same as page 1) -->
+  <div class="row g-0 align-items-start mb-2">
+    <div class="col-3">
+      <img class="sta-logo" src="logo.svg" alt="STA logo">
+    </div>
+    <div class="col-6 text-center">
+      <div class="fw-black sta-title">SAFETY TRAINING ACADEMY</div>
+      <div class="fw-black sta-subtitle">ENROLMENT FORM</div>
+      <div class="fw-black sta-rto">RTO : 45234</div>
+    </div>
+    <div class="col-3"></div>
+  </div>
+
+  <div class="fw-black sta-section mb-2">SECTION 4 – ENROLMENT INFORMATION</div>
+
+  <!-- ===== Qualifications (RPL) ===== -->
+  <table class="sta-table mb-3">
+    <colgroup>
+      <col style="width:50%">
+      <col style="width:50%">
+    </colgroup>
+
+    <tr>
+      <td colspan="2" class="p5TopBar">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>Qualifications – please tick qualification for which you are applying.</div>
+          <div class="p5RightNote">( Assess only- RPL)</div>
+        </div>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <div class="p5Opt">
+          <span class="cb" data-check="p5Qual" data-value="CPC30220_Carpentry"></span>
+          CPC30220 Certificate III in Carpentry<br/>
+          <span class="p5Small">(34 Units of Competency)</span>
+        </div>
+      </td>
+      <td>
+        <div class="p5Opt">
+          <span class="cb" data-check="p5Qual" data-value="CPC30620_Painting"></span>
+          CPC30620 Certificate III in Painting and Decorating<br/>
+          <span class="p5Small">(29 Units of Competency)</span>
+        </div>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <div class="p5Opt">
+          <span class="cb" data-check="p5Qual" data-value="CPC31220_WallCeiling"></span>
+          CPC31220 Certificate III Wall and Ceiling Lining<br/>
+          <span class="p5Small">(29 Units of Competency)</span>
+        </div>
+      </td>
+      <td>
+        <div class="p5Opt">
+          <span class="cb" data-check="p5Qual" data-value="CPC31320_WallFloorTiling"></span>
+          CPC31320 Certificate III in Wall and Floor Tiling<br/>
+          <span class="p5Small">(20 Units of Competency)</span>
+        </div>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        Are you applying for CT as well as RPL
+      </td>
+      <td>
+        Yes <span class="cb ms-1" data-check="p5ApplyCT" data-value="Yes"></span>
+        No <span class="cb ms-1" data-check="p5ApplyCT" data-value="No"></span>
+      </td>
+    </tr>
+
+    <tr>
+      <td>Preferred Start Date</td>
+      <td><span class="fillLine1 w-65" data-line="p5PreferredStart"><span class="fillVal"></span></span></td>
+    </tr>
+
+    <tr>
+      <td>
+        Do you have access to a workplace
+        Yes <span class="cb ms-1" data-check="p5WorkplaceAccess" data-value="Yes"></span>
+        No <span class="cb ms-1" data-check="p5WorkplaceAccess" data-value="No"></span>
+      </td>
+      <td>
+        Site location:
+        <span class="fillLine1 w-80" data-line="p5SiteLocation"><span class="fillVal"></span></span>
+      </td>
+    </tr>
+  </table>
+
+  <!-- ===== Short Courses heading ===== -->
+  <div class="p5ShortTitle">Short Courses</div>
+
+  <!-- ===== Units of competency ===== -->
+  <table class="sta-table">
+    <colgroup>
+      <col style="width:50%">
+      <col style="width:50%">
+    </colgroup>
+
+    <tr>
+      <td colspan="2" class="p5TopBar">
+        <div class="d-flex justify-content-between align-items-center">
+          <div>Unit of competency – Please indicate course chosen</div>
+          <div class="p5RightNote">( Training and Assessment program)</div>
+        </div>
+      </td>
+    </tr>
+
+    <!-- White Card -->
+    <tr><td class="p5Band" colspan="2">White Card:</td></tr>
+    <tr>
+      <td colspan="2">
+        <div class="p5Opt">
+          <span class="cb" data-check="p5Units" data-value="CPCWHS1001"></span>
+          CPCWHS1001 - Prepare to work safely in the construction industry
+        </div>
+      </td>
+    </tr>
+
+    <!-- Working at Heights -->
+    <tr><td class="p5Band" colspan="2">Working at Heights :</td></tr>
+    <tr>
+      <td>
+        <div class="p5Opt">
+          <span class="cb" data-check="p5Units" data-value="RIIWHS204E"></span>
+          RIIWHS204E - Work safely at heights
+        </div>
+      </td>
+      <td>
+        <div class="p5Opt">
+          <span class="cb" data-check="p5Units" data-value="ICTWHS201"></span>
+          ICTWHS201 - Provide telecommunications services safely on roofs
+        </div>
+      </td>
+    </tr>
+
+    <!-- Confined Spaces -->
+    <tr><td class="p5Band" colspan="2">Confined Spaces :</td></tr>
+    <tr>
+      <td>
+        <div class="p5Opt">
+          <span class="cb" data-check="p5Units" data-value="RIIWHS202E"></span>
+          RIIWHS202E - Enter and work in confined spaces
+        </div>
+      </td>
+      <td>
+        <div class="p5Opt">
+          <span class="cb" data-check="p5Units" data-value="MSMWH​S217"></span>
+          MSMWHS217 - Gas test atmospheres
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="p5Opt">
+          <span class="cb" data-check="p5Units" data-value="MSMWHS201"></span>
+          MSMWHS201 - Conduct hazard analysis
+        </div>
+      </td>
+      <td>
+        <div class="p5Opt">
+          <span class="cb" data-check="p5Units" data-value="MSMPER300"></span>
+          MSMPER300 - Issue work permits
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" class="p5Small ps-2 pb-1">
+        MSMPER200 - Work in accordance with an issued permit
+      </td>
+    </tr>
+
+    <!-- High risk Work -->
+    <tr><td class="p5Band" colspan="2">High risk Work :</td></tr>
+    <tr>
+      <td>
+        <div class="p5Opt">
+          <span class="cb" data-check="p5Units" data-value="TLILIC0003"></span>
+          TLILIC0003 - Licence to operate a forklift truck
+        </div>
+      </td>
+      <td>
+        <div class="p5Opt">
+          <span class="cb" data-check="p5Units" data-value="TLILIC0005"></span>
+          TLILIC0005 - Licence to operate a boom-type elevating work platform (boom length 11 metres or more)
+        </div>
+      </td>
+    </tr>
+
+    <!-- Earthmoving and Machinery -->
+    <tr><td class="p5Band" colspan="2">Earthmoving and Machinery :</td></tr>
+    <tr>
+      <td>
+        <div class="p5Opt">
+          <span class="cb" data-check="p5Units" data-value="RIIMPO320F"></span>
+          RIIMPO320F - Conduct civil construction excavator operations
+        </div>
+      </td>
+      <td>
+        <div class="p5Opt">
+          <span class="cb" data-check="p5Units" data-value="RIIMP0318F"></span>
+          RIIMP0318F - Conduct civil construction skid steer loader operations
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="p5Opt">
+          <span class="cb" data-check="p5Units" data-value="RIIMP0321F"></span>
+          RIIMP0321F - Conduct civil construction wheeled front end loader operations
+        </div>
+      </td>
+      <td>
+        <div class="p5Opt">
+          <span class="cb" data-check="p5Units" data-value="RIIMP0337E"></span>
+          RIIMP0337E - Conduct articulated haul truck operations
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="p5Opt">
+          <span class="cb" data-check="p5Units" data-value="RIIHAN309E"></span>
+          RIIHAN309E- Conduct telescopic materials handler Operations (Telehandler)
+        </div>
+      </td>
+      <td>
+        <div class="p5Opt">
+          <span class="cb" data-check="p5Units" data-value="RIIHAN301E"></span>
+          RIIHAN301E – Operate elevating work platform (under 11m)
+        </div>
+      </td>
+    </tr>
+
+    <!-- Asbestos -->
+    <tr><td class="p5Band" colspan="2">Asbestos:</td></tr>
+    <tr>
+      <td>
+        <div class="p5Opt">
+          <span class="cb" data-check="p5Units" data-value="CPCCDE3014"></span>
+          CPCCDE3014 - Remove non-friable asbestos
+        </div>
+      </td>
+      <td>
+        <div class="p5Opt">
+          <span class="cb" data-check="p5Units" data-value="CPCCDE4008"></span>
+          CPCCDE4008 - Supervise asbestos removal
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <!-- Footer (Page 5) -->
+  <div class="footerCompany">
+    Australian International Education and Training Pty Ltd Trading as Safety Training Academy<br/>
+    14- 16 Marjorie Street Sefton NSW 2162 &nbsp;--&nbsp; Ph: 1300 976 097
+  </div>
+  <div class="footerHr"></div>
+  <div class="footerLine">
+    <div>Form 36.</div>
+    <div>Page 5 of 14</div>
+    <div>230802</div>
+  </div>
+</div>
+<!-- ======================= PAGE 6 ======================= -->
+<div class="sheet" id="page6">
+  <!-- Header (same as page 1) -->
+  <div class="row g-0 align-items-start mb-2">
+    <div class="col-3">
+      <img class="sta-logo" src="logo.svg" alt="STA logo">
+    </div>
+    <div class="col-6 text-center">
+      <div class="fw-black sta-title">SAFETY TRAINING ACADEMY</div>
+      <div class="fw-black sta-subtitle">ENROLMENT FORM</div>
+      <div class="fw-black sta-rto">RTO : 45234</div>
+    </div>
+    <div class="col-3"></div>
+  </div>
+
+  <!-- ===== Continuation of Section 4 (Short Courses list) ===== -->
+  <table class="sta-table">
+    <colgroup>
+      <col style="width:50%">
+      <col style="width:50%">
+    </colgroup>
+
+    <!-- Demolition -->
+    <tr><td class="p5Band" colspan="2">Demolition:</td></tr>
+
+    <tr>
+      <td>
+        <div class="p5Opt">
+          <span class="cb" data-check="p6Units" data-value="CPCCBC4002"></span>
+          CPCCBC4002 Manage work health and safety in the building and construction workplace
+        </div>
+      </td>
+      <td>
+        <div class="p5Opt">
+          <span class="cb" data-check="p6Units" data-value="CPCCDE3020"></span>
+          CPCCDE3020 Select and use tools and equipment for work in the demolition industry
+        </div>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <div class="p5Opt">
+          <span class="cb" data-check="p6Units" data-value="CPCCBC4012"></span>
+          CPCCBC4012 Read and interpret plans and specifications
+        </div>
+      </td>
+      <td>
+        <div class="p5Opt">
+          <span class="cb" data-check="p6Units" data-value="CPCCDE3022"></span>
+          CPCCDE3022 Manage demolition recyclable waste materials and equipment maintained using load shifting equipment
+        </div>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <div class="p5Opt">
+          <span class="cb" data-check="p6Units" data-value="CPCCDE3016"></span>
+          CPCCDE3016 Identify hazards on demolition sites and apply risk management strategies
+        </div>
+      </td>
+      <td>
+        <div class="p5Opt">
+          <span class="cb" data-check="p6Units" data-value="CPCCDE4001"></span>
+          CPCCDE4001 Plan and prepare for activities on demolition sites
+        </div>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <div class="p5Opt">
+          <span class="cb" data-check="p6Units" data-value="CPCCDE3018"></span>
+          CPCCDE3018 Select and use small plant and equipment for demolition tasks
+        </div>
+      </td>
+      <td>
+        <div class="p5Opt">
+          <span class="cb" data-check="p6Units" data-value="CPCCDE4002"></span>
+          CPCCDE4002 Plan demolition work to minimise risk to health, safety and environment
+        </div>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <div class="p5Opt">
+          <span class="cb" data-check="p6Units" data-value="CPCCDE3018A"></span>
+          CPCCDE3018 Select and use small plant and equipment for demolition tasks
+        </div>
+      </td>
+      <td>
+        <div class="p5Opt">
+          <span class="cb" data-check="p6Units" data-value="CPCCDE4003"></span>
+          CPCCDE4003 Supervise operational activities on demolition sites
+        </div>
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+        <div class="p5Opt">
+          <span class="cb" data-check="p6Units" data-value="CPCCDE4004"></span>
+          CPCCDE4004 Finalise demolition activities and supervise property handover
+        </div>
+      </td>
+      <td></td>
+    </tr>
+
+    <!-- First Aid -->
+    <tr><td class="p5Band" colspan="2">First Aid :</td></tr>
+    <tr>
+      <td>
+        <div class="p5Opt">
+          <span class="cb" data-check="p6Units" data-value="HLTAID011"></span>
+          HLTAID011 - Provide First Aid
+        </div>
+      </td>
+      <td>
+        <div class="p5Opt">
+          <span class="cb" data-check="p6Units" data-value="HLTAID009"></span>
+          HLTAID009 - Provide cardiopulmonary resuscitation
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <div class="p5Opt">
+          <span class="cb" data-check="p6Units" data-value="HLTAID012"></span>
+          HLTAID012 - Provide First Aid in an education and care setting
+        </div>
+      </td>
+      <td></td>
+    </tr>
+
+    <!-- Traffic Control Courses -->
+    <tr><td class="p5Band" colspan="2">Traffic Control Courses:</td></tr>
+    <tr>
+      <td>
+        <div class="p5Opt">
+          <span class="cb" data-check="p6Units" data-value="RIISS00054"></span>
+          RIISS00054 - Traffic Controller Skill Set
+        </div>
+      </td>
+      <td  >
+        <div class="p5Opt">
+          <span class="cb" data-check="p6Units" data-value="RIISS00055"></span>
+          RIISS00055 - Traffic Management Implementer Skill Set
+        </div>
+      </td>
+    </tr>
+
+    <!-- Other Courses -->
+    <tr><td class="p5Band" colspan="2">Other Courses:</td></tr>
+    <tr>
+      <td colspan="2">
+        <div class="p5Opt">
+          <span class="cb" data-check="p6Units" data-value="UETDRL006"></span>
+          UETDRL006 - Working safely near live electrical apparatus as a non-electrical worker
+        </div>
+      </td>
+      <td></td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <div class="p5Opt">
+          <span class="cb" data-check="p6Units" data-value="RIICCM202E"></span>
+          RIICCM202E – Identify, locate and protect underground services
+        </div>
+      </td>
+      <td></td>
+    </tr>
+  </table>
+
+  <!-- Footer (Page 6) -->
+  <div class="footerCompany">
+    Australian International Education and Training Pty Ltd Trading as Safety Training Academy<br/>
+    14- 16 Marjorie Street Sefton NSW 2162 &nbsp;--&nbsp; Ph: 1300 976 097
+  </div>
+  <div class="footerHr"></div>
+  <div class="footerLine">
+    <div>Form 36.</div>
+    <div>Page 6 of 14</div>
+    <div>230802</div>
+  </div>
+</div>
+<!-- ======================= PAGE 7 ======================= -->
+<div class="sheet" id="page7">
+  <!-- Header (same as page 1) -->
+  <div class="row g-0 align-items-start mb-2">
+    <div class="col-3">
+      <img class="sta-logo" src="logo.svg" alt="STA logo">
+    </div>
+    <div class="col-6 text-center">
+      <div class="fw-black sta-title">SAFETY TRAINING ACADEMY</div>
+      <div class="fw-black sta-subtitle">ENROLMENT FORM</div>
+      <div class="fw-black sta-rto">RTO : 45234</div>
+    </div>
+    <div class="col-3"></div>
+  </div>
+
+  <!-- Privacy Notice box -->
+  <table class="sta-table">
+    <tr>
+      <td class="sta-bar">PRIVACY NOTICE</td>
+    </tr>
+    <tr>
+      <td class="p7Body">
+        <div class="p7Text">
+
+          <div class="p7Head">Why we collect your personal information</div>
+          <p class="p7P">
+            As a registered training organisation (RTO), we collect your personal information so we can process and manage your
+            enrolment in a vocational education and training (VET) course with us.
+          </p>
+
+          <div class="p7Head">How we use your personal information</div>
+          <p class="p7P">
+            We use your personal information to enable us to deliver VET courses to you, and otherwise, as needed, to comply with our
+            obligations as an RTO.
+          </p>
+
+          <div class="p7Head">How we disclose your personal information</div>
+          <p class="p7P">
+            We are required by law (under the National Vocational Education and Training Regulator Act 2011 (Cth) (NVETR Act)) to
+            disclose the personal information you collect about you to the National VET Data Collection kept by the National Centre for
+            Vocational Education Research Ltd (NCVER). The NCVER is responsible for collecting, managing, analysing and communicating
+            research and statistics about the Australian VET sector.
+          </p>
+
+          <p class="p7P">
+            We are also authorised by law under the NVETR Act to disclose your personal information to the relevant state or territory
+            training authority.
+          </p>
+
+          <div class="p7Head">How the NCVER and other bodies handle your personal information</div>
+          <p class="p7P">
+            The NCVER will collect, hold, use and disclose your personal information in accordance with the law, including the Privacy Act
+            1988 (Cth) (Privacy Act) and the NVETR Act. Your personal information may be used and disclosed by NCVER for purposes that
+            include populating authenticated VET transcripts; administration of VET; facilitation of statistics and research relating to
+            education, including surveys and data linkage; and understanding the VET market.
+          </p>
+
+          <p class="p7P">
+            The NCVER is authorised to disclose such information to:
+          </p>
+          <ul class="p7Ul">
+            <li>Commonwealth authorities, State and Territory authorities (other than registered training organisations)</li>
+            <li>Registered training organisations (RTOs)</li>
+            <li>Education and training providers</li>
+            <li>Researchers</li>
+            <li>Survey contractors</li>
+            <li>Other bodies authorised by law</li>
+          </ul>
+
+          <p class="p7P">
+            The NCVER may disclose personal information to overseas recipients. The NCVER does not control information on NCVER’s behalf.
+          </p>
+
+          <p class="p7P">
+            For more information about how the NCVER will handle your personal information please refer to the NCVER’s Privacy Policy at
+            <a href="https://www.ncver.edu.au/privacy" target="_blank" rel="noopener">https://www.ncver.edu.au/privacy</a>.
+          </p>
+
+          <p class="p7P">
+            If you would like to seek access to or correct your information, for instance, please contact your RTO using the contact details
+            listed below.
+          </p>
+
+          <div class="p7Head">DESE is authorised by law, including the Privacy Act and the NVETR Act, to collect, use and disclose your personal information</div>
+          <p class="p7P">
+            DESE is authorised by law, including the Privacy Act and the NVETR Act, to collect, use and disclose your personal information
+            for purposes that include the VET National Data Collection and VET policy development. For more information about how DESE will
+            handle your personal information, please refer to the DESE VET Privacy Notice at
+            <a href="https://www.dese.gov.au/national-vet-data/privacy-notice" target="_blank" rel="noopener">
+              https://www.dese.gov.au/national-vet-data/privacy-notice
+            </a>.
+          </p>
+
+          <p class="p7P">
+            You may receive a student survey which may be run by a government department or an NCVER employee, agent, third-party
+            contractor or another authorised agency. Please note you may opt out of the survey at the time of being contacted.
+          </p>
+
+          <div class="p7Head">Contact information</div>
+          <p class="p7P mb-1">
+            At any time, you may contact Safety Training Academy to:
+          </p>
+          <ul class="p7Ul">
+            <li>request access to your personal information</li>
+            <li>correct your personal information</li>
+            <li>make a complaint about how your personal information has been handled</li>
+            <li>ask a question about this Privacy Notice</li>
+          </ul>
+
+          <div class="p7Contact">
+            <div class="p7Head">Safety Training Academy</div>
+            <div>Maria Hajjar</div>
+            <div>0439 007 746</div>
+            <div><a href="mailto:maria@safetytrainingacademy.edu.au">maria@safetytrainingacademy.edu.au</a></div>
+          </div>
+
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <!-- Footer (Page 7) -->
+  <div class="footerCompany">
+    Australian International Education and Training Pty Ltd Trading as Safety Training Academy<br/>
+    14- 16 Marjorie Street Sefton NSW 2162 &nbsp;--&nbsp; Ph: 1300 976 097
+  </div>
+  <div class="footerHr"></div>
+  <div class="footerLine">
+    <div>Form 36.</div>
+    <div>Page 7 of 14</div>
+    <div>230802</div>
+  </div>
+</div>
+<!-- ======================= PAGE 8 ======================= -->
+<div class="sheet" id="page8">
+  <!-- Header -->
+  <div class="row g-0 align-items-start mb-2">
+    <div class="col-3">
+      <img class="sta-logo" src="logo.svg" alt="STA logo">
+    </div>
+    <div class="col-6 text-center">
+      <div class="fw-black sta-title">SAFETY TRAINING ACADEMY</div>
+      <div class="fw-black sta-subtitle">ENROLMENT FORM</div>
+      <div class="fw-black sta-rto">RTO : 45234</div>
+    </div>
+    <div class="col-3"></div>
+  </div>
+
+  <!-- Same pattern as Page 7 -->
+  <table class="sta-table p7BoxFill">
+    <tr>
+      <td class="sta-bar">DISABILITY SUPPLEMENT</td>
+    </tr>
+    <tr>
+      <td class="p7Body">
+        <div class="p7Text">
+
+          <p class="p7P">
+            If you indicated the presence of a disability, impairment or long-term condition on page 4, please select the area(s) in the
+            following list:
+          </p>
+
+          <div class="p7Head">11 — Hearing/deaf</div>
+          <p class="p7P">
+            Hearing loss refers to a person who has an acquired mild, moderate, severe or profound hearing loss after learning to speak,
+            communicates orally and maximises residual hearing with the assistance of amplification. A person who is deaf has a severe or
+            profound hearing loss from, at or near birth and mainly relies upon vision to communicate, whether through lip reading,
+            gestures, cued speech, finger spelling and/or sign language.
+          </p>
+
+          <div class="p7Head">12 — Physical</div>
+          <p class="p7P">
+            A physical disability affects the mobility of a person and may include a total or partial loss of a part of the body. A physical
+            disability may be caused since birth or may be the result of an accident, illness, or injury suffered later in life. For example,
+            amputation, arthritis, cerebral palsy, multiple sclerosis, muscular dystrophy, paraplegia, quadriplegia or spina bifida.
+          </p>
+
+          <div class="p7Head">13 — Intellectual</div>
+          <p class="p7P">
+            In general, the term ‘intellectual disability’ is used to refer to low general intellectual functioning and difficulties in adaptive
+            behaviour, both of which conditions were manifested before the person reached the age of 18. It may result from infection
+            before or after birth, trauma during birth, or illness.
+          </p>
+
+          <div class="p7Head">14 — Learning</div>
+          <p class="p7P">
+            A general term that refers to a heterogeneous group of disorders manifested by significant difficulties in the acquisition and use
+            of listening, speaking, reading, writing, reasoning, or mathematical abilities. These disorders are intrinsic to the individual,
+            presumed to be due to central nervous system dysfunction, and may occur across the life span. Problems in self-regulatory
+            behaviours, social perception, and social interaction may exist with learning disabilities but do not by themselves constitute a
+            learning disability.
+          </p>
+
+          <div class="p7Head">15 — Mental illness</div>
+          <p class="p7P">
+            Mental illness refers to a cluster of psychological and physiological symptoms that cause a person suffering distress and which
+            represent a departure from a person’s usual pattern and level of functioning.
+          </p>
+
+          <div class="p7Head">16 — Acquired brain impairment</div>
+          <p class="p7P">
+            Acquired brain impairment refers to damage to the brain after birth. Damage may occur because of infection, disease, lack of
+            oxygen, poisoning, trauma, stroke or tumour. The injury may result in changes in cognitive, physical, emotional and/or
+            behavioural functioning.
+          </p>
+
+          <div class="p7Head">17 — Vision</div>
+          <p class="p7P">
+            This covers a partial loss of sight causing difficulties in seeing, up to and including blindness. This may be present from birth
+            or acquired as a result of disease, illness or injury.
+          </p>
+
+          <div class="p7Head">18 — Medical condition</div>
+          <p class="p7P">
+            Medical condition is a temporary or permanent condition that may be hereditary, genetically acquired or of unknown origin.
+            The condition may not be obvious or widely identifiable but may be mild or severe debilitating and result in fluctuating levels
+            of wellness and sickness, and/or periods of hospitalisation; for example, HIV/AIDS, cancer, chronic fatigue syndrome,
+            Crohn’s disease, cystic fibrosis, or diabetes.
+          </p>
+
+          <div class="p7Head">19 — Other</div>
+          <p class="p7P mb-0">
+            A disability, impairment or long-term condition which is not suitably described by one or several disability types in combination.
+            Autism spectrum disorders are reported under this category.
+          </p>
+
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <!-- Footer -->
+  <div class="footerCompany">
+    Australian International Education and Training Pty Ltd Trading as Safety Training Academy<br/>
+    14- 16 Marjorie Street Sefton NSW 2162 &nbsp;--&nbsp; Ph: 1300 976 097
+  </div>
+  <div class="footerHr"></div>
+  <div class="footerLine">
+    <div>Form 36.</div>
+    <div>Page 8 of 14</div>
+    <div>230802</div>
+  </div>
+</div>
+
+<!-- ======================= PAGE 9 ======================= -->
+<div class="sheet" id="page9">
+  <!-- Header -->
+  <div class="row g-0 align-items-start mb-2">
+    <div class="col-3">
+      <img class="sta-logo" src="logo.svg" alt="STA logo">
+    </div>
+    <div class="col-6 text-center">
+      <div class="fw-black sta-title">SAFETY TRAINING ACADEMY</div>
+      <div class="fw-black sta-subtitle">ENROLMENT FORM</div>
+      <div class="fw-black sta-rto">RTO : 45234</div>
+    </div>
+    <div class="col-3"></div>
+  </div>
+
+ <table class="sta-table p7BoxFill">
+    <tr>
+      <td class="sta-bar">TERMS &amp; CONDITIONS of ENROLMENT</td>
+    </tr>
+    <tr>
+      <td class="p7Body" style="vertical-align:top;">
+        <div class="p7Text">
+
+          <div class="p7Head">Enrolment &amp; Selection</div>
+          <ol class="p7Ol">
+            <li>The student is responsible for notifying Safety Training Academy if they have a medical condition or disability or require assistance in their training.</li>
+            <li>A deposit must accompany enrolment to secure a placement within a course; this fee is also the Administration Fee.</li>
+            <li>It is the student’s responsibility to note the date, time and location of the course as advertised.</li>
+            <li>Courses with low enrolments may be cancelled, every effort will be made to contact students, please ensure your contact details are correct.</li>
+            <li>Requests from the student to transfer or credit their course placement due to changed personal circumstances will be considered and every effort will be made to ensure a placement into an alternative course.</li>
+            <li>If you are unable to complete your course due to changed personal circumstances, Safety Training Academy will make every effort to ensure you are placed into an alternative pre-scheduled course.</li>
+            <li>Students can only join a new course commencement date if they meet all prerequisites. Full course fees are still payable for late enrolments.</li>
+            <li>Safety Training Academy reserves the right to decline admission to a course, terminate a student’s enrolment and/or training at any time without notice.</li>
+            <li>Students participate in courses involving physical activity; practical demonstrations etc. and do so at their own risk. Safety Training Academy’s students are covered by public liability insurance whilst working within the college premises.</li>
+          </ol>
+
+          <div class="p7Head mt8">Course Fees, Payments and Refunds</div>
+          <ol class="p7Ol">
+            <li>Students are provided with the refund policy and student enrolment form prior to enrolment. Refund information is always available from the CEO.</li>
+            <li>Fee Refund Applications are considered on a case-by-case basis.</li>
+            <li>The request for refund is made in writing to the CEO using the Fee Refund Application which is available upon request from the CEO.</li>
+            <li>The CEO is the person responsible for approval of fee refund applications.</li>
+            <li>Course cancellation after acceptance by Safety Training Academy may occur up to 7 days prior to commencement of the course without penalty and must be made in writing, by email or by fax. A full refund minus the non-refundable enrolment fee will be paid with notice of 7 days or more.</li>
+            <li>Course cancellation with less than 7 days’ notice after acceptance by Safety Training Academy will not result in any refund.</li>
+            <li>Accepted students who withdraw after course commencement owing to unforeseen or exceptional circumstances can apply for fee refund. If granted, fees will be refunded on a pro-rata basis (based on the number of days remaining in the course).</li>
+            <li>Safety Training Academy defaults if a course does not commence on the designated day or is actually cancelled. No student will be disadvantaged.</li>
+            <li>Fee refunds will be made within 14 days after demand when Safety Training Academy defaults and within 28 days after demand when the student defaults.</li>
+            <li>Safety Training Academy’s dispute resolution procedures do not circumscribe the student’s right to pursue other legal remedies.</li>
+            <li>Students may contact the Australian Skills Quality Authority to make a formal complaint.</li>
+            <li>This refund policy is subject to review from time to time in accordance with the change to conditions policy outlined below.</li>
+            <li>Students have a right to obtain a refund for services not provided by Safety Training Academy in the event that arrangements are terminated early or Safety Training Academy fails to provide the agreed service.</li>
+            <li>Please refer to the course flyer for information on course fees, including any required deposit; administration fees; materials fees and any other charges (if applicable).</li>
+            <li>Safety Training Academy will not collect more than $1,500 prior to course commencement.</li>
+          </ol>
+
+          <ol class="p7Ol" start="16">
+            <li>Certificates and Statements of Attainment are issued to students who are assessed as competent in the units completed. The cost of alternative certificates is included in the course fees.</li>
+          </ol>
+
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <!-- Footer -->
+  <div class="footerCompany">
+    Australian International Education and Training Pty Ltd Trading as Safety Training Academy<br/>
+    14- 16 Marjorie Street Sefton NSW 2162 &nbsp;--&nbsp; Ph: 1300 976 097
+  </div>
+  <div class="footerHr"></div>
+  <div class="footerLine">
+    <div>Form 36.</div>
+    <div>Page 9 of 14</div>
+    <div>230802</div>
+  </div>
+</div>
+<!-- ======================= PAGE 10 ======================= -->
+<div class="sheet" id="page10">
+  <!-- Header -->
+  <div class="row g-0 align-items-start mb-2">
+    <div class="col-3">
+      <img class="sta-logo" src="logo.svg" alt="STA logo">
+    </div>
+    <div class="col-6 text-center">
+      <div class="fw-black sta-title">SAFETY TRAINING ACADEMY</div>
+      <div class="fw-black sta-subtitle">ENROLMENT FORM</div>
+      <div class="fw-black sta-rto">RTO : 45234</div>
+    </div>
+    <div class="col-3"></div>
+  </div>
+ 
+  <table class="sta-table p7BoxFill">
+    <tr>
+      <td class="sta-bar">TERMS &amp; CONDITIONS of ENROLMENT</td>
+    </tr>
+    <tr>
+      <td class="p7Body" style="vertical-align:top;">
+        <div class="p7Text">
+
+          <ol class="p7Ol" start="16">
+            <li>Refunds may be made in the following circumstances:</li>
+          </ol>
+          <ol class="p10Alpha">
+            <li>Participants have overpaid the administration charge</li>
+            <li>Participants enrolled in training that has been terminated by Safety Training Academy</li>
+            <li>Participants advise Safety Training Academy prior to course commencement that they are withdrawing from the course</li>
+            <li>If the participant withdraws from a course prior to course commencement due to illness or extreme hardship as determined by Safety Training Academy</li>
+            <li>In the event Safety Training Academy fails to provide the agreed services</li>
+          </ol>
+
+          <ol class="p7Ol" start="17">
+            <li>A deposit of no more than $1,500 is required prior to course commencement; this deposit is to confirm a place in the course.</li>
+            <li>No refunds will be issued once the course has commenced.</li>
+            <li>Students are responsible for the safe storage of their Certificate and Statements of Attainment. If a student requires a reissue, a certificate re-issue fee of $50 will be charged.</li>
+            <li>If a student is deemed not yet competent on completion of training, they will be offered an opportunity to be reassessed.</li>
+          </ol>
+
+          <div class="p7Head mt8">Recording</div>
+          <p class="p7P">
+            The complaint will be recorded in the Register of Complaints by the Administration Manager. A copy of all the documentation,
+            in particular the complaint and its outcome, is placed in the student’s file. A copy of any documentation is forwarded to the complainant.
+          </p>
+
+          <p class="p7P">
+            Where the resolution requires a documented change to policies and procedures, the CEO notifies the appropriate staff member of the change
+            to ensure that the procedure for document changes is listed in the procedure for Document Control is followed with the appropriate records made.
+          </p>
+
+          <p class="p7P">
+            In the event that a complaint is substantiated, Safety Training Academy will take prompt and appropriate action to resolve the circumstances.
+          </p>
+
+          <p class="p7P">
+            Complaints cannot be anonymous because this is considered unfair in that ongoing discussion cannot take place to resolve the issue between both parties.
+            Information submitted to a trainer or staff member is treated with respect and kept as an opportunity for improvement.
+          </p>
+
+          <p class="p7P">
+            <b>*NOTE:</b> We aim to finalise any complaints and appeals within 60 days of the initial lodgement. If the complaint cannot be finalised within 60 days,
+            we will notify the complainant in writing why it has not been finalised and any other information required.
+          </p>
+
+          <div class="p7Head mt8">APPEALS</div>
+          <p class="p7P">
+            If you are not happy with the outcome of a complaint then the following appeal process is followed. The appeal is discussed directly with the CEO.
+            If this does not resolve the matter then the appeal is to be documented and submitted to trigger mediation by using either a simple written letter
+            or a copy of the complaints and appeals form.
+          </p>
+
+          <p class="p7P mb-0">
+            The CEO records the student’s dispute in the Register for Continuous Improvement and puts written notification on the student’s file.
+            Safety Training Academy organises attendance at mediation. There is no cost.
+          </p>
+
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <!-- Footer -->
+  <div class="footerCompany">
+    Australian International Education and Training Pty Ltd Trading as Safety Training Academy<br/>
+    14- 16 Marjorie Street Sefton NSW 2162 &nbsp;--&nbsp; Ph: 1300 976 097
+  </div>
+  <div class="footerHr"></div>
+  <div class="footerLine">
+    <div>Form 36.</div>
+    <div>Page 10 of 14</div>
+    <div>230802</div>
+  </div>
+</div>
+<!-- ======================= PAGE 11 ======================= -->
+<div class="sheet" id="page11">
+  <!-- Header -->
+  <div class="row g-0 align-items-start mb-2">
+    <div class="col-3">
+      <img class="sta-logo" src="logo.svg" alt="STA logo">
+    </div>
+    <div class="col-6 text-center">
+      <div class="fw-black sta-title">SAFETY TRAINING ACADEMY</div>
+      <div class="fw-black sta-subtitle">ENROLMENT FORM</div>
+      <div class="fw-black sta-rto">RTO : 45234</div>
+    </div>
+    <div class="col-3"></div>
+  </div>
+
+  <!-- Box (reuse page 7 classes) -->
+  <table class="sta-table">
+    <tr>
+      <td class="p7Body">
+        <div class="p7Text">
+
+          <p class="p7P">
+            You can also contact the Ombudsman<br/>
+            <a href="https://www.ombudsman.gov.au/" target="_blank" rel="noopener">https://www.ombudsman.gov.au/</a>
+          </p>
+
+          <p class="p7P">
+            <b>NOTE:</b> The National Training Complaints Hotline is accessible on 13 38 73 (Monday to Friday from 8am to 6pm nationally)
+            or via email at <a href="mailto:skilling@education.gov.au">skilling@education.gov.au</a>
+          </p>
+
+          <p class="p7P">
+            An appellant may deliver their own version of the matter to the mediator and request a support person be present.<br/>
+            The rules of alternative dispute resolution apply.
+          </p>
+
+          <p class="p7P">
+            The matter should then consider the issues raised in an attempt to resolve the appeal to the satisfaction of the appellant.
+            All appeals of complaints that are found to be proven must be acted upon through the continuous improvement process to make
+            systematic changes to prevent the recurrence of this problem again.
+          </p>
+
+          <p class="p7P">
+            The final agreement achieved through the alternative dispute resolution process is put into court orders which bind the parties
+            to the agreed resolution. There is no further appeal mechanism beyond this point. The student may always revert to common law.
+            Each step of the complaints and appeals process will allow the student to make representation either orally or in writing prior
+            to reaching a decision.
+          </p>
+
+          <p class="p7P">
+            If the student has complaints that do not concern but may affect their ability to achieve competency, they shall be referred to
+            appropriate external support groups for assistance.
+          </p>
+
+          <div class="p7Head">APPEALS AGAINST ASSESSMENT OUTCOMES: REASSESSMENTS</div>
+          <p class="p7P">
+            Safety Training Academy maintains a supportive and fair environment, which allows training participants to appeal their assessments
+            and recognition decisions. Appeals are ideally resolved as amicably as possible using this formal appeal process.
+          </p>
+
+          <div class="p7Head">Step 1:</div>
+          <p class="p7P">
+            Discuss the matter with your assessor and explain the reason why you believe the assessment outcome is unfair. If you are not satisfied
+            with the discussion, then go to Step 2.
+          </p>
+
+          <div class="p7Head">Step 2:</div>
+          <p class="p7P">
+            Lodge a written appeal to the Administration Manager by completing a Complaints and Appeals form (Form 06). The Administration Manager
+            will forward the appeal to the CEO who will commence investigation into the matter within 10 working days.
+          </p>
+
+          <p class="p7P">
+            The CEO will appoint a mutually agreed-upon, qualified and independent assessor to review the records of assessment of the student’s
+            competence against the training package requirements. Where insufficient records to determine competence are available, the student may
+            provide additional evidence of competence. The independent assessor’s determination is final.
+          </p>
+
+          <p class="p7P">
+            No further appeal mechanism exists beyond this point in the process.
+          </p>
+
+          <p class="p7P">
+            In most cases there will be no reassessment fee. If a reassessment fee is applicable, this fee will be included on the course flyer.
+          </p>
+
+          <p class="p7P">
+            STA is responsible for providing you with quality training and assessment and the issuance of AQF certification documentation.
+          </p>
+
+          <p class="p7P">
+            If a student is required to be reassessed, they will be provided with further guidance from their trainer prior to reassessment.
+          </p>
+
+          <div class="p7Head">Consumer Guarantee</div>
+          <p class="p7P mb-1">Safety Training Academy guarantees that the services provided by STA will be:</p>
+          <ul class="p7Ul">
+            <li>provided with due care and skill</li>
+            <li>fit for any specified purpose (express or implied)</li>
+            <li>provided within a reasonable time (when no timeframe is set for the training).</li>
+          </ul>
+
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <!-- Footer -->
+  <div class="footerCompany">
+    Australian International Education and Training Pty Ltd Trading as Safety Training Academy<br/>
+    14- 16 Marjorie Street Sefton NSW 2162 &nbsp;--&nbsp; Ph: 1300 976 097
+  </div>
+  <div class="footerHr"></div>
+  <div class="footerLine">
+    <div>Form 36.</div>
+    <div>Page 11 of 14</div>
+    <div>230802</div>
+  </div>
+</div>
+
+
+<!-- ======================= PAGE 12 ======================= -->
+<div class="sheet" id="page12">
+  <!-- Header -->
+  <div class="row g-0 align-items-start mb-2">
+    <div class="col-3">
+      <img class="sta-logo" src="logo.svg" alt="STA logo">
+    </div>
+    <div class="col-6 text-center">
+      <div class="fw-black sta-title">SAFETY TRAINING ACADEMY</div>
+      <div class="fw-black sta-subtitle">ENROLMENT FORM</div>
+      <div class="fw-black sta-rto">RTO : 45234</div>
+    </div>
+    <div class="col-3"></div>
+  </div>
+
+  <!-- Box (reuse page 7 classes) -->
+  <table class="sta-table">
+    <tr>
+      <td class="p7Body">
+        <div class="p7Text">
+
+          <div class="p7Head">Fee Protection</div>
+          <p class="p7P">
+            Safety Training Academy requires a minimum deposit, which will not exceed $1,500 per individual student, prior to course commencement.
+            If the full course fees are less than $1,500, the full fees may be required to be paid prior to course commencement. Please refer to
+            the course flyers for deposits and course fees.
+          </p>
+          <p class="p7P">
+            Following course commencement, full fees will be required to be paid by either a payment plan (if remaining fees are over $1500),
+            or in full (if the remaining fees are below $1500) for training and other services yet to be delivered.
+          </p>
+
+          <div class="p7Head">Changes to Agreed Services</div>
+          <p class="p7P">
+            Where there are any changes to the agreed services that will affect the learner, including in the event of Safety Training Academy
+            closing down, we will advise the learner as soon as practicable. This includes changes to any new third party arrangements or a change
+            of ownership or any changes to existing third party arrangements.
+          </p>
+
+          <div class="p7Head">Complaints and Appeals</div>
+          <p class="p7P">
+            If we do not resolve or finalise complaints or appeals within 60 days, the complainant will be notified in writing by the Administration
+            Manager.
+          </p>
+
+          <p class="p7P">
+            Safety Training Academy maintains a supportive and fair environment, which allows training participants, staff and stakeholders to lodge
+            complaints. Complaints are ideally resolved as amicably as possible using this formal appeal process. We will adhere to the National
+            Complaints Code to respond to complaints about vocational education and the organisation itself. This means that our complaints process is:
+          </p>
+
+          <ul class="p7Ul">
+            <li>well publicised and explained;</li>
+            <li>accessible so you can lodge complaints and appeals by phone, electronically or in writing;</li>
+            <li>fair and protect your rights;</li>
+            <li>free so you can lodge a complaint without charge;</li>
+            <li>handled in a manner that protects your privacy;</li>
+            <li>transparent, equitable, objective and unbiased;</li>
+            <li>comprehensive so that it effectively resolves a variety of complaints such as student dissatisfaction, assessment outcomes, poor service, fraud, misconduct etc.</li>
+          </ul>
+
+          <div class="p7Head">Step 1:</div>
+          <p class="p7P">
+            If the complaint is regarding a fellow student, you should first discuss the matter with the student and try to resolve it.
+            If you are not able to resolve it, then you should discuss the problem with your trainer/assessor to try to resolve it.
+            If you are not able to resolve it, go to step 2.<br/>
+            If your complaint is regarding your trainer/assessor, or the organisation, then go straight to step 2.
+          </p>
+
+          <div class="p7Head">Step 2:</div>
+          <p class="p7P">
+            You should lodge a formal written complaint to the Administration Manager by completing a Complaints and Appeals form that can be obtained
+            from the Administration Manager. The Administration Manager will acknowledge receipt of the formal complaint in writing and record the
+            complaint in the Register of Complaints.
+          </p>
+
+          <p class="p7P">
+            Safety Training Academy will commence the complaints process within 10 working days of the formal lodgement of the complaint and
+            supporting information. All reasonable measures are taken to finalise the process as soon as practicable.
+          </p>
+
+          <div class="p7Head">Step 3:</div>
+          <p class="p7P">
+            If the complaint cannot be resolved to your satisfaction by the Administration Manager, then you must ask for the complaint to be escalated
+            to the CEO. The Administration Manager will email your complaint to the CEO.
+          </p>
+
+          <p class="p7P">
+            The CEO will acknowledge receipt of the formal complaint in writing and commence investigation into the matter within 10 working days.
+            The CEO is empowered to make a determination that is considered to be fair and equitable by both parties. The complainant has the right
+            to have their version of events heard in the resolution negotiation and have an independent advocate present.
+          </p>
+
+          <p class="p7P">
+            Complaints are investigated fairly and objectively with details of the investigation provided in writing to the complainant.
+            The details will state the outcomes and reasons for the decisions made.
+          </p>
+
+          <div class="p7Head">Step 4:</div>
+          <p class="p7P mb-0">
+            If you are still not satisfied with the outcome, the matter may be referred to an independent mediator such as the local National Training
+            Complaints Hotline (13 3873) or the appropriate state authority for further advice or review.
+          </p>
+
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <!-- Footer -->
+   
+  <div class="footerHr"></div>
+  <div class="footerLine">
+    <div>Form 36.</div>
+    <div>Page 12 of 14</div>
+    <div>230802</div>
+  </div>
+</div>
+<!-- ======================= PAGE 13 ======================= -->
+<div class="sheet" id="page13">
+  <!-- Header -->
+  <div class="row g-0 align-items-start mb-2">
+    <div class="col-3">
+      <img class="sta-logo" src="logo.svg" alt="STA logo">
+    </div>
+    <div class="col-6 text-center">
+      <div class="fw-black sta-title">SAFETY TRAINING ACADEMY</div>
+      <div class="fw-black sta-subtitle">ENROLMENT FORM</div>
+      <div class="fw-black sta-rto">RTO : 45234</div>
+    </div>
+    <div class="col-3"></div>
+  </div>
+
+  <!-- Main Box -->
+  <table class="sta-table">
+    <tr>
+      <td class="p7Body">
+        <div class="p7Text">
+
+          <div class="p7Head">Credit Transfer</div>
+          <p class="p7P">
+            STA recognises the Australian Qualifications Framework and Vocational Education and Training (VET) qualifications and VET
+            statements of attainment issued by any other Registered Training Organisation.
+          </p>
+          <p class="p7P">
+            Credit Transfer will be awarded for all units of competencies that directly align with units from the qualification the student has enrolled.
+            Evidence of competencies achieved must be supplied for recognition to be processed (ie presentation of original certificate or transcript).
+          </p>
+          <p class="p7P">
+            Please refer to the Student Handbook or contact the office for the procedure on how to apply for a Credit Transfer.
+          </p>
+
+          <div class="p7Head mt8">Language, Literacy and Numeracy (LLN)</div>
+          <p class="p7P">
+            LLN support is available to provide students with advice and support services in the provision of language, literacy and numeracy assessment services.
+            Students needing assistance with their learning should be identified upon enrolment. Trainers and staff can provide students with support to assist the student throughout the learning process.
+          </p>
+          <p class="p7P">
+            Language, Literacy and Numeracy skills are generally included and identified in Training Products and accredited course programs.
+            In identifying language, literacy and numeracy requirements, students are required to have basic skills in:
+          </p>
+          <ul class="p7Ul">
+            <li>Count, check and record accurately</li>
+            <li>Read and interpret</li>
+            <li>Estimate, calculate and measure</li>
+          </ul>
+
+          <div class="p7Head mt8">Support Services</div>
+          <p class="p7P">
+            All staff of Safety Training Academy act as Student Support Officers and can refer students to external support providers where required.
+            Safety Training Academy caters to diverse client learning needs and aims to identify and respond to the learning needs of all clients.
+            Clients are encouraged to express their views about their learning needs at all stages of their learning experience from the initial enrolment and induction stage to course completion,
+            through their trainer or staff. Safety Training Academy is committed to providing clients requiring additional support, advice or assistance while training.
+            Please see the Student Handbook on the types of support provided.
+          </p>
+
+          <div class="p7Head mt8">Legislative and Regulatory Requirements</div>
+          <p class="p7P">
+            All students will undergo an induction, which will include the student’s rights and responsibilities against the relevant Commonwealth, State or Territory legislation and regulatory requirements.
+            Students are issued with a Student Handbook, which also includes the Student’s rights and responsibilities that will affect their participation in vocational education and training.
+          </p>
+          <p class="p7P">
+            The student acknowledges that they must observe Safety Training Academy’s policies and procedures, according to State and Federal Government legislative and regulatory requirements, as set out in the Student Handbook.
+          </p>
+
+          <div class="p7Head mt8">IMPORTANT INFORMATION</div>
+          <p class="p7P">
+            I have read and understand the terms and conditions of my enrolment, as stated above. I acknowledge and agree with the terms and conditions of enrolment with specific reference to the course enrolment and selection, USI, course fees, payments and refunds, course requirements, Language Literacy and Numeracy requirements, complaints and appeals, Workplace Health and Safety, support services that will be provided to me, legislative and regulatory policies and procedures, which are also provided to me in the Student Handbook.
+            By signing this document I also give permission for STA to access my Unique Student Identifier for the purpose of my training.
+          </p>
+
+          <div class="p7P" style="font-weight:900; margin-top:10px;">
+            STUDENT NAME:
+            <span class="fillLine1 w-110" data-line="p13StudentName"><span class="fillVal"></span></span>
+          </div>
+
+          <div class="p7P" style="font-weight:900; margin-top:14px;">
+            STUDENT SIGNATURE:
+            <span class="fillLine1 w-80" data-line="p13StudentSignature"><span class="fillVal"></span></span>
+            &nbsp;&nbsp;DATE:
+            <span class="fillLine1 w-45" data-line="p13StudentDate"><span class="fillVal"></span></span>
+          </div>
+
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <!-- Footer -->
+  <div class="footerCompany">
+    Australian International Education and Training Pty Ltd Trading as Safety Training Academy<br/>
+    14- 16 Marjorie Street Sefton NSW 2162 &nbsp;--&nbsp; Ph: 1300 976 097
+  </div>
+  <div class="footerHr"></div>
+  <div class="footerLine">
+    <div>Form 36.</div>
+    <div>Page 13 of 14</div>
+    <div>230802</div>
+  </div>
+</div>
+
+<!-- ======================= PAGE 14 ======================= -->
+<div class="sheet" id="page14">
+  <!-- Header -->
+  <div class="row g-0 align-items-start mb-2">
+    <div class="col-3">
+      <img class="sta-logo" src="logo.svg" alt="STA logo">
+    </div>
+    <div class="col-6 text-center">
+      <div class="fw-black sta-title">SAFETY TRAINING ACADEMY</div>
+      <div class="fw-black sta-subtitle">ENROLMENT FORM</div>
+      <div class="fw-black sta-rto">RTO : 45234</div>
+    </div>
+    <div class="col-3"></div>
+  </div>
+
+  <!-- Payment Method box -->
+  <table class="sta-table mb-3">
+    <tr>
+      <td class="sta-bar">Payment method:</td>
+    </tr>
+    <tr>
+      <td class="p7Body">
+        <div class="p7Text">
+
+          <div class="d-flex justify-content-between" style="gap:10mm;">
+            <!-- Left (Bank) -->
+            <div style="flex:1;">
+              <div class="d-flex align-items-center mb-1">
+                <span class="cb" data-check="p14PayMethod" data-value="Bank"></span>
+                <span class="p7P" style="margin:0;">Bank : Commonwealth Bank</span>
+              </div>
+
+              <div class="p7P" style="margin:0;"><b>Account Name:</b> <span data-field="p14AccountName"></span></div>
+              <div class="p7P" style="margin:0;"><b>BSB :</b> <span data-field="p14Bsb"></span> &nbsp;&nbsp;<b>Account No :</b> <span data-field="p14AccountNo"></span></div>
+
+              <div class="p7P" style="margin-top:6px;">
+                Transaction Description : <span class="fillLine1 w-110" data-line="p14TxnDesc"><span class="fillVal"></span></span>
+              </div>
+            </div>
+
+            <!-- Right (Cash / EFTPOS) -->
+            <div style="flex:1;">
+              <div class="d-flex align-items-center" style="gap:14px; flex-wrap:wrap;">
+                <span class="d-inline-flex align-items-center">
+                  <span class="cb" data-check="p14PayMethod" data-value="Cash"></span>Cash
+                </span>
+                <span class="d-inline-flex align-items-center">
+                  <span class="cb" data-check="p14PayMethod" data-value="EFTPOS"></span>Debit/CreditCard EFTPOS
+                </span>
+              </div>
+
+              <div class="p7P" style="margin-top:10px;">
+                ---- &nbsp;&nbsp; Australian International Education &amp; Training Pty Ltd
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <!-- Application Submission box -->
+  <table class="sta-table">
+    <tr>
+      <td class="sta-bar">APPLICATION SUBMISSION</td>
+    </tr>
+    <tr>
+      <td class="p7Body">
+        <div class="p7Text">
+          <p class="p7P">
+            Please return this completed application form with proof of ID to <b>Australian International Education &amp; Training (AIET)</b>
+            to enrol in your chosen qualification.
+          </p>
+
+          <p class="p7P">
+            Once your application has been received and is accepted as complete, you will be notified. If any information or evidence is missing
+            you will be contacted to provide any further required information. This may delay your enrolment process.
+          </p>
+
+          <div class="p7P" style="font-style:italic; font-weight:700;">
+            Australian International Education &amp; Training Assessment Centre:
+          </div>
+          <ul class="p7Ul">
+            <li>Address: <span data-field="p14Address"></span></li>
+            <li>Email: <span data-field="p14Email"></span></li>
+            <li>Phone: <span data-field="p14Phone"></span></li>
+          </ul>
+        </div>
+      </td>
+    </tr>
+  </table>
+
+  <!-- Footer -->
+  <div class="footerCompany">
+    Australian International Education and Training Pty Ltd Trading as Safety Training Academy<br/>
+    14- 16 Marjorie Street Sefton NSW 2162 &nbsp;--&nbsp; Ph: 1300 976 097
+  </div>
+  <div class="footerHr"></div>
+  <div class="footerLine">
+    <div>Form 36.</div>
+    <div>Page 14 of 14</div>
+    <div>230802</div>
+  </div>
+</div>
+
+  <script src="app.js"></script>
+</body>
+</html>

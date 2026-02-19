@@ -1,0 +1,676 @@
+@page { size: A4; margin: 0; }
+
+:root{
+  --line:#111;
+  --bar:#bfe6f2;
+  --usiBlue:#1e3f8f;
+  --officeBar:#3b3b3b;
+  --red:#b30000;
+}
+
+html, body { height: 100%; }
+
+body{
+  margin:0;
+  font-family: Arial, Helvetica, sans-serif;
+  color:#111;
+  background:#e9edf2;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* A4 “page” */
+.sheet{
+  width:210mm;
+  height:297mm;
+  margin:16px auto;
+  background:#fff;
+  box-shadow:0 8px 30px rgba(0,0,0,.10);
+  padding:9mm;
+  position:relative;
+  overflow:hidden;
+  box-sizing:border-box;
+}
+
+@media print{
+  body{ background:#fff; }
+  .sheet{ margin:0; box-shadow:none; page-break-after:always; }
+  .toolbar{ display:none !important; }
+}
+
+.toolbar{
+  width:210mm;
+  margin:16px auto 0;
+}
+
+/* Header text sizes */
+.sta-logo{ width:38mm; height:auto; display:block; }
+.sta-title{ font-weight:900; font-size:14px; letter-spacing:.3px; }
+.sta-subtitle{ font-weight:900; font-size:13px; }
+.sta-rto{ font-weight:900; font-size:12px; }
+.sta-instruction{ font-size:12px; }
+.sta-section{ font-weight:900; font-size:14px; }
+
+/* PDF-like tables */
+.sta-table{
+  width:100%;
+  border-collapse:collapse;
+  table-layout:fixed;
+  border:1px solid var(--line);
+  font-size:12px;
+}
+.sta-table td{
+  border:1px solid var(--line);
+  padding:4px 6px;
+  vertical-align:middle;
+}
+.sta-bar{
+  background: var(--bar);
+  font-weight:900;
+  text-transform:uppercase;
+  font-size:12px;
+  letter-spacing:.2px;
+}
+.sta-subnote{
+  font-size:11px;
+  font-weight:700;
+  background:#f7fbfd;
+}
+.value{
+  display:block;
+  min-height:16px;
+  line-height:16px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.sta-ifdiff{ font-size:11px; }
+
+/* checkbox */
+.cb{
+  display:inline-block;
+  width:11px;
+  height:11px;
+  border:1px solid #111;
+  margin-right:6px;
+  vertical-align:-2px;
+  position:relative;
+  background:#fff;
+  box-sizing:border-box;
+}
+.cb.checked::after{
+  content:"";
+  position:absolute;
+  left:2px; top:1px;
+  width:6px; height:3px;
+  border-left:2px solid #111;
+  border-bottom:2px solid #111;
+  transform: rotate(-45deg);
+}
+
+/* USI text */
+.usiText, .p2Blue{
+  color: var(--usiBlue);
+  font-size:11px;
+  line-height:1.25;
+}
+.usiText a, .p2Blue a{ color: var(--usiBlue); text-decoration:underline; }
+
+/* USI boxes */
+.usiBoxes{
+  display:flex;
+  width:58mm;
+  border:1px solid #222;
+  overflow:hidden;
+  background:#fff;
+  box-sizing:border-box;
+}
+.usiBoxes span{
+  flex:0 0 4.9mm;
+  height:6.5mm;
+  border-left:1px solid #222;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:11px;
+  font-weight:700;
+  line-height:1;
+}
+.usiBoxes span:first-child{
+  flex:0 0 9mm;
+  border-left:none;
+  color: var(--usiBlue);
+}
+
+/* Page 2 container */
+.p2Outer{
+  border:1px solid #111;
+  padding:5.5mm 6mm;
+  margin-top:2mm;
+}
+.p2Heading{
+  text-align:center;
+  font-size:12px;
+  font-weight:900;
+  color: var(--red);
+  text-decoration:underline;
+  margin:0 0 4mm;
+}
+
+/* fill line */
+.fillLine1{
+  display:inline-block;
+  position:relative;
+  height:14px;
+  border-bottom:1px solid #111;
+  vertical-align:-2px;
+  padding:0 2px;
+  margin:0 2px;
+  box-sizing:border-box;
+}
+.fillLine1 .fillVal{
+  position:absolute;
+  left:2px;
+  bottom:2px;
+  font-size:11px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  max-width:100%;
+}
+.fillLine{
+  display:inline-block;
+  position:relative;
+  height:14px;
+ 
+  vertical-align:-2px;
+  padding:0 2px;
+  margin:0 2px;
+  box-sizing:border-box;
+}
+.fillLine .fillVal{
+  position:absolute;
+  left:2px;
+  bottom:2px;
+  font-size:11px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  max-width:100%;
+}
+
+.w-35{ width:35mm; }
+.w-45{ width:45mm; }
+.w-55{ width:55mm; }
+.w-65{ width:65mm; }
+.w-80{ width:80mm; }
+.w-95{ width:95mm; }
+.w-110{ width:110mm; }
+
+.idTable{
+  width:100%;
+  border-collapse:collapse;
+  table-layout:fixed;
+  border:1px solid #111;
+  font-size:11px;
+  color: var(--usiBlue);
+  margin-top:2.5mm;
+}
+.idTable td{
+  border:1px solid #111;
+  padding:4px 6px;
+  vertical-align:top;
+}
+.idTitle{ font-weight:900; }
+.idSmall{ font-size:10px; line-height:1.2; color: var(--usiBlue); }
+.dateHint{ font-size:10px; color: var(--usiBlue); }
+
+.officeBar{
+  background: var(--officeBar);
+  color:#fff;
+  font-weight:900;
+  padding:4px 6px;
+  border:1px solid #111;
+  border-bottom:none;
+  font-size:11px;
+  letter-spacing:.2px;
+}
+.officeTable{
+  width:100%;
+  border-collapse:collapse;
+  table-layout:fixed;
+  border:1px solid #111;
+  font-size:11px;
+}
+.officeTable td{ border:1px solid #111; padding:4px 6px; vertical-align:top; }
+.officeNote{ font-size:10px; line-height:1.25; color:#111; }
+
+/* Footer */
+.footerCompany{
+  position:absolute;
+  left:9mm; right:9mm;
+  bottom:17mm;
+  text-align:center;
+  font-size:10px;
+  line-height:1.25;
+}
+.footerHr{
+  position:absolute;
+  left:9mm; right:9mm;
+  bottom:12.5mm;
+  border-top:1.5px solid #111;
+}
+.footerLine{
+  position:absolute;
+  left:9mm; right:9mm;
+  bottom:8mm;
+  display:flex;
+  justify-content:space-between;
+  font-size:10px;
+}
+/* Page 2: outer big box should be tight like the PDF */
+.p2Outer{
+  border:1px solid #111;
+  padding:0;              /* important: inner sections manage their own padding */
+  margin-top:2mm;
+}
+
+/* red title at top */
+.p2Heading{
+  text-align:center;
+  font-size:12px;
+  font-weight:900;
+  color: var(--red);
+  text-decoration:underline;
+  margin:0;
+  padding:4mm 6mm 3mm;
+}
+
+/* inside padding block (Section A text) */
+.p2Pad{
+  padding:0 6mm 3mm;
+}
+
+/* inner boxed strip (Section B “We will also need…”) */
+.p2InnerBox{
+  border-top:1px solid #111;
+  border-bottom:1px solid #111;
+  padding:3mm 6mm;
+}
+
+/* Underline like original */
+.p2Under{
+  text-decoration: underline;
+}
+
+/* Identity table wrapper creates the “box inside box” feel */
+
+
+/* Make the identity table sit inside the wrapper cleanly */
+.idTable{
+  width:100%;
+  border-collapse:collapse;
+  table-layout:fixed;
+  border:1px solid #111;
+  font-size:11px;
+  color: var(--usiBlue);
+  margin:0; /* stop weird gaps */
+}
+.idTable td{
+  border:1px solid #111;
+  padding:4px 6px;
+  vertical-align:top;
+}
+
+/* the small note next to town/city */
+.p2SmallNote{
+  font-size:10px;
+  color: var(--usiBlue);
+}
+
+/* Office box is its own big box */
+.p2OfficeOuter{
+  border:1px solid #111;
+  margin-top:3mm;
+  padding:0;
+}
+
+/* PHOTO ID VERIFIED is blue in original */
+.p2BlueText{
+  color: var(--usiBlue);
+  font-weight:900;
+}
+
+.officeLineRow{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  line-height:1.1;
+}
+
+.officeLbl{
+  white-space:nowrap;
+}
+/* Fix checkbox shrinking inside flex */
+.cb{
+  display:inline-block;
+  width:11px;
+  height:11px;
+  border:1px solid #111;
+  margin-right:6px;
+  vertical-align:-2px;
+  background:#fff;
+  box-sizing:border-box;
+  flex-shrink:0;      /* 🔥 THIS is the key */
+}
+/* Keep label + line on same row inside office table */
+.officeTable td{
+  white-space: nowrap;
+}
+/* ===== Page 3 headings ===== */
+.p3SectionTitle{
+  
+  font-weight:900;
+  font-size:14px;
+  letter-spacing:.2px;
+}
+
+.p3Intro{
+  margin:5mm 0 4mm;
+  font-size:12px;
+}
+.p3IntroHead{
+  font-weight:400; /* not bold in the PDF */
+  letter-spacing:.2px;
+}
+
+/* Small code numbers like 01 / 12 */
+.p3Code{
+  color: var(--usiBlue);
+  font-size:11px;
+  display:inline-block;
+  min-width:18px;
+}
+
+/* Option row spacing */
+.p3Opt{
+  display:flex;
+  align-items:flex-start;
+  gap:6px;
+  line-height:1.15;
+}
+
+/* Qualifications list inside single cell */
+.p3QualGrid{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap:2px;
+  margin-top:2px;
+}
+
+/* Inner table used inside Employment Details */
+.p3InnerTable{
+  width:100%;
+  border-collapse:collapse;
+  table-layout:fixed;
+}
+.p3InnerTable td{
+  border:1px solid var(--line);
+  padding:4px 6px;
+  vertical-align:middle;
+  font-size:12px;
+}
+
+
+/* ===== Page 4 helpers ===== */
+.p4Note{
+  font-weight:400;
+  text-transform:none;
+  font-size:11px;
+}
+
+.p4Code{
+  color: var(--usiBlue);
+  font-size:11px;
+  display:inline-block;
+  min-width:18px;
+}
+
+.p4Opt{
+  display:flex;
+  align-items:flex-start;
+  gap:6px;
+  line-height:1.15;
+}
+
+.p4SectionTitle{
+  margin:6mm 0 1mm;
+  font-weight:900;
+  font-size:14px;
+}
+
+.p4SectionSub{
+  font-size:11px;
+  margin-bottom:4mm;
+}
+
+.p4Foot{
+  font-size:11px;
+  line-height:1.2;
+}
+
+.p4Inline{
+  display:inline-flex;
+  align-items:flex-start;
+  gap:6px;
+  line-height:1.15;
+}
+
+.p4Small{
+  font-size:11px;
+}
+
+.p4Grid2{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:2px 16px;
+}
+/* Country of Birth should be ONE row, 3 parts */
+.p4CobRow{
+  display:grid;
+  grid-template-columns: 165px 1fr 220px;
+  gap:10px;
+  align-items:center;
+  max-width:100%;
+  overflow:hidden;
+}
+.p4CobOther, .p4CobPlace{ min-width:0; }
+.p4LineFlex{ width:100%; max-width:100%; min-width:0; }
+
+/* Language spoken at home row: two parts */
+.p4LangRow{
+  display:grid;
+  grid-template-columns: 260px 1fr;
+  gap:12px;
+  align-items:start;
+  max-width:100%;
+}
+.p4LangOther{ min-width:0; }
+
+/* keep lines inside cells */
+.fillLine1{ max-width:100%; }
+/* ===== Page 5 additions only (uses your existing vars + table styles) ===== */
+
+.p5TopBar{
+  background: var(--bar);
+  font-weight:900;
+  font-size:11px;
+  padding:4px 6px;
+}
+
+.p5RightNote{
+  font-weight:700;
+  font-size:10px;
+}
+
+.p5ShortTitle{
+  text-align:center;
+  font-weight:900;
+  font-size:12px;
+  margin:2mm 0 1mm;
+}
+
+.p5Band{
+  background:#e8e3cf; /* light beige like PDF */
+  font-weight:900;
+  font-size:11px;
+  padding:4px 6px;
+}
+
+.p5Opt{
+  display:flex;
+  gap:6px;
+  line-height:1.15;
+  align-items:flex-start;
+  font-size:11px;
+}
+
+.p5Small{
+  font-size:10px;
+  line-height:1.15;
+}
+/* ===== Page 7 (UPDATED to match PDF scale) ===== */
+
+/* keep the blue bar same as others, only adjust content */
+#page7 .p7Body{
+  padding:8px 10px;          /* more like PDF */
+}
+
+/* Main text block sizing */
+#page7 .p7Text{
+  font-size:10.8px;          /* bigger (was 9.5) */
+  line-height:1.35;          /* more readable like PDF */
+  color: var(--usiBlue);
+}
+
+/* Headings inside (bold + slightly larger) */
+#page7 .p7Head{
+  font-weight:900;
+  font-size:11px;
+  margin:4px 0 2px;
+}
+
+/* Paragraph spacing */
+#page7 .p7P{
+  margin:0 0 7px;            /* more vertical spacing */
+}
+
+/* List spacing */
+#page7 .p7Ul{
+  margin:0 0 8px 18px;       /* PDF-like indent */
+  padding:0;
+}
+#page7 .p7Ul li{
+  margin:0 0 3px;
+}
+
+/* Contact block spacing */
+#page7 .p7Contact{
+  margin-top:8px;
+}
+
+/* Links */
+#page7 a{
+  color: var(--usiBlue);
+  text-decoration:underline;
+}
+
+/* OPTIONAL: make the privacy table fill most of the page height like PDF */
+#page7 .sta-table{
+  height:235mm;              /* pushes box down similar to PDF */
+}
+#page7 .sta-table td{
+  vertical-align:top;
+}
+
+/* Page 8: same fill height as page 7 */
+#page8 .p7BoxFill{
+  height:150mm;
+}
+#page8 .p7BoxFill td{
+  vertical-align:top;
+}
+/* ===== FORCE the exact Page 7/8 colors (Bootstrap override fix) ===== */
+
+/* Blue header bar background */
+.sta-bar{
+  background: var(--bar) !important;     /* <-- THIS is the key */
+  color:#111 !important;
+}
+
+/* Page 7 + Page 8 body text must be blue */
+#page7 .p7Text,
+#page8 .p7Text{
+  color: var(--usiBlue) !important;
+}
+
+/* If Bootstrap is messing with table cell bg, force white body */
+#page7 .p7Body,
+#page8 .p7Body{
+  background:#fff !important;
+}
+
+#page8 .sta-table tr:first-child > td{
+  background: var(--bar) !important;
+  color:#111 !important;
+  font-weight:900;
+  text-transform:uppercase;
+}
+
+/* ===== Page 9/10 typography (same family as p7 but slightly denser like PDF) ===== */
+/* Title on pages 9/10 */
+.p9Title{
+  
+  font-weight:900;
+  font-size:11px;
+  color: var(--usiBlue);
+  padding:4px 6px;
+}
+
+/* same list feel as PDF (use with p7Text font) */
+.p7Ol{
+  margin:0 0 6px 18px;
+  padding:0;
+}
+.p7Ol li{ margin:0 0 2px; }
+
+/* a,b,c list */
+.p10Alpha{
+  margin:0 0 8px 28px;
+  padding:0;
+  list-style: lower-alpha;
+}
+.p10Alpha li{ margin:0 0 2px; }
+
+/* spacing helper */
+.mt8{ margin-top:8px; }
+/* Page 11 & 12 content box must stay inside printable area */
+#page11 .sta-table,
+#page12 .sta-table{
+  height: 232mm;          /* EXACT usable height inside .sheet */
+}
+
+/* Keep text starting at the top */
+#page11 .p7Body,
+#page12 .p7Body{
+  vertical-align: top;
+}
+#page11 .p7P,
+#page12 .p7P{
+  margin-bottom: 2.5px;
+}
+
+#page11 .p7Ul li,
+#page12 .p7Ul li{
+  margin-bottom: 2px;
+}

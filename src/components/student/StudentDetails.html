@@ -1,0 +1,1643 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>STA Enrolment Form (RTO 45234)</title>
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    :root{
+      --sta-blue:#0b63ce;
+      --sta-light:#e9f3ff;
+      --border:#e6e8ec;
+    }
+    body{ background:#f7f8fb; }
+    .brand-bar{
+      background: linear-gradient(90deg, rgba(11,99,206,1), rgba(69,130,220,1));
+      color:#fff;
+    }
+    .card{
+      border:1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 8px 18px rgba(15,23,42,.06);
+    }
+    .section-title{
+      background: var(--sta-light);
+      border:1px solid #d7e7ff;
+      border-radius: 12px;
+      padding: 10px 12px;
+      font-weight: 700;
+    }
+    .required::after{ content:" *"; color:#dc3545; font-weight:700; }
+    .small-muted{ color:#6c757d; font-size:.92rem; }
+    .form-hint{ font-size:.92rem; color:#6c757d; }
+    .signature-box{
+      border: 2px dashed #cbd5e1;
+      border-radius: 12px;
+      padding: 12px;
+      background: #fff;
+    }
+    canvas{
+      width: 100%;
+      height: 180px;
+      border-radius: 10px;
+      border: 1px solid #e5e7eb;
+      background:#fff;
+      touch-action: none; /* important for mobile drawing */
+    }
+    @media print{
+      .no-print{ display:none !important; }
+      body{ background:#fff; }
+      .card{ box-shadow:none; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Top header -->
+  <div class="brand-bar py-3">
+    <div class="container">
+      <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
+        <div>
+          <div class="h4 mb-0">Safety Training Academy — Enrolment Form</div>
+          <div class="small">RTO: 45234 · Australian International Education and Training Pty Ltd (Trading as STA)</div>
+          <div class="small">14–16 Marjorie Street, Sefton NSW 2162 · Phone: 1300 976 097</div>
+        </div>
+        <div class="no-print d-flex gap-2">
+          
+          <button class="btn btn-warning" id="btnReset" type="button">Reset</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container my-4">
+    <div class="row g-3">
+      <div class="col-12">
+        <div class="card p-3">
+          <div class="d-flex flex-wrap align-items-center justify-content-between gap-2">
+            <div class="small-muted">
+              Please complete all sections clearly and carefully (web version of the paper form).
+            </div>
+
+            <div class="d-flex align-items-center gap-2">
+              <div class="small-muted">Progress</div>
+              <div class="progress" style="width:220px; height:10px;">
+                <div class="progress-bar" id="progressBar" role="progressbar" style="width:10%;"></div>
+              </div>
+              <span class="badge text-bg-primary" id="progressText">1 / 7</span>
+            </div>
+          </div>
+        </div>
+      </div>
+<!-- Main form -->
+<div class="col-12">
+  <form id="enrolForm" class="card p-3 p-lg-4 needs-validation" novalidate>
+
+    <!-- Tabs -->
+    <ul class="nav nav-pills flex-wrap gap-2 no-print" id="formTabs" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#tab1" type="button" role="tab">
+          1) Applicant
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab2" type="button" role="tab">
+          2) USI
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab3" type="button" role="tab">
+          3) Education & Work
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab4" type="button" role="tab">
+          4) Additional Info
+        </button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" data-bs-toggle="pill" data-bs-target="#tab5" type="button" role="tab">
+          5) Privacy / Terms
+        </button>
+      </li>
+    </ul>
+
+    <hr class="my-4">
+
+    <div class="tab-content">
+
+      <!-- ==========================================================
+           TAB 1: APPLICANT INFORMATION
+      ========================================================== -->
+      <div class="tab-pane fade show active" id="tab1" role="tabpanel">
+        <div class="section-title mb-3">SECTION 1 — APPLICANT INFORMATION</div>
+
+        <!-- Applicant Details -->
+        <div class="card p-3 border mb-3">
+          <div class="fw-semibold mb-2">APPLICANT DETAILS</div>
+          <div class="form-hint mb-3">
+            Please complete <b>full name</b> and <b>date of birth</b> as listed on your ID documents.
+          </div>
+
+          <div class="row g-3">
+            <div class="col-12">
+              <label class="form-label required">Title (please tick)</label>
+              <div class="d-flex gap-3 flex-wrap">
+                <div class="form-check"><input class="form-check-input" type="radio" name="title" value="Mr" required><label class="form-check-label">Mr</label></div>
+                <div class="form-check"><input class="form-check-input" type="radio" name="title" value="Mrs" required><label class="form-check-label">Mrs</label></div>
+                <div class="form-check"><input class="form-check-input" type="radio" name="title" value="Miss" required><label class="form-check-label">Miss</label></div>
+                <div class="form-check"><input class="form-check-input" type="radio" name="title" value="Ms" required><label class="form-check-label">Ms</label></div>
+                <div class="form-check"><input class="form-check-input" type="radio" name="title" value="Dr" required><label class="form-check-label">Dr</label></div>
+                <div class="form-check"><input class="form-check-input" type="radio" name="title" value="Other" required><label class="form-check-label">Other</label></div>
+              </div>
+              <div class="invalid-feedback d-block">Please select a title.</div>
+            </div>
+
+            <div class="col-12 col-md-4">
+              <label class="form-label required">Surname</label>
+              <input type="text" class="form-control" name="surname" required>
+              <div class="invalid-feedback">Surname is required.</div>
+            </div>
+
+            <div class="col-12 col-md-4">
+              <label class="form-label required">Given name</label>
+              <input type="text" class="form-control" name="givenName" required>
+              <div class="invalid-feedback">Given name is required.</div>
+            </div>
+
+            <div class="col-12 col-md-4">
+              <label class="form-label">Middle name</label>
+              <input type="text" class="form-control" name="middleName">
+            </div>
+
+            <div class="col-12 col-md-4">
+              <label class="form-label">Preferred name <span class="small-muted">(if different to above)</span></label>
+              <input type="text" class="form-control" name="preferredName">
+            </div>
+
+            <div class="col-12 col-md-4">
+              <label class="form-label required">Date of Birth</label>
+              <input type="date" class="form-control" name="dob" required>
+              <div class="invalid-feedback">Date of birth is required.</div>
+            </div>
+
+            <div class="col-12 col-md-4">
+              <label class="form-label required">Gender (please tick)</label>
+              <div class="d-flex gap-3">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="gender" value="Male" required>
+                  <label class="form-check-label">Male</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="gender" value="Female" required>
+                  <label class="form-check-label">Female</label>
+                </div>
+              </div>
+              <div class="invalid-feedback d-block">Please select gender.</div>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <label class="form-label">Home Phone</label>
+              <input type="tel" class="form-control" name="homePhone" placeholder="(optional)">
+            </div>
+
+            <div class="col-12 col-md-6">
+              <label class="form-label">Work Phone</label>
+              <input type="tel" class="form-control" name="workPhone" placeholder="(optional)">
+            </div>
+
+            <div class="col-12 col-md-6">
+              <label class="form-label required">Mobile Phone</label>
+              <input type="tel" class="form-control" name="mobile" required>
+              <div class="invalid-feedback">Mobile phone is required.</div>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <label class="form-label required">Email</label>
+              <input type="email" class="form-control" name="email" required>
+              <div class="invalid-feedback">A valid email is required.</div>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label required">Residential Address</label>
+              <input type="text" class="form-control" name="resAddress" required>
+              <div class="invalid-feedback">Residential address is required.</div>
+            </div>
+
+            <div class="col-12 col-md-4">
+              <label class="form-label required">Suburb</label>
+              <input type="text" class="form-control" name="resSuburb" required>
+              <div class="invalid-feedback">Suburb is required.</div>
+            </div>
+
+            <div class="col-12 col-md-4">
+              <label class="form-label required">State</label>
+              <select class="form-select" name="resState" required>
+                <option value="">Select...</option>
+                <option>NSW</option><option>VIC</option><option>QLD</option><option>WA</option>
+                <option>SA</option><option>TAS</option><option>ACT</option><option>NT</option>
+              </select>
+              <div class="invalid-feedback">State is required.</div>
+            </div>
+
+            <div class="col-12 col-md-4">
+              <label class="form-label required">Postcode</label>
+              <input type="text" class="form-control" name="resPostcode" pattern="^\\d{4}$" required>
+              <div class="invalid-feedback">Enter a valid 4-digit postcode.</div>
+            </div>
+
+            <!-- Postal address if different -->
+            <div class="col-12">
+              <div class="form-check mt-2">
+                <input class="form-check-input" type="checkbox" id="postalDifferent" name="postalDifferent">
+                <label class="form-check-label" for="postalDifferent">Postal Address is different from Residential Address</label>
+              </div>
+            </div>
+
+            <div class="col-12" id="postalBox" style="display:none;">
+              <div class="card p-3 border">
+                <div class="fw-semibold mb-2">Postal Address <span class="small-muted">(if different from above)</span></div>
+                <div class="row g-3">
+                  <div class="col-12">
+                    <label class="form-label required">Postal Address</label>
+                    <input type="text" class="form-control" id="postAddress" name="postAddress">
+                    <div class="invalid-feedback">Postal address is required.</div>
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <label class="form-label required">Suburb</label>
+                    <input type="text" class="form-control" id="postSuburb" name="postSuburb">
+                    <div class="invalid-feedback">Postal suburb is required.</div>
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <label class="form-label required">State</label>
+                    <select class="form-select" id="postState" name="postState">
+                      <option value="">Select...</option>
+                      <option>NSW</option><option>VIC</option><option>QLD</option><option>WA</option>
+                      <option>SA</option><option>TAS</option><option>ACT</option><option>NT</option>
+                    </select>
+                    <div class="invalid-feedback">Postal state is required.</div>
+                  </div>
+
+                  <div class="col-12 col-md-4">
+                    <label class="form-label required">Postcode</label>
+                    <input type="text" class="form-control" id="postPostcode" name="postPostcode" pattern="^\\d{4}$">
+                    <div class="invalid-feedback">Postal postcode is required.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- NEW: Required Documents for Applicant -->
+        <div class="card p-3 border mb-3">
+          <div class="fw-semibold mb-2">REQUIRED DOCUMENTS — ID VERIFICATION</div>
+          <div class="form-hint mb-3">
+            Please upload a clear copy of your identification document(s). Files must be readable.
+          </div>
+
+          <div class="row g-3">
+            <div class="col-12 col-lg-6">
+              <label class="form-label required">Primary Photo ID (required)</label>
+              <input type="file" class="form-control" name="docPrimaryId" id="docPrimaryId" accept=".pdf,.jpg,.jpeg,.png" required>
+              <div class="form-hint">Accepted: PDF, JPG, PNG. Example: Passport / Driver Licence.</div>
+              <div class="invalid-feedback">Please upload your primary ID.</div>
+            </div>
+
+            <div class="col-12 col-lg-6">
+              <label class="form-label">Secondary ID (optional)</label>
+              <input type="file" class="form-control" name="docSecondaryId" id="docSecondaryId" accept=".pdf,.jpg,.jpeg,.png">
+              <div class="form-hint">Example: Medicare card / Birth certificate / Visa document (if applicable).</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Emergency Contact -->
+        <div class="card p-3 border">
+          <div class="fw-semibold mb-2">EMERGENCY CONTACT</div>
+          <div class="row g-3">
+            <div class="col-12 col-md-4">
+              <label class="form-label required">Full Name</label>
+              <input type="text" class="form-control" name="emergencyName" required>
+              <div class="invalid-feedback">Emergency contact name is required.</div>
+            </div>
+            <div class="col-12 col-md-4">
+              <label class="form-label required">Relationship</label>
+              <input type="text" class="form-control" name="emergencyRelationship" required>
+              <div class="invalid-feedback">Relationship is required.</div>
+            </div>
+            <div class="col-12 col-md-4">
+              <label class="form-label required">Contact Number</label>
+              <input type="tel" class="form-control" name="emergencyContactNumber" required>
+              <div class="invalid-feedback">Contact number is required.</div>
+            </div>
+
+            <div class="col-12">
+              <div class="fw-semibold mt-2">Emergency permission</div>
+              <div class="form-hint">
+                In the event of an emergency do you give STA permission to organise emergency transport and treatment and do you agree to pay all costs related to the emergency?
+              </div>
+
+              <div class="d-flex gap-3 mt-2">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="emergencyPermission" value="Yes" required>
+                  <label class="form-check-label">Yes</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="emergencyPermission" value="No" required>
+                  <label class="form-check-label">No</label>
+                </div>
+              </div>
+              <div class="invalid-feedback d-block">Please select Yes or No.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-end mt-4 no-print">
+          <button class="btn btn-primary" type="button" data-next-tab>Next</button>
+        </div>
+      </div>
+
+
+      <!-- ==========================================================
+           TAB 2: USI
+      ========================================================== -->
+      <div class="tab-pane fade" id="tab2" role="tabpanel">
+        <div class="section-title mb-3">SECTION 2 — UNIQUE STUDENT IDENTIFIER (USI)</div>
+
+        <div class="card p-3 border mb-3">
+          <div class="small">
+            <p class="mb-2">
+              From 1 January 2015, an RTO can be prevented from issuing nationally recognised VET certification if you do not provide a USI.
+              If you have not obtained a USI you can apply for it directly. If you already have a USI, provide it below.
+            </p>
+            <p class="mb-0">
+              If you forgot your USI, you can retrieve it from the official USI site.
+            </p>
+          </div>
+        </div>
+
+        <!-- USI entry + permission -->
+        <div class="card p-3 border mb-3">
+          <div class="fw-semibold mb-2">Unique Student Identifier (USI)</div>
+
+          <div class="row g-3 align-items-end">
+            <div class="col-12 col-lg-6">
+              <label class="form-label">Enter your USI (if you already have one)</label>
+              <input type="text" class="form-control" name="usi" maxlength="10" placeholder="10-character USI">
+              <div class="form-hint">If you don’t have one, select “Apply through STA” below.</div>
+            </div>
+
+            <div class="col-12 col-lg-6">
+              <div class="form-check mt-2">
+                <input class="form-check-input" type="checkbox" id="usiAccessPermission" name="usiAccessPermission">
+                <label class="form-check-label" for="usiAccessPermission">
+                  I give permission for Safety Training Academy to access my Unique Student Identifier (USI) for the purpose of recording my results.
+                </label>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label required">USI application through STA (if you do not already have one)</label>
+              <div class="d-flex gap-3 flex-wrap">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="usiApply" id="usiApplyNo" value="No" required>
+                  <label class="form-check-label" for="usiApplyNo">No (I will provide my USI)</label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="usiApply" id="usiApplyYes" value="Yes" required>
+                  <label class="form-check-label" for="usiApplyYes">Yes (Apply through STA)</label>
+                </div>
+              </div>
+              <div class="invalid-feedback d-block">Please select an option.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- USI application through STA -->
+        <div class="card p-3 border" id="usiConsentBox" style="display:none;">
+          <div class="fw-semibold mb-2 text-danger">USI application through STA (if you do not already have one)</div>
+
+          <div class="small mb-3">
+            If you would like STA to apply for a USI on your behalf, you must authorise us to do so and provide additional information.
+          </div>
+
+          <div class="row g-3">
+            <div class="col-12">
+              <label class="form-label required">[Name] — authorises Safety Training Academy to apply your USI</label>
+              <input type="text" class="form-control" name="usiAuthoriseName" id="usiAuthoriseName">
+              <div class="invalid-feedback">Name is required for USI application.</div>
+            </div>
+
+            <div class="col-12">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="usiConsent" name="usiConsent">
+                <label class="form-check-label required" for="usiConsent">
+                  I have read and I consent to the collection, use and disclosure of my personal information to create my USI.
+                </label>
+                <div class="invalid-feedback">Consent is required to apply through STA.</div>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <label class="form-label required">Town/City of Birth <span class="small-muted">(please write the name)</span></label>
+              <input type="text" class="form-control" name="townCityBirth" id="townCityBirth">
+              <div class="invalid-feedback">Required.</div>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <label class="form-label required">Overseas town or city where you were born</label>
+              <input type="text" class="form-control" name="overseasCityBirth" id="overseasCityBirth">
+              <div class="invalid-feedback">Required.</div>
+            </div>
+
+            <div class="col-12">
+              <div class="fw-semibold">We will also need to verify your identity to create your USI.</div>
+              <div class="form-hint">
+                Please provide details for <b>one</b> form of identity and upload a clear copy of that document.
+              </div>
+            </div>
+
+            <div class="col-12 col-lg-6">
+              <label class="form-label required">Select ONE identity document type</label>
+              <select class="form-select" id="usiIdType" name="usiIdType">
+                <option value="">Select...</option>
+                <option value="1">1. Australian Driver’s Licence</option>
+                <option value="2">2. Medicare Card</option>
+                <option value="3">3. Australian Birth Certificate</option>
+                <option value="4">4. ImmiCard</option>
+                <option value="5">5. Australian Passport</option>
+                <option value="6">6. Non-Australian Passport (with Australian Visa)</option>
+                <option value="7">7. Citizenship Certificate</option>
+                <option value="8">8. Certificate of Registration by Descent</option>
+              </select>
+              <div class="invalid-feedback">Please select an ID type.</div>
+            </div>
+
+            <!-- NEW: USI ID Document Upload (required only when applying) -->
+            <div class="col-12 col-lg-6">
+              <label class="form-label required">Upload the selected ID document</label>
+              <input type="file" class="form-control" id="usiIdUpload" name="usiIdUpload" accept=".pdf,.jpg,.jpeg,.png">
+              <div class="form-hint">This becomes required when you choose “Yes (Apply through STA)”.</div>
+              <div class="invalid-feedback">Please upload the selected ID document.</div>
+            </div>
+
+            <!-- Dynamic ID detail blocks -->
+            <div class="col-12" id="usiIdDetails" style="display:none;">
+              <div class="card p-3 border">
+                <div class="fw-semibold mb-2">Identity document details</div>
+
+                <!-- 1. Driver licence -->
+                <div class="row g-3 usi-id-block" data-id="1" style="display:none;">
+                  <div class="col-12 col-md-6">
+                    <label class="form-label required">State</label>
+                    <input type="text" class="form-control usiReq" name="dlState">
+                    <div class="invalid-feedback">Required.</div>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label required">Licence number</label>
+                    <input type="text" class="form-control usiReq" name="dlNumber">
+                    <div class="invalid-feedback">Required.</div>
+                  </div>
+                </div>
+
+                <!-- 2. Medicare -->
+                <div class="row g-3 usi-id-block" data-id="2" style="display:none;">
+                  <div class="col-12 col-md-6">
+                    <label class="form-label required">Medicare card number</label>
+                    <input type="text" class="form-control usiReq" name="medicareNumber">
+                    <div class="invalid-feedback">Required.</div>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label required">Individual reference number (IRN)</label>
+                    <input type="text" class="form-control usiReq" name="medicareIRN">
+                    <div class="invalid-feedback">Required.</div>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label required">Card colour</label>
+                    <select class="form-select usiReq" name="medicareColor">
+                      <option value="">Select...</option>
+                      <option>Green</option>
+                      <option>Yellow</option>
+                      <option>Blue</option>
+                    </select>
+                    <div class="invalid-feedback">Required.</div>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label required">Expiry date</label>
+                    <input type="date" class="form-control usiReq" name="medicareExpiry">
+                    <div class="invalid-feedback">Required.</div>
+                  </div>
+                </div>
+
+                <!-- 3. Birth certificate -->
+                <div class="row g-3 usi-id-block" data-id="3" style="display:none;">
+                  <div class="col-12 col-md-6">
+                    <label class="form-label required">State/Territory</label>
+                    <input type="text" class="form-control usiReq" name="birthState">
+                    <div class="invalid-feedback">Required.</div>
+                  </div>
+                </div>
+
+                <!-- 4. ImmiCard -->
+                <div class="row g-3 usi-id-block" data-id="4" style="display:none;">
+                  <div class="col-12 col-md-6">
+                    <label class="form-label required">ImmiCard number</label>
+                    <input type="text" class="form-control usiReq" name="immiNumber">
+                    <div class="invalid-feedback">Required.</div>
+                  </div>
+                </div>
+
+                <!-- 5. Australian Passport -->
+                <div class="row g-3 usi-id-block" data-id="5" style="display:none;">
+                  <div class="col-12 col-md-6">
+                    <label class="form-label required">Passport number</label>
+                    <input type="text" class="form-control usiReq" name="ausPassportNumber">
+                    <div class="invalid-feedback">Required.</div>
+                  </div>
+                </div>
+
+                <!-- 6. Non-Australian Passport -->
+                <div class="row g-3 usi-id-block" data-id="6" style="display:none;">
+                  <div class="col-12 col-md-6">
+                    <label class="form-label required">Passport number</label>
+                    <input type="text" class="form-control usiReq" name="nonAusPassportNumber">
+                    <div class="invalid-feedback">Required.</div>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label required">Country of issue</label>
+                    <input type="text" class="form-control usiReq" name="nonAusPassportCountry">
+                    <div class="invalid-feedback">Required.</div>
+                  </div>
+                </div>
+
+                <!-- 7. Citizenship Certificate -->
+                <div class="row g-3 usi-id-block" data-id="7" style="display:none;">
+                  <div class="col-12 col-md-6">
+                    <label class="form-label required">Stock number</label>
+                    <input type="text" class="form-control usiReq" name="citizenshipStock">
+                    <div class="invalid-feedback">Required.</div>
+                  </div>
+                  <div class="col-12 col-md-6">
+                    <label class="form-label required">Acquisition date</label>
+                    <input type="date" class="form-control usiReq" name="citizenshipAcqDate">
+                    <div class="invalid-feedback">Required.</div>
+                  </div>
+                </div>
+
+                <!-- 8. Registration by Descent -->
+                <div class="row g-3 usi-id-block" data-id="8" style="display:none;">
+                  <div class="col-12 col-md-6">
+                    <label class="form-label required">Acquisition date</label>
+                    <input type="date" class="form-control usiReq" name="descentAcqDate">
+                    <div class="invalid-feedback">Required.</div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-between mt-4 no-print">
+          <button class="btn btn-outline-secondary" type="button" data-prev-tab>Back</button>
+          <button class="btn btn-primary" type="button" data-next-tab>Next</button>
+        </div>
+      </div>
+
+
+      <!-- ==========================================================
+           TAB 3: EDUCATION & EMPLOYMENT
+      ========================================================== -->
+      <div class="tab-pane fade" id="tab3" role="tabpanel">
+  <div class="section-title mb-3">
+    SECTION 3 — EDUCATION AND EMPLOYMENT INFORMATION
+  </div>
+
+  <div class="card p-3 border mb-3">
+    <div class="fw-semibold">AVETMISS Data Collection</div>
+    <div class="small-muted">
+      Information collected in this section is used for National reporting and planning.
+      Please complete all sections.
+    </div>
+  </div>
+
+  <!-- =====================================================
+       PRIOR EDUCATION
+  ====================================================== -->
+  <div class="card p-3 border mb-3">
+    <div class="fw-semibold mb-2">PRIOR EDUCATION</div>
+    <div class="form-hint mb-3">
+      What was your highest completed level at school?
+    </div>
+
+    <div class="row g-2">
+      <div class="col-12 col-lg-6">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="schoolLevel" value="12 Year 12 or equivalent" required>
+          <label class="form-check-label">12 — Year 12 or equivalent</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="schoolLevel" value="11 Year 11 or equivalent" required>
+          <label class="form-check-label">11 — Year 11 or equivalent</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="schoolLevel" value="10 Year 10 or equivalent" required>
+          <label class="form-check-label">10 — Year 10 or equivalent</label>
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-6">
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="schoolLevel" value="09 Year 9 or equivalent" required>
+          <label class="form-check-label">09 — Year 9 or equivalent</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="schoolLevel" value="08 Year 8 or below" required>
+          <label class="form-check-label">08 — Year 8 or below</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="schoolLevel" value="02 Never attended school" required>
+          <label class="form-check-label">02 — Never attended school</label>
+        </div>
+      </div>
+    </div>
+    <div class="invalid-feedback d-block">Please select one school level.</div>
+
+    <hr class="my-3">
+
+    <div class="row g-3">
+      <div class="col-12 col-md-4">
+        <label class="form-label required">Year completed</label>
+        <input type="number" class="form-control" name="schoolCompleteYear" min="1950" max="2100" required>
+        <div class="invalid-feedback">Year is required.</div>
+      </div>
+
+      <div class="col-12 col-md-8">
+        <label class="form-label required">Name of School</label>
+        <input type="text" class="form-control" name="schoolName" required>
+        <div class="invalid-feedback">School name is required.</div>
+      </div>
+
+      <div class="col-12">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="schoolInAus" name="schoolInAus" checked>
+          <label class="form-check-label" for="schoolInAus">
+            School was in Australia
+          </label>
+        </div>
+        <div class="form-hint">Uncheck if the school was not in Australia.</div>
+      </div>
+
+      <div class="col-12" id="schoolAusBox">
+        <div class="row g-3">
+          <div class="col-12 col-md-4">
+            <label class="form-label required">State</label>
+            <input type="text" class="form-control" id="schoolState" name="schoolState">
+            <div class="invalid-feedback">State is required.</div>
+          </div>
+          <div class="col-12 col-md-4">
+            <label class="form-label required">Postcode</label>
+            <input type="text" class="form-control" id="schoolPostcode" name="schoolPostcode" pattern="^\\d{4}$">
+            <div class="invalid-feedback">Valid postcode required.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12" id="schoolOverseasBox" style="display:none;">
+        <label class="form-label required">Country (if overseas)</label>
+        <input type="text" class="form-control" id="schoolCountry" name="schoolCountry">
+        <div class="invalid-feedback">Country is required.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================
+       QUALIFICATIONS
+  ====================================================== -->
+  <div class="card p-3 border mb-3">
+    <div class="fw-semibold mb-2">QUALIFICATIONS</div>
+    <div class="form-hint mb-2">
+      Do you have post-secondary or vocational/trade qualifications?
+    </div>
+
+    <div class="d-flex gap-3 flex-wrap">
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="hasPostQual" id="postQualYes" value="Yes" required>
+        <label class="form-check-label" for="postQualYes">
+          Yes — I will provide evidence
+        </label>
+      </div>
+      <div class="form-check">
+        <input class="form-check-input" type="radio" name="hasPostQual" id="postQualNo" value="No" required>
+        <label class="form-check-label" for="postQualNo">
+          No
+        </label>
+      </div>
+    </div>
+    <div class="invalid-feedback d-block">Please select Yes or No.</div>
+
+    <!-- Qualification details -->
+    <div class="mt-3" id="qualLevelsBox" style="display:none;">
+      <div class="card p-3 border">
+        <div class="fw-semibold mb-2">Qualification Level(s)</div>
+
+        <div class="row g-2">
+          <div class="col-12 col-lg-6">
+            <div class="form-check"><input class="form-check-input" type="checkbox" name="qualLevels" value="Bachelor or Higher"> Bachelor Degree or Higher</div>
+            <div class="form-check"><input class="form-check-input" type="checkbox" name="qualLevels" value="Advanced Diploma"> Advanced Diploma / Associate Degree</div>
+            <div class="form-check"><input class="form-check-input" type="checkbox" name="qualLevels" value="Diploma"> Diploma</div>
+            <div class="form-check"><input class="form-check-input" type="checkbox" name="qualLevels" value="Certificate IV"> Certificate IV</div>
+          </div>
+
+          <div class="col-12 col-lg-6">
+            <div class="form-check"><input class="form-check-input" type="checkbox" name="qualLevels" value="Certificate III"> Certificate III</div>
+            <div class="form-check"><input class="form-check-input" type="checkbox" name="qualLevels" value="Certificate II"> Certificate II</div>
+            <div class="form-check"><input class="form-check-input" type="checkbox" name="qualLevels" value="Certificate I"> Certificate I</div>
+            <div class="form-check"><input class="form-check-input" type="checkbox" name="qualLevels" value="Other"> Other / Overseas</div>
+          </div>
+
+          <div class="col-12 mt-2">
+            <label class="form-label">Qualification details (optional)</label>
+            <textarea class="form-control" name="qualDetails" rows="2"></textarea>
+          </div>
+
+          <!-- DOCUMENT UPLOAD -->
+          <div class="col-12 col-lg-8 mt-2">
+            <label class="form-label required">
+              Upload qualification evidence
+            </label>
+            <input type="file"
+                   class="form-control"
+                   id="qualEvidenceUpload"
+                   name="qualEvidenceUpload"
+                   accept=".pdf,.jpg,.jpeg,.png">
+            <div class="form-hint">
+              Certificate, Statement of Attainment, Transcript, or overseas equivalent.
+            </div>
+            <div class="invalid-feedback">
+              Qualification evidence is required when “Yes” is selected.
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================
+       EMPLOYMENT STATUS
+  ====================================================== -->
+  <div class="card p-3 border mb-3">
+    <div class="fw-semibold mb-2">EMPLOYMENT STATUS</div>
+
+    <div class="row g-2">
+      <div class="col-12 col-lg-6">
+        <div class="form-check"><input class="form-check-input" type="radio" name="employmentStatus" value="Full-time" required> Full-time employee</div>
+        <div class="form-check"><input class="form-check-input" type="radio" name="employmentStatus" value="Part-time" required> Part-time employee</div>
+        <div class="form-check"><input class="form-check-input" type="radio" name="employmentStatus" value="Self-employed" required> Self-employed</div>
+      </div>
+      <div class="col-12 col-lg-6">
+        <div class="form-check"><input class="form-check-input" type="radio" name="employmentStatus" value="Unemployed seeking" required> Unemployed — seeking work</div>
+        <div class="form-check"><input class="form-check-input" type="radio" name="employmentStatus" value="Not seeking" required> Not employed — not seeking</div>
+      </div>
+    </div>
+    <div class="invalid-feedback d-block">Please select one option.</div>
+  </div>
+
+  <!-- =====================================================
+       EMPLOYMENT DETAILS
+  ====================================================== -->
+  <div class="card p-3 border mb-3">
+    <div class="fw-semibold mb-2">EMPLOYMENT DETAILS (if applicable)</div>
+
+    <div class="row g-3">
+      <div class="col-12 col-md-6">
+        <label class="form-label">Employer name</label>
+        <input type="text" class="form-control" name="employerName">
+      </div>
+      <div class="col-12 col-md-6">
+        <label class="form-label">Supervisor name</label>
+        <input type="text" class="form-control" name="supervisorName">
+      </div>
+      <div class="col-12">
+        <label class="form-label">Workplace address</label>
+        <input type="text" class="form-control" name="employerAddress">
+      </div>
+      <div class="col-12 col-md-6">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-control" name="employerEmail">
+      </div>
+      <div class="col-12 col-md-6">
+        <label class="form-label">Phone</label>
+        <input type="tel" class="form-control" name="employerPhone">
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================
+       REASON FOR TRAINING / RPL
+  ====================================================== -->
+  <div class="card p-3 border">
+    <div class="fw-semibold mb-2">
+      REASON FOR UNDERTAKING TRAINING / RPL
+    </div>
+
+    <div class="row g-2">
+      <div class="col-12 col-lg-6">
+        <div class="form-check"><input class="form-check-input" type="radio" name="trainingReason" value="Job" required> To get a job</div>
+        <div class="form-check"><input class="form-check-input" type="radio" name="trainingReason" value="Promotion" required> Promotion</div>
+        <div class="form-check"><input class="form-check-input" type="radio" name="trainingReason" value="Skills" required> Extra skills</div>
+      </div>
+      <div class="col-12 col-lg-6">
+        <div class="form-check"><input class="form-check-input" type="radio" name="trainingReason" value="Course entry" required> Entry to another course</div>
+        <div class="form-check"><input class="form-check-input" type="radio" name="trainingReason" value="Personal" required> Personal development</div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="trainingReason" value="Other" required id="reasonOther">
+          Other
+        </div>
+      </div>
+    </div>
+
+    <div class="invalid-feedback d-block">Please select one option.</div>
+
+    <div class="mt-3" id="reasonOtherBox" style="display:none;">
+      <label class="form-label required">Other — details</label>
+      <input type="text" class="form-control" id="reasonOtherText" name="trainingReasonOther">
+      <div class="invalid-feedback">Please provide details.</div>
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-between mt-4 no-print">
+    <button class="btn btn-outline-secondary" type="button" data-prev-tab>Back</button>
+    <button class="btn btn-primary" type="button" data-next-tab>Next</button>
+  </div>
+</div>
+
+
+      <!-- ==========================================================
+           TAB 4: ADDITIONAL INFO (keep yours)
+      ========================================================== -->
+            <!-- TAB 4: Additional Info -->
+            <div class="tab-pane fade" id="tab4" role="tabpanel">
+              <div class="section-title mb-3">SECTION 4 — ADDITIONAL INFORMATION</div>
+
+              <div class="row g-3">
+                <div class="col-12 col-lg-6">
+                  <label class="form-label required">Country of Birth</label>
+                  <input type="text" class="form-control" name="countryOfBirth" required>
+                  <div class="invalid-feedback">Required.</div>
+                </div>
+
+                <div class="col-12 col-lg-6">
+                  <label class="form-label required">Do you speak a language other than English at home?</label>
+                  <div class="d-flex gap-3 flex-wrap">
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="langOther" id="langOtherNo" value="No" required>
+                      <label class="form-check-label" for="langOtherNo">No</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="langOther" id="langOtherYes" value="Yes" required>
+                      <label class="form-check-label" for="langOtherYes">Yes</label>
+                    </div>
+                  </div>
+                  <div class="invalid-feedback d-block">Select an option.</div>
+                </div>
+
+                <div class="col-12" id="langBox" style="display:none;">
+                  <label class="form-label required">Language (if Yes)</label>
+                  <input type="text" class="form-control" id="homeLanguage" name="homeLanguage">
+                  <div class="invalid-feedback">Please enter the language.</div>
+                </div>
+
+                <div class="col-12 col-lg-6">
+                  <label class="form-label required">Indigenous Status</label>
+                  <select class="form-select" name="indigenousStatus" required>
+                    <option value="">Select...</option>
+                    <option>Aboriginal</option>
+                    <option>Torres Strait Islander</option>
+                    <option>Both Aboriginal and Torres Strait Islander</option>
+                    <option>Neither</option>
+                    <option>Prefer not to say</option>
+                  </select>
+                  <div class="invalid-feedback">Required.</div>
+                </div>
+
+                <div class="col-12 col-lg-6">
+                  <label class="form-label required">Do you consider yourself to have a disability, impairment or long-term condition?</label>
+                  <div class="d-flex gap-3 flex-wrap">
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="hasDisability" id="disNo" value="No" required>
+                      <label class="form-check-label" for="disNo">No</label>
+                    </div>
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="hasDisability" id="disYes" value="Yes" required>
+                      <label class="form-check-label" for="disYes">Yes</label>
+                    </div>
+                  </div>
+                  <div class="invalid-feedback d-block">Select an option.</div>
+                </div>
+
+                <div class="col-12" id="disabilityBox" style="display:none;">
+                  <div class="card p-3 border">
+                    <div class="fw-semibold mb-2">Disability Supplement (if Yes)</div>
+                    <div class="form-hint mb-2">
+                      Select all that apply.
+                    </div>
+
+                    <div class="row g-2">
+                      <div class="col-12 col-md-6">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" name="disabilityTypes" value="Hearing/deafness" id="d1">
+                          <label class="form-check-label" for="d1">Hearing / deafness</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" name="disabilityTypes" value="Physical" id="d2">
+                          <label class="form-check-label" for="d2">Physical</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" name="disabilityTypes" value="Intellectual" id="d3">
+                          <label class="form-check-label" for="d3">Intellectual</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" name="disabilityTypes" value="Learning" id="d4">
+                          <label class="form-check-label" for="d4">Learning</label>
+                        </div>
+                      </div>
+
+                      <div class="col-12 col-md-6">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" name="disabilityTypes" value="Mental illness" id="d5">
+                          <label class="form-check-label" for="d5">Mental illness</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" name="disabilityTypes" value="Acquired brain impairment" id="d6">
+                          <label class="form-check-label" for="d6">Acquired brain impairment</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" name="disabilityTypes" value="Vision" id="d7">
+                          <label class="form-check-label" for="d7">Vision</label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" name="disabilityTypes" value="Medical condition" id="d8">
+                          <label class="form-check-label" for="d8">Medical condition</label>
+                        </div>
+                      </div>
+
+                      <div class="col-12 mt-2">
+                        <label class="form-label">Other / Notes</label>
+                        <textarea class="form-control" name="disabilityNotes" rows="2" placeholder="If you need support adjustments, describe them here."></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="d-flex justify-content-between mt-4 no-print">
+                <button class="btn btn-outline-secondary" type="button" data-prev-tab>Back</button>
+                <button class="btn btn-primary" type="button" data-next-tab>Next</button>
+              </div>
+            </div>
+
+           
+ 
+            <!-- TAB 5: Privacy / Terms & Submit -->
+        <div class="tab-pane fade" id="tab5" role="tabpanel">
+        <div class="section-title mb-3">SECTION 5 — PRIVACY NOTICE, TERMS & ONLINE SIGNATURE</div>
+
+        <div class="alert alert-warning">
+            Please read the Privacy Notice and Terms & Conditions. You must accept them before submitting.
+        </div>
+
+        <div class="row g-3">
+            <!-- Privacy Notice -->
+            <div class="col-12">
+            <div class="card p-3 border">
+                <div class="fw-semibold mb-2">Privacy Notice</div>
+
+                <div style="max-height:280px; overflow:auto;" class="small">
+                <p class="mb-2"><b>Why we collect your personal information</b><br>
+                    As a registered training organisation (RTO), we collect your personal information so we can process and manage your enrolment in vocational education and training (VET) course(s).
+                </p>
+
+                <p class="mb-2"><b>How we use your personal information</b><br>
+                    We use your personal information to enable us to deliver VET courses to you and, otherwise, as needed, to comply with our obligations as an RTO.
+                </p>
+
+                <p class="mb-2"><b>How we disclose your personal information</b><br>
+                    We are required by law (under the National Vocational Education and Training Regulator Act 2011 (Cth)) to disclose the personal information we collect to the National VET Data Collection kept by the National Centre for Vocational Education Research (NCVER).
+                    NCVER is responsible for collecting, managing, analysing and communicating research and statistics about the Australian VET sector.
+                    We are also authorised by law (under the NVETR Act) to disclose your personal information to relevant State/Territory training authorities.
+                </p>
+
+                <p class="mb-2"><b>How the NCVER and other bodies handle your personal information</b><br>
+                    NCVER will collect, hold, use and disclose your personal information in accordance with the law, including the Privacy Act 1988 (Cth) and the NVETR Act.
+                    Your information may be used for purposes including administration of VET, facilitating statistics and research, and understanding how the VET market operates.
+                </p>
+
+                <p class="mb-2"><b>Surveys</b><br>
+                    You may receive a student survey conducted by or on behalf of government departments or NCVER. You may opt out at the time of being contacted.
+                </p>
+
+                <p class="mb-0"><b>Contact information</b><br>
+                    Safety Training Academy — Maria Hajjar<br>
+                    0439 007 746<br>
+                    maria@safetytrainingacademy.edu.au
+                </p>
+                </div>
+            </div>
+            </div>
+
+            <!-- Terms & Conditions -->
+            <div class="col-12">
+            <div class="card p-3 border">
+                <div class="fw-semibold mb-2">Terms & Conditions (Key Policies)</div>
+
+                <div style="max-height:280px; overflow:auto;" class="small">
+                <p class="mb-2"><b>Complaints & Appeals</b><br>
+                    Complaints are recorded and managed through STA’s complaints process. If not resolved, you may lodge an appeal.
+                    Appeals may progress to independent mediation (e.g., National Training Complaints Hotline / Ombudsman pathways where applicable).
+                </p>
+
+                <p class="mb-2"><b>Reassessment</b><br>
+                    If you believe an assessment outcome is unfair, first discuss with your assessor. If unresolved, follow the formal appeals process.
+                    STA may require evidence, and independent reassessment may be arranged where necessary.
+                </p>
+
+                <p class="mb-2"><b>Consumer Guarantee</b><br>
+                    STA will provide training and assessment with due care and skill, fit for purpose, and within a reasonable timeframe.
+                </p>
+
+                <p class="mb-2"><b>Change to agreed services</b><br>
+                    Changes may occur due to course/practical requirements, third party arrangements, or ownership changes.
+                    Where possible, STA will notify affected learners.
+                </p>
+
+                <p class="mb-2"><b>Credit Transfer / RPL</b><br>
+                    Credit Transfer may be granted for equivalent units with verified evidence. RPL requires evidence of competence.
+                </p>
+
+                <p class="mb-2"><b>Language, Literacy and Numeracy (LLN)</b><br>
+                    Learners may be assessed for LLN needs. Support may be provided or referrals made where appropriate.
+                </p>
+
+                <p class="mb-0"><b>Important information</b><br>
+                    By signing this form, you confirm the information provided is correct and you agree to STA policies and procedures.
+                </p>
+                </div>
+            </div>
+            </div>
+
+            <!-- Acceptance checkboxes -->
+            <div class="col-12">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="acceptPrivacy" required>
+                <label class="form-check-label required" for="acceptPrivacy">
+                I have read and understood the Privacy Notice.
+                </label>
+                <div class="invalid-feedback">You must accept the Privacy Notice.</div>
+            </div>
+
+            <div class="form-check mt-2">
+                <input class="form-check-input" type="checkbox" id="acceptTerms" required>
+                <label class="form-check-label required" for="acceptTerms">
+                I accept the Terms & Conditions and agree to comply.
+                </label>
+                <div class="invalid-feedback">You must accept the Terms & Conditions.</div>
+            </div>
+            </div>
+
+            <!-- Declaration + Name/Date -->
+            <div class="col-12">
+            <div class="card p-3 border">
+                <div class="fw-semibold mb-2">Declaration</div>
+                <ul class="mb-0 small">
+                <li>I confirm the information provided is true and correct.</li>
+                <li>I understand I must provide a USI to receive certification (where applicable).</li>
+                <li>I understand STA policies apply (training, assessment, complaints/appeals and privacy).</li>
+                </ul>
+            </div>
+            </div>
+
+            <div class="col-12 col-lg-6">
+            <label class="form-label required">Student Name</label>
+            <input type="text" class="form-control" name="declareName" required>
+            <div class="invalid-feedback">Name is required.</div>
+            </div>
+
+            <div class="col-12 col-lg-6">
+            <label class="form-label required">Date</label>
+            <input type="date" class="form-control" name="declareDate" required>
+            <div class="invalid-feedback">Date is required.</div>
+            </div>
+
+            <!-- Online Signature -->
+            <div class="col-12">
+            <label class="form-label required">Online Signature</label>
+            <div class="signature-box">
+                <canvas id="sigCanvas"></canvas>
+                <div class="d-flex flex-wrap gap-2 mt-2">
+                <button type="button" class="btn btn-outline-secondary btn-sm" id="sigClear">Clear</button>
+                <span class="small-muted">Draw with mouse or finger.</span>
+                </div>
+                <input type="hidden" name="signatureData" id="signatureData" required>
+                <div class="invalid-feedback d-block" id="sigErr" style="display:none;">Signature is required.</div>
+            </div>
+            </div>
+
+            <!-- Submit -->
+            <div class="col-12 no-print">
+            <div class="d-flex flex-wrap gap-2 justify-content-between">
+                <button class="btn btn-outline-secondary" type="button" data-prev-tab>Back</button>
+                <button class="btn btn-success" type="submit">Submit Enrolment</button>
+            </div>
+             
+            </div>
+        </div>
+        </div>
+
+
+      
+
+    </div>
+  </form>
+</div>
+
+    
+
+ 
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+ 
+<script>
+(() => {
+  "use strict";
+
+  // -----------------------------
+  // Helpers
+  // -----------------------------
+  const $  = (sel, root=document) => root.querySelector(sel);
+  const $$ = (sel, root=document) => [...root.querySelectorAll(sel)];
+  const setShown = (el, show) => { if (el) el.style.display = show ? "" : "none"; };
+  const setReq = (el, req) => { if (el) el.required = !!req; };
+
+  // Prevent accidental required on hidden elements (Bootstrap hides tab panes)
+  function disableRequiredInHiddenContainers(){
+    $$('.tab-pane').forEach(pane => {
+      const hidden = !pane.classList.contains('active') && !pane.classList.contains('show');
+      if (!hidden) return;
+      $$('input,select,textarea', pane).forEach(el => {
+        if (el.required) el.dataset.wasRequired = "1";
+        el.required = false;
+      });
+    });
+  }
+
+  function restoreRequiredInActivePane(){
+    const pane = $('.tab-pane.active.show');
+    if (!pane) return;
+    $$('input,select,textarea', pane).forEach(el => {
+      if (el.dataset.wasRequired === "1") el.required = true;
+      delete el.dataset.wasRequired;
+    });
+  }
+
+  // -----------------------------
+  // Tabs navigation + progress
+  // -----------------------------
+  const tabButtons   = $$('#formTabs button[data-bs-toggle="pill"]');
+  const progressBar  = $('#progressBar');
+  const progressText = $('#progressText');
+
+  function setProgressByIndex(idx){
+    const total = tabButtons.length || 1;
+    const pct = Math.round(((idx + 1) / total) * 100);
+    if (progressBar)  progressBar.style.width = pct + "%";
+    if (progressText) progressText.textContent = `${idx + 1} / ${total}`;
+  }
+
+  function activeTabIndex(){
+    return tabButtons.findIndex(b => b.classList.contains('active'));
+  }
+
+  function goToTab(index){
+    if (index < 0 || index >= tabButtons.length) return;
+    tabButtons[index].click();
+  }
+
+  $$('[data-next-tab]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const idx = activeTabIndex();
+      if (idx < tabButtons.length - 1) goToTab(idx + 1);
+    });
+  });
+
+  $$('[data-prev-tab]').forEach(btn=>{
+    btn.addEventListener('click', ()=>{
+      const idx = activeTabIndex();
+      if (idx > 0) goToTab(idx - 1);
+    });
+  });
+
+  tabButtons.forEach((btn, i)=>{
+    btn.addEventListener('shown.bs.tab', ()=>{
+      setProgressByIndex(i);
+      disableRequiredInHiddenContainers();
+      restoreRequiredInActivePane();
+      // re-check conditional requirements when entering a tab
+      applyAllConditionalLogic();
+    });
+  });
+
+  setProgressByIndex(Math.max(0, activeTabIndex()));
+  disableRequiredInHiddenContainers();
+  restoreRequiredInActivePane();
+
+  // -----------------------------
+  // Conditional sections (UI logic)
+  // -----------------------------
+  // 1) Postal address toggle
+  const postalDifferent = $('#postalDifferent');
+  const postalBox = $('#postalBox');
+  const postAddress = $('#postAddress');
+  const postSuburb = $('#postSuburb');
+  const postState = $('#postState');
+  const postPostcode = $('#postPostcode');
+
+  function togglePostal(){
+    const show = !!postalDifferent?.checked;
+    setShown(postalBox, show);
+    [postAddress, postSuburb, postState, postPostcode].forEach(el => setReq(el, show));
+  }
+  postalDifferent?.addEventListener('change', togglePostal);
+
+  // 2) USI apply through STA toggle + required fields
+  const usiApplyYes = $('#usiApplyYes');
+  const usiApplyNo  = $('#usiApplyNo');
+  const usiConsentBox = $('#usiConsentBox');
+
+  const usiAuthoriseName = $('#usiAuthoriseName');
+  const usiConsent = $('#usiConsent');
+  const townCityBirth = $('#townCityBirth');
+  const overseasCityBirth = $('#overseasCityBirth');
+
+  const usiIdTypeSelect = $('#usiIdType');
+  const usiIdDetails = $('#usiIdDetails');
+
+  function clearAllDynamicUsiReq(){
+    $$('.usiReq').forEach(el => el.required = false);
+  }
+
+  function updateUsiIdBlockRequired(applying){
+    clearAllDynamicUsiReq();
+    if (!applying) return;
+
+    const selected = usiIdTypeSelect?.value;
+    if (!selected) return;
+
+    $$(`.usi-id-block[data-id="${selected}"] .usiReq`).forEach(el => el.required = true);
+  }
+
+  function toggleUsiIdDetails(){
+    if (!usiIdDetails || !usiIdTypeSelect) return;
+
+    const selected = usiIdTypeSelect.value;
+
+    if (!selected){
+      setShown(usiIdDetails, false);
+      $$('.usi-id-block').forEach(b => setShown(b, false));
+      updateUsiIdBlockRequired(true);
+      return;
+    }
+
+    setShown(usiIdDetails, true);
+    $$('.usi-id-block').forEach(b => setShown(b, false));
+    setShown($(`.usi-id-block[data-id="${selected}"]`), true);
+
+    updateUsiIdBlockRequired(true);
+  }
+
+  function toggleUsiBox(){
+    const applying = !!usiApplyYes?.checked;
+    setShown(usiConsentBox, applying);
+
+    setReq(usiAuthoriseName, applying);
+    setReq(townCityBirth, applying);
+    setReq(overseasCityBirth, applying);
+    setReq(usiConsent, applying);
+    setReq(usiIdTypeSelect, applying);
+
+    updateUsiIdBlockRequired(applying);
+    if (applying) toggleUsiIdDetails();
+  }
+
+  usiApplyYes?.addEventListener('change', toggleUsiBox);
+  usiApplyNo ?.addEventListener('change', toggleUsiBox);
+  usiIdTypeSelect?.addEventListener('change', toggleUsiIdDetails);
+
+  // 3) Prior education: school in Australia toggle
+  const schoolInAus = $('#schoolInAus');
+  const schoolAusBox = $('#schoolAusBox');
+  const schoolOverseasBox = $('#schoolOverseasBox');
+  const schoolState = $('#schoolState');
+  const schoolPostcode = $('#schoolPostcode');
+  const schoolCountry = $('#schoolCountry');
+
+  function toggleSchoolCountry(){
+    const inAus = !!schoolInAus?.checked;
+    setShown(schoolAusBox, inAus);
+    setShown(schoolOverseasBox, !inAus);
+
+    setReq(schoolState, inAus);
+    setReq(schoolPostcode, inAus);
+    setReq(schoolCountry, !inAus);
+  }
+  schoolInAus?.addEventListener('change', toggleSchoolCountry);
+
+  // 4) Qualifications: show levels only if YES + require evidence upload
+  const postQualYes = $('#postQualYes');
+  const postQualNo  = $('#postQualNo');
+  const qualLevelsBox = $('#qualLevelsBox');
+  const qualEvidenceUpload = $('#qualEvidenceUpload'); // from your updated Tab 3
+
+  function toggleQualLevels(){
+    const show = !!postQualYes?.checked;
+    setShown(qualLevelsBox, show);
+    setReq(qualEvidenceUpload, show);
+  }
+  postQualYes?.addEventListener('change', toggleQualLevels);
+  postQualNo ?.addEventListener('change', toggleQualLevels);
+
+  // 5) Reason for training: "Other" requires details
+  const reasonOther = $('#reasonOther');
+  const reasonOtherBox = $('#reasonOtherBox');
+  const reasonOtherText = $('#reasonOtherText');
+
+  function toggleReasonOther(){
+    const show = !!reasonOther?.checked;
+    setShown(reasonOtherBox, show);
+    setReq(reasonOtherText, show);
+  }
+  $$('input[name="trainingReason"]').forEach(r => r.addEventListener('change', toggleReasonOther));
+
+  // 6) Language other than English (Tab 4)
+  const langOtherYes = $('#langOtherYes');
+  const langOtherNo  = $('#langOtherNo');
+  const langBox = $('#langBox');
+  const homeLanguage = $('#homeLanguage');
+
+  function toggleLangBox(){
+    const show = !!langOtherYes?.checked;
+    setShown(langBox, show);
+    setReq(homeLanguage, show);
+  }
+  langOtherYes?.addEventListener('change', toggleLangBox);
+  langOtherNo ?.addEventListener('change', toggleLangBox);
+
+  // 7) Disability supplement (Tab 4)
+  const disYes = $('#disYes');
+  const disNo  = $('#disNo');
+  const disabilityBox = $('#disabilityBox');
+
+  function toggleDisability(){
+    const show = !!disYes?.checked;
+    setShown(disabilityBox, show);
+  }
+  disYes?.addEventListener('change', toggleDisability);
+  disNo ?.addEventListener('change', toggleDisability);
+
+  function applyAllConditionalLogic(){
+    togglePostal();
+    toggleUsiBox();
+    toggleUsiIdDetails();
+    toggleSchoolCountry();
+    toggleQualLevels();
+    toggleReasonOther();
+    toggleLangBox();
+    toggleDisability();
+  }
+
+  // Init once
+  applyAllConditionalLogic();
+
+   
+  // -----------------------------
+  // Reset (NO PRINT option)
+  // -----------------------------
+  const form = $('#enrolForm');
+
+  $('#btnReset')?.addEventListener('click', ()=>{
+    form?.reset();
+    clearSignature();
+    goToTab(0);
+    applyAllConditionalLogic();
+    disableRequiredInHiddenContainers();
+    restoreRequiredInActivePane();
+    form?.classList.remove('was-validated');
+  });
+
+  // -----------------------------
+  // Validation + submit (demo)
+  // -----------------------------
+  form?.addEventListener('submit', (e)=>{
+    // Force conditional rules right before validation
+    applyAllConditionalLogic();
+    disableRequiredInHiddenContainers();
+    restoreRequiredInActivePane();
+
+    // Signature required
+    if (signatureData && !signatureData.value){
+      if (sigErr) sigErr.style.display = "block";
+      e.preventDefault();
+      e.stopPropagation();
+      goToTab(tabButtons.length - 1);
+      return;
+    } else {
+      if (sigErr) sigErr.style.display = "none";
+    }
+
+    // Normal validation
+    if (!form.checkValidity()){
+      e.preventDefault();
+      e.stopPropagation();
+
+      const firstInvalid = form.querySelector(':invalid');
+      if (firstInvalid){
+        const tabPane = firstInvalid.closest('.tab-pane');
+        if (tabPane){
+          const targetBtn = tabButtons.find(b => b.getAttribute('data-bs-target') === "#" + tabPane.id);
+          targetBtn?.click();
+        }
+        firstInvalid.scrollIntoView({ behavior:"smooth", block:"center" });
+      }
+    } else {
+      e.preventDefault(); // demo
+
+      const data = new FormData(form);
+      const obj = {};
+      data.forEach((v,k)=>{
+        if (obj[k]){
+          if (Array.isArray(obj[k])) obj[k].push(v);
+          else obj[k] = [obj[k], v];
+        } else obj[k]=v;
+      });
+
+      alert(
+        "Submitted (demo only). In real use, send this to your server.\n\n" +
+        "Applicant: " + (obj.givenName||"") + " " + (obj.surname||"")
+      );
+    }
+
+    form.classList.add('was-validated');
+  });
+
+})();
+</script>
+<script>
+(() => {
+  const canvas = document.getElementById("sigCanvas");
+  const sigClear = document.getElementById("sigClear");
+  const signatureData = document.getElementById("signatureData");
+  const sigErr = document.getElementById("sigErr");
+
+  if (!canvas) return;
+
+  const ctx = canvas.getContext("2d");
+  let drawing = false;
+  let hasInk = false;
+  let last = null;
+
+  function fitCanvasToCSSSize(){
+    // CSS size (what user sees)
+    const rect = canvas.getBoundingClientRect();
+    const ratio = window.devicePixelRatio || 1;
+
+    // Important: set internal pixel buffer to match CSS size * ratio
+    canvas.width = Math.max(1, Math.round(rect.width * ratio));
+    canvas.height = Math.max(1, Math.round(rect.height * ratio));
+
+    // Reset transform then scale so drawing uses CSS pixel coordinates
+    ctx.setTransform(1,0,0,1,0,0);
+    ctx.scale(ratio, ratio);
+
+    ctx.lineWidth = 2;
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+  }
+
+  function getPos(e){
+    const r = canvas.getBoundingClientRect();
+    return { x: e.clientX - r.left, y: e.clientY - r.top };
+  }
+
+  function begin(e){
+    drawing = true;
+    last = getPos(e);
+    canvas.classList.add("is-drawing");
+    if (sigErr) sigErr.style.display = "none";
+
+    // capture pointer so drawing continues even if pointer leaves canvas
+    try { canvas.setPointerCapture(e.pointerId); } catch {}
+    e.preventDefault();
+  }
+
+  function move(e){
+    if (!drawing) return;
+    const p = getPos(e);
+
+    // draw
+    ctx.beginPath();
+    ctx.moveTo(last.x, last.y);
+    ctx.lineTo(p.x, p.y);
+    ctx.stroke();
+
+    last = p;
+    hasInk = true;
+    e.preventDefault();
+  }
+
+  function end(e){
+    if (!drawing) return;
+    drawing = false;
+    canvas.classList.remove("is-drawing");
+
+    try { canvas.releasePointerCapture(e.pointerId); } catch {}
+
+    if (signatureData){
+      signatureData.value = hasInk ? canvas.toDataURL("image/png") : "";
+    }
+    e.preventDefault();
+  }
+
+  function clear(){
+    // Clear using internal pixel size
+    ctx.setTransform(1,0,0,1,0,0);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Refit to restore scale
+    fitCanvasToCSSSize();
+
+    hasInk = false;
+    last = null;
+    if (signatureData) signatureData.value = "";
+    if (sigErr) sigErr.style.display = "none";
+  }
+
+  // Hover effects that work even if pointer events were weird earlier
+  canvas.addEventListener("pointerenter", () => canvas.classList.add("is-hover"));
+  canvas.addEventListener("pointerleave", () => {
+    canvas.classList.remove("is-hover");
+    if (!drawing) canvas.classList.remove("is-drawing");
+  });
+
+  // Pointer events (best for mouse + touch + pen)
+  canvas.addEventListener("pointerdown", begin);
+  canvas.addEventListener("pointermove", move);
+  canvas.addEventListener("pointerup", end);
+  canvas.addEventListener("pointercancel", end);
+
+  sigClear?.addEventListener("click", clear);
+
+  // First sizing
+  fitCanvasToCSSSize();
+
+  // If tab is hidden then shown, canvas rect can be 0.
+  // So refit when the signature tab becomes visible.
+  document.addEventListener("shown.bs.tab", () => {
+    // next tick ensures layout is ready
+    setTimeout(() => fitCanvasToCSSSize(), 0);
+  });
+
+  window.addEventListener("resize", () => {
+    // keep signature if already drawn
+    const snap = hasInk ? canvas.toDataURL("image/png") : null;
+    fitCanvasToCSSSize();
+
+    if (snap){
+      const img = new Image();
+      img.onload = () => {
+        const r = canvas.getBoundingClientRect();
+        ctx.drawImage(img, 0, 0, r.width, r.height);
+        if (signatureData) signatureData.value = canvas.toDataURL("image/png");
+      };
+      img.src = snap;
+    }
+  });
+})();
+</script>
+
+
+</body>
+</html>
