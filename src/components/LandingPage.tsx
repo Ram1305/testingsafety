@@ -158,42 +158,13 @@ export function LandingPage({ onLogin, onRegister, onCourseDetails, onAbout, onC
     },
   ];
 
-  // Fetch categories on mount
-  useEffect(() => {
-    fetchCategories();
-  }, []);
-
-  // Fetch courses when search changes
-  useEffect(() => {
-    fetchCourses();
-  }, [debouncedSearch]);
-
-  // Auto-play slider
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const fetchCategories = async () => {
-    try {
-      const response = await categoryService.getCategoriesDropdown();
-      if (response.success && response.data) {
-        setCategories(response.data.categories);
-      }
-    } catch (err) {
-      console.error('Error fetching categories:', err);
-    }
-  };
-
   const fetchCourses = useCallback(async () => {
     try {
       setIsLoading(true);
       setError(null);
 
       const filter: { searchQuery?: string; pageSize: number } = {
-        pageSize: 100
+        pageSize: 1000  // Fetch all courses so categories dropdown and section show every category
       };
 
       if (debouncedSearch) {
@@ -215,6 +186,35 @@ export function LandingPage({ onLogin, onRegister, onCourseDetails, onAbout, onC
     }
   }, [debouncedSearch]);
 
+  const fetchCategories = async () => {
+    try {
+      const response = await categoryService.getCategoriesDropdown();
+      if (response.success && response.data) {
+        setCategories(response.data.categories);
+      }
+    } catch (err) {
+      console.error('Error fetching categories:', err);
+    }
+  };
+
+  // Fetch categories on mount
+  useEffect(() => {
+    fetchCategories();
+  }, []);
+
+  // Fetch courses when search changes (debounced)
+  useEffect(() => {
+    fetchCourses();
+  }, [fetchCourses]);
+
+  // Auto-play slider
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
   };
@@ -229,8 +229,8 @@ export function LandingPage({ onLogin, onRegister, onCourseDetails, onAbout, onC
     }
   };
 
-  const getCoursesByCategory = (categoryName: string) => {
-    return courses.filter((course) => course.categoryName === categoryName && !course.hasComboOffer);
+  const getCoursesByCategory = (categoryId: string) => {
+    return courses.filter((course) => course.categoryId === categoryId && !course.hasComboOffer);
   };
 
   const toggleCategory = (categoryId: string) => {
@@ -408,7 +408,7 @@ export function LandingPage({ onLogin, onRegister, onCourseDetails, onAbout, onC
                                   }}
                                   className="dropdown-course-item"
                                 >
-                                  {course.courseName}
+                                  {course.courseCode} - {course.courseName}
                                 </button>
                               ))}
                           </div>
@@ -856,9 +856,11 @@ export function LandingPage({ onLogin, onRegister, onCourseDetails, onAbout, onC
                           <Badge className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-3 py-1 text-sm font-bold shadow-lg">
                             COMBO
                           </Badge>
-                          <Badge className="bg-cyan-500 text-white px-3 py-1 text-sm font-semibold shadow-lg">
-                            {course.validityPeriod || "5 years"}
-                          </Badge>
+                          {course.validityPeriod && (
+                            <Badge className="bg-cyan-500 text-white px-3 py-1 text-sm font-semibold shadow-lg">
+                              {course.validityPeriod}
+                            </Badge>
+                          )}
                         </div>
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                           <span className="text-white font-semibold text-lg">View Details</span>
@@ -891,10 +893,12 @@ export function LandingPage({ onLogin, onRegister, onCourseDetails, onAbout, onC
                         </div>
 
                         <div className="flex items-center gap-4 text-sm text-gray-600">
-                          <div className="flex items-center gap-1">
-                            <Clock className="w-4 h-4 text-cyan-500" />
-                            <span>{course.duration || "1 Day"}</span>
-                          </div>
+                          {course.duration && (
+                            <div className="flex items-center gap-1">
+                              <Clock className="w-4 h-4 text-cyan-500" />
+                              <span>{course.duration}</span>
+                            </div>
+                          )}
                           <div className="flex items-center gap-1">
                             <Users className="w-4 h-4 text-cyan-500" />
                             <span>{course.enrolledStudentsCount || 0} enrolled</span>
@@ -1032,7 +1036,7 @@ export function LandingPage({ onLogin, onRegister, onCourseDetails, onAbout, onC
             </div>
           ) : (
             categories.map((category, catIndex) => {
-              const categoryCourses = getCoursesByCategory(category.categoryName);
+              const categoryCourses = getCoursesByCategory(category.categoryId);
               
               if (categoryCourses.length === 0) return null;
 
@@ -1074,11 +1078,13 @@ export function LandingPage({ onLogin, onRegister, onCourseDetails, onAbout, onC
                               alt={course.courseName}
                               className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                             />
-                            <div className="absolute top-4 right-4">
-                              <Badge className="bg-cyan-500 text-white px-3 py-1 text-sm font-semibold shadow-lg">
-                                {course.validityPeriod || "5 years"}
-                              </Badge>
-                            </div>
+                            {course.validityPeriod && (
+                              <div className="absolute top-4 right-4">
+                                <Badge className="bg-cyan-500 text-white px-3 py-1 text-sm font-semibold shadow-lg">
+                                  {course.validityPeriod}
+                                </Badge>
+                              </div>
+                            )}
                             <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                               <span className="text-white font-semibold text-lg">View Details</span>
                             </div>
@@ -1111,10 +1117,12 @@ export function LandingPage({ onLogin, onRegister, onCourseDetails, onAbout, onC
                             </div>
 
                             <div className="flex items-center gap-4 text-sm text-gray-600">
-                              <div className="flex items-center gap-1">
-                                <Clock className="w-4 h-4 text-cyan-500" />
-                                <span>{course.duration || "2 days"}</span>
-                              </div>
+                              {course.duration && (
+                                <div className="flex items-center gap-1">
+                                  <Clock className="w-4 h-4 text-cyan-500" />
+                                  <span>{course.duration}</span>
+                                </div>
+                              )}
                               <div className="flex items-center gap-1">
                                 <Users className="w-4 h-4 text-cyan-500" />
                                 <span>{course.enrolledStudentsCount} students</span>
@@ -1540,7 +1548,7 @@ export function LandingPage({ onLogin, onRegister, onCourseDetails, onAbout, onC
               <ul className="space-y-2 text-sm text-white/90">
                 <li className="flex items-start gap-2">
                   <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                  <span>1-3 Mary Street, Regents Park, NSW 2143 AUSTRALIA</span>
+                  <span>Safety Training Academy | Sydney<br />3/14-16 Marjorie Street, Sefton NSW 2162</span>
                 </li>
               </ul>
             </div>

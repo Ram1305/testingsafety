@@ -40,7 +40,7 @@ export function QuizGuidelines({ onStart, onCancel }: QuizGuidelinesProps) {
               <li>Some questions may have more than one correct answer.</li>
               <li>Your results will be emailed to your trainer.</li>
               <li>You will also receive your test results by email.</li>
-              <li>To PASS you must get 2 out of 3 or 66% correct for each core skill.</li>
+              <li>To PASS you must get 2 out of 3 or 67% correct for each core skill.</li>
             </ol>
           </div>
 

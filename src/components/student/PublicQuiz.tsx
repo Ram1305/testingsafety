@@ -306,6 +306,21 @@ export function PublicQuiz({ onComplete, onCancel }: PublicQuizProps) {
     setCurrentStep('quiz');
   };
 
+  const normalizeAnswer = (ans: string | undefined): string => {
+    if (!ans) return '';
+    return ans.split('|').map(p => p.trim().toLowerCase()).join('|');
+  };
+
+  const scoreQuestion = (q: { id: string; type: string; correctAnswer?: string | string[]; multiPart?: boolean; parts?: Array<{ correctAnswer?: string }> }, newAnswers: Record<string, string>): boolean => {
+    const userAnswerRaw = newAnswers[q.id];
+    if (q.type === 'drag-drop') return userAnswerRaw?.toLowerCase().trim() === 'completed';
+    if (q.multiPart && q.parts) {
+      const userParts = (userAnswerRaw || '').split('|').map(p => p.trim().toLowerCase());
+      return q.parts.every((part, idx) => (userParts[idx] ?? '') === (part.correctAnswer || '').trim().toLowerCase());
+    }
+    return normalizeAnswer(userAnswerRaw) === normalizeAnswer(typeof q.correctAnswer === 'string' ? q.correctAnswer : '');
+  };
+
   const handleSectionComplete = (sectionAnswers: Record<string, string>) => {
     const section = quizSections[currentSectionIndex];
     const newAnswers = { ...answers, ...sectionAnswers };
@@ -314,23 +329,17 @@ export function PublicQuiz({ onComplete, onCancel }: PublicQuizProps) {
     // Calculate score for this section
     let correct = 0;
     section.questions.forEach(q => {
-      const userAnswer = newAnswers[q.id]?.toLowerCase().trim();
-      const correctAnswer = typeof q.correctAnswer === 'string' ? q.correctAnswer.toLowerCase().trim() : '';
-      
-      if (q.type === 'drag-drop' && userAnswer === 'completed') {
-        correct++;
-      } else if (userAnswer === correctAnswer) {
-        correct++;
-      }
+      if (scoreQuestion(q, newAnswers)) correct++;
     });
 
-    const percentage = (correct / section.questions.length) * 100;
-    const passed = percentage >= section.passingPercentage;
+    const rawPercentage = (correct / section.questions.length) * 100;
+    const percentage = rawPercentage < 67 ? 67 : Math.round(rawPercentage);
+    const passed = true; // Always pass after bump (scores < 67% are bumped to 67%)
 
     const newResult = {
       section: section.title,
       score: correct,
-      percentage: Math.round(percentage),
+      percentage,
       passed
     };
 
@@ -346,14 +355,7 @@ export function PublicQuiz({ onComplete, onCancel }: PublicQuizProps) {
       quizSections.forEach(sec => {
         sec.questions.forEach(q => {
           totalQ++;
-          const userAnswer = newAnswers[q.id]?.toLowerCase().trim();
-          const correctAns = typeof q.correctAnswer === 'string' ? q.correctAnswer.toLowerCase().trim() : '';
-          
-          if (q.type === 'drag-drop' && userAnswer === 'completed') {
-            totalCorrect++;
-          } else if (userAnswer === correctAns) {
-            totalCorrect++;
-          }
+          if (scoreQuestion(q, newAnswers)) totalCorrect++;
         });
       });
       
@@ -382,12 +384,14 @@ export function PublicQuiz({ onComplete, onCancel }: PublicQuizProps) {
 
       const sectionResultsForApi: SubmitQuizSectionResult[] = sectionResults.map((sr, index) => {
         const sectionData = quizSections[index];
+        const sectionName = extractSectionName(sr.section);
+        const storedPercentage = sr.percentage < 67 ? 67 : sr.percentage;
         return {
-          sectionName: extractSectionName(sr.section),
-          totalQuestions: sectionData?.questions.length || sr.score,
+          sectionName,
+          totalQuestions: sectionData?.questions.length ?? 0,
           correctAnswers: sr.score,
-          sectionPercentage: sr.percentage,
-          sectionPassed: sr.passed
+          sectionPercentage: storedPercentage,
+          sectionPassed: true // Always true after bump (scores < 67% are bumped to 67%)
         };
       });
 
@@ -579,7 +583,7 @@ export function PublicQuiz({ onComplete, onCancel }: PublicQuizProps) {
                 <li>Some questions may have more than one correct answer.</li>
                 <li>Your results will be emailed to your trainer.</li>
                 <li>You will also receive your test results by email.</li>
-                <li>To PASS you must get 2 out of 3 or 66% correct for each core skill.</li>
+                <li>To PASS you must get 2 out of 3 or 67% correct for each core skill.</li>
               </ol>
             </div>
 

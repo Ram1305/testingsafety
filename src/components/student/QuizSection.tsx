@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../ui/card';
 import { Button } from '../ui/button';
 import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
@@ -13,6 +13,27 @@ interface QuizSectionProps {
   onComplete: (answers: Record<string, string>) => void;
   onCancel?: () => void;
 }
+
+// Audio player defined outside QuizSection so it isn't recreated on re-renders.
+// When defined inside, taps on dropdowns/inputs caused remounts and stopped playback.
+const AudioPlayerCarlos = () => (
+  <div className="my-6">
+    <div className="bg-white p-6 rounded-lg border-2 border-purple-400">
+      <p className="text-gray-700 mb-4">Note: You can listen to recording more than once.</p>
+      <audio controls className="w-full mb-4" playsInline>
+        <source src="/assets/Question Audio.mp3" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
+      <div className="flex justify-center mt-4">
+        <img 
+          src="/assets/family.jpg" 
+          alt="Happy family" 
+          className="w-40 rounded-lg shadow-md"
+        />
+      </div>
+    </div>
+  </div>
+);
 
 export function QuizSection({ section, onComplete, onCancel }: QuizSectionProps) {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -57,6 +78,8 @@ export function QuizSection({ section, onComplete, onCancel }: QuizSectionProps)
   });
 
   const [draggedItem, setDraggedItem] = useState<string | null>(null);
+  // Ref for drag ID - updates synchronously so drop works on first try (state is async)
+  const draggedItemRef = useRef<string | null>(null);
 
   // Reset state when section changes
   useEffect(() => {
@@ -88,6 +111,7 @@ export function QuizSection({ section, onComplete, onCancel }: QuizSectionProps)
         { id: 'device5', name: 'Barcode Scanner', matchedLabel: null }
       ]
     });
+    draggedItemRef.current = null;
     setDraggedItem(null);
   }, [section.id]);
 
@@ -326,40 +350,17 @@ export function QuizSection({ section, onComplete, onCancel }: QuizSectionProps)
     </div>
   );
 
-  // Audio Player Component for Language Section
-  const AudioPlayerCarlos = () => (
-    <div className="my-6">
-      <div className="bg-white p-6 rounded-lg border-2 border-purple-400">
-        <p className="text-gray-700 mb-4">Note: You can listen to recording more than once.</p>
-        
-        {/* Audio file from assets */}
-        <audio controls className="w-full mb-4">
-          <source src="/assets/Question Audio.mp3" type="audio/mpeg" />
-          Your browser does not support the audio element.
-        </audio>
-
-        {/* Family Image */}
-        <div className="flex justify-center mt-4">
-          <img 
-            src="/assets/family.jpg" 
-            alt="Happy family" 
-            className="w-40 rounded-lg shadow-md"
-          />
-        </div>
-      </div>
-    </div>
-  );
-
-  // Handle file drag - use dataTransfer (not state) so drop works on first try
+  // Handle file drag - use ref (synchronous) so drop works on first try
   const handleFileDragStart = (e: React.DragEvent, fileType: string) => {
     e.dataTransfer.effectAllowed = 'move';
     e.dataTransfer.setData('text/plain', fileType);
-    setDraggedItem(fileType);
+    draggedItemRef.current = fileType;
   };
 
   const handleFileDrop = (e: React.DragEvent, folder: 'checklistBook' | 'imagesFolder') => {
     e.preventDefault();
-    const draggedId = e.dataTransfer.getData('text/plain') || draggedItem;
+    e.stopPropagation();
+    const draggedId = e.dataTransfer.getData('text/plain') || draggedItemRef.current || draggedItem;
     if (!draggedId) return;
     
     if (folder === 'checklistBook' && (draggedId === 'pdf1' || draggedId === 'pdf2')) {
@@ -379,6 +380,7 @@ export function QuizSection({ section, onComplete, onCancel }: QuizSectionProps)
         }));
       }
     }
+    draggedItemRef.current = null;
     setDraggedItem(null);
   };
 
@@ -392,22 +394,24 @@ export function QuizSection({ section, onComplete, onCancel }: QuizSectionProps)
     });
   };
 
-  // Handle device label drag - use dataTransfer so drop works on first try
+  // Handle device label drag - use ref (synchronous) so drop works on first try
   const handleLabelDragStart = (e: React.DragEvent, labelId: string) => {
     e.dataTransfer.effectAllowed = 'move';
     e.dataTransfer.setData('text/plain', labelId);
-    setDraggedItem(labelId);
+    draggedItemRef.current = labelId;
   };
 
   const handleDeviceDrop = (e: React.DragEvent, deviceId: string) => {
     e.preventDefault();
-    const draggedId = e.dataTransfer.getData('text/plain') || draggedItem;
+    e.stopPropagation();
+    const draggedId = e.dataTransfer.getData('text/plain') || draggedItemRef.current || draggedItem;
     if (!draggedId) return;
     
     setDevicesDragState(prev => ({
       labels: prev.labels.map(l => l.id === draggedId ? { ...l, placed: true } : l),
       devices: prev.devices.map(d => d.id === deviceId ? { ...d, matchedLabel: draggedId } : d)
     }));
+    draggedItemRef.current = null;
     setDraggedItem(null);
   };
 

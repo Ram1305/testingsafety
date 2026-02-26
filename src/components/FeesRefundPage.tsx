@@ -35,7 +35,7 @@ export function FeesRefundPage({ onBack, onLogin, onRegister, onAbout, onContact
   const fetchData = async () => {
     try {
       const [coursesRes, categoriesRes] = await Promise.all([
-        courseService.getAllCourses(),
+        courseService.getAllCourses({ pageSize: 1000 }),
         categoryService.getCategoriesDropdown()
       ]);
       if (coursesRes.success && coursesRes.data) {

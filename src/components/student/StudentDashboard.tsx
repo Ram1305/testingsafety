@@ -134,6 +134,32 @@ export function StudentDashboard({ onNavigate }: StudentDashboardProps) {
         </Alert>
       )}
 
+      {/* LLND Assessment Banner - Show when quiz not attempted (first priority) */}
+      {!isLoadingQuizStatus && !hasAttemptedQuiz && (
+        <Card className="border-violet-200 bg-gradient-to-r from-violet-50 to-fuchsia-50">
+          <CardContent className="py-6">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 bg-gradient-to-br from-violet-600 to-fuchsia-600 rounded-full flex items-center justify-center">
+                  <BookOpen className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="font-semibold text-gray-900">LLND Assessment Required</h3>
+                  <p className="text-gray-600 text-sm">Complete the LLND assessment to fully activate your enrollment</p>
+                </div>
+              </div>
+              <Button 
+                onClick={() => setShowQuiz(true)}
+                className="bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-700 hover:to-fuchsia-700"
+              >
+                <BookOpen className="w-4 h-4 mr-2" />
+                Take Assessment
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       {/* Enrollment Form Status Banners */}
       {!isLoadingEnrollmentForm && (
         <>
@@ -204,32 +230,6 @@ export function StudentDashboard({ onNavigate }: StudentDashboardProps) {
             </Alert>
           )}
         </>
-      )}
-
-      {/* LLN Assessment Banner - Show when quiz not attempted */}
-      {!isLoadingQuizStatus && !hasAttemptedQuiz && (
-        <Card className="border-violet-200 bg-gradient-to-r from-violet-50 to-fuchsia-50">
-          <CardContent className="py-6">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-gradient-to-br from-violet-600 to-fuchsia-600 rounded-full flex items-center justify-center">
-                  <BookOpen className="w-6 h-6 text-white" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-gray-900">LLND Assessment Required</h3>
-                  <p className="text-gray-600 text-sm">Complete the LLND assessment to fully activate your enrollment</p>
-                </div>
-              </div>
-              <Button 
-                onClick={() => setShowQuiz(true)}
-                className="bg-gradient-to-r from-violet-600 to-fuchsia-600 hover:from-violet-700 hover:to-fuchsia-700"
-              >
-                <BookOpen className="w-4 h-4 mr-2" />
-                Take Assessment
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
       )}
 
       {/* Quick Actions */}

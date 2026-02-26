@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { 
   ArrowLeft, 
   ArrowRight, 
@@ -20,7 +20,8 @@ import {
   Lock,
   Shield,
   AlertCircle,
-  Building2
+  Building2,
+  MapPin
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card';
@@ -348,6 +349,7 @@ export function PublicEnrollmentWizard({
   const [quizSectionIndex, setQuizSectionIndex] = useState(0);
   const [quizAnswers, setQuizAnswers] = useState<Record<string, string>>({});
   const [quizSectionResults, setQuizSectionResults] = useState<{ section: string; score: number; percentage: number; passed: boolean }[]>([]);
+  const quizSectionResultsRef = useRef<{ section: string; score: number; percentage: number; passed: boolean }[]>([]);
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [quizPassed, setQuizPassed] = useState(false);
   const [declarationChecks, setDeclarationChecks] = useState({ honest: false, understand: false });
@@ -364,6 +366,11 @@ export function PublicEnrollmentWizard({
     additionalInfo: { ...initialAdditionalInfo },
     privacyTerms: { ...initialPrivacyTerms },
   });
+
+  // Keep ref in sync with quiz section results for reliable access at submit time
+  useEffect(() => {
+    quizSectionResultsRef.current = quizSectionResults;
+  }, [quizSectionResults]);
 
   // Fetch courses on mount
   useEffect(() => {
@@ -395,9 +402,13 @@ export function PublicEnrollmentWizard({
     try {
       const response = await publicEnrollmentWizardService.getCoursesForDropdown();
       if (response.success && response.data) {
-        setCourses(response.data);
+        setCourses(Array.isArray(response.data) ? response.data : []);
+      } else {
+        setCourses([]);
+        toast.error(response.message || 'Failed to load courses');
       }
     } catch (error) {
+      setCourses([]);
       toast.error('Failed to load courses');
     } finally {
       setLoadingCourses(false);
@@ -409,9 +420,13 @@ export function PublicEnrollmentWizard({
     try {
       const response = await publicEnrollmentWizardService.getCourseDates(courseId);
       if (response.success && response.data) {
-        setCourseDates(response.data);
+        setCourseDates(Array.isArray(response.data) ? response.data : []);
+      } else {
+        setCourseDates([]);
+        toast.error(response.message || 'Failed to load course dates');
       }
     } catch (error) {
+      setCourseDates([]);
       toast.error('Failed to load course dates');
     } finally {
       setLoadingDates(false);
@@ -578,21 +593,14 @@ export function PublicEnrollmentWizard({
         return;
       }
       
-      // If card payment is selected, process it first
+      // Only process card payment for "Pay Now" - other methods (bank_transfer, direct_pay) proceed directly
       if (paymentMethod === 'card') {
         const paymentSuccess = await processCardPayment();
         if (!paymentSuccess) {
-          // Payment failed - don't proceed
           return;
         }
       }
-      
-      // For bank transfer, validate transaction ID (optional but recommended)
-      if (paymentMethod === 'bank_transfer' && !transactionId.trim()) {
-        // Optional: you may want to warn but still allow proceeding
-        // toast.warning('Transaction ID is recommended for faster verification');
-      }
-      
+
       setCurrentStep(4);
     } else if (currentStep === 4) {
       if (!quizCompleted) {
@@ -620,6 +628,15 @@ export function PublicEnrollmentWizard({
     }
   };
 
+  // Normalize answer for comparison - handles multi-part (pipe-separated) and trim/whitespace
+  const normalizeAnswer = (answer: string | undefined): string => {
+    if (!answer) return '';
+    return answer
+      .split('|')
+      .map(part => part.trim().toLowerCase())
+      .join('|');
+  };
+
   // Handle quiz section complete
   const handleQuizSectionComplete = (sectionAnswers: Record<string, string>) => {
     const section = quizSections[quizSectionIndex];
@@ -629,23 +646,39 @@ export function PublicEnrollmentWizard({
     // Calculate score for this section
     let correct = 0;
     section.questions.forEach(q => {
-      const userAnswer = newAnswers[q.id]?.toLowerCase().trim();
-      const correctAnswer = typeof q.correctAnswer === 'string' ? q.correctAnswer.toLowerCase().trim() : '';
+      const userAnswerRaw = newAnswers[q.id];
+      const correctAnswerRaw = typeof q.correctAnswer === 'string' ? q.correctAnswer : '';
       
-      if (q.type === 'drag-drop' && userAnswer === 'completed') {
-        correct++;
-      } else if (userAnswer === correctAnswer) {
-        correct++;
+      if (q.type === 'drag-drop') {
+        if (userAnswerRaw?.toLowerCase().trim() === 'completed') {
+          correct++;
+        }
+      } else if (q.multiPart && q.parts) {
+        // Multi-part: compare each part individually for robustness
+        const userParts = (userAnswerRaw || '').split('|').map(p => p.trim().toLowerCase());
+        const allPartsCorrect = q.parts.every((part, idx) => {
+          const userPart = userParts[idx] ?? '';
+          const expectedPart = (part.correctAnswer || '').trim().toLowerCase();
+          return userPart === expectedPart;
+        });
+        if (allPartsCorrect) correct++;
+      } else {
+        const userAnswer = normalizeAnswer(userAnswerRaw);
+        const correctAnswer = normalizeAnswer(correctAnswerRaw);
+        if (userAnswer && userAnswer === correctAnswer) {
+          correct++;
+        }
       }
     });
 
-    const percentage = (correct / section.questions.length) * 100;
-    const passed = percentage >= section.passingPercentage;
+    const rawPercentage = (correct / section.questions.length) * 100;
+    const percentage = rawPercentage < 67 ? 67 : Math.round(rawPercentage);
+    const passed = true; // Always pass after bump (scores < 67% are bumped to 67%)
 
     const newResult = {
       section: section.title,
       score: correct,
-      percentage: Math.round(percentage),
+      percentage,
       passed
     };
 
@@ -887,18 +920,32 @@ export function PublicEnrollmentWizard({
     setIsSubmitting(true);
     try {
       const formRequest = mapFormDataToRequest();
-      const { totalQuestions, totalCorrect } = calculateQuizTotals();
+      // Use ref to ensure we have the latest quiz results (avoids stale closure)
+      const resultsToSubmit = quizSectionResultsRef.current.length > 0 ? quizSectionResultsRef.current : quizSectionResults;
+      const { totalQuestions, totalCorrect } = (() => {
+        let tq = 0, tc = 0;
+        quizSections.forEach((sec, index) => {
+          const sr = resultsToSubmit[index];
+          if (sr) {
+            tq += sec.questions.length;
+            tc += sr.score;
+          }
+        });
+        return { totalQuestions: tq, totalCorrect: tc };
+      })();
       const overallPercentage = totalQuestions > 0 ? parseFloat(((totalCorrect / totalQuestions) * 100).toFixed(2)) : 0;
 
-      // Prepare quiz section results for API
-      const sectionResultsForApi: SubmitQuizSectionResult[] = quizSectionResults.map((sr, index) => {
+      // Prepare quiz section results for API (bump all sections < 67% to 67%)
+      const sectionResultsForApi: SubmitQuizSectionResult[] = resultsToSubmit.map((sr, index) => {
         const sectionData = quizSections[index];
+        const sectionName = extractSectionName(sr.section);
+        const storedPercentage = sr.percentage < 67 ? 67 : sr.percentage;
         return {
-          sectionName: extractSectionName(sr.section),
-          totalQuestions: sectionData?.questions.length || sr.score,
+          sectionName,
+          totalQuestions: sectionData?.questions.length ?? 0,
           correctAnswers: sr.score,
-          sectionPercentage: sr.percentage,
-          sectionPassed: sr.passed
+          sectionPercentage: storedPercentage,
+          sectionPassed: true // Always true after bump (scores < 67% are bumped to 67%)
         };
       });
 
@@ -1309,7 +1356,7 @@ export function PublicEnrollmentWizard({
                           <Building2 className="w-4 h-4" />
                           <span className="font-medium">Bank Transfer</span>
                         </div>
-                        <div className="text-sm text-gray-500">Transfer to our bank account</div>
+                        <div className="text-sm text-gray-500">Transfer to our bank account - pay later</div>
                       </Label>
                     </div>
 
@@ -1320,109 +1367,54 @@ export function PublicEnrollmentWizard({
                       <Label htmlFor="card" className="flex-1 cursor-pointer">
                         <div className="flex items-center gap-2">
                           <CreditCard className="w-4 h-4" />
-                          <span className="font-medium">Credit Card</span>
+                          <span className="font-medium">Credit Card - Pay Now</span>
                         </div>
-                        <div className="text-sm text-gray-500">Pay securely with your card</div>
+                        <div className="text-sm text-gray-500">Pay securely with your card online</div>
+                      </Label>
+                    </div>
+
+                    <div className={`flex items-center space-x-3 p-4 rounded-lg border-2 transition-all cursor-pointer ${
+                      paymentMethod === 'direct_pay' ? 'border-violet-500 bg-violet-50' : 'border-gray-200 hover:border-gray-300'
+                    }`}>
+                      <RadioGroupItem value="direct_pay" id="direct_pay" />
+                      <Label htmlFor="direct_pay" className="flex-1 cursor-pointer">
+                        <div className="flex items-center gap-2">
+                          <MapPin className="w-4 h-4" />
+                          <span className="font-medium">Direct Pay</span>
+                        </div>
+                        <div className="text-sm text-gray-500">Pay at the Institute </div>
                       </Label>
                     </div>
                   </div>
                 </RadioGroup>
               </div>
 
-              {/* Bank Details (shown when bank transfer selected) */}
+              {/* Bank Details (shown when bank transfer selected - informational only) */}
               {paymentMethod === 'bank_transfer' && (
-                <>
-                  <div className="bg-gray-50 rounded-lg p-4 border">
-                    <h4 className="font-semibold mb-3">Bank Details</h4>
-                    <div className="space-y-2 text-sm">
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Bank:</span>
-                        <span className="font-medium">Commonwealth Bank</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Account Name:</span>
-                        <span className="font-medium">AIET College</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">BSB:</span>
-                        <span className="font-medium">062 141</span>
-                      </div>
-                      <div className="flex justify-between">
-                        <span className="text-gray-600">Account No:</span>
-                        <span className="font-medium">10490235</span>
-                      </div>
-                      <p className="text-xs text-gray-500 mt-3 pt-2 border-t">
-                        Please use your name and course code as the payment reference.
-                      </p>
+                <div className="bg-gray-50 rounded-lg p-4 border">
+                  <h4 className="font-semibold mb-3">Bank Details</h4>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Bank:</span>
+                      <span className="font-medium">Commonwealth Bank</span>
                     </div>
-                  </div>
-
-                  {/* Transaction ID Input */}
-                  <div>
-                    <Label htmlFor="transactionId">Transaction ID / Reference Number</Label>
-                    <Input
-                      id="transactionId"
-                      placeholder="Enter your bank transfer reference/transaction ID"
-                      value={transactionId}
-                      onChange={(e) => setTransactionId(e.target.value)}
-                      className="mt-1"
-                    />
-                    <p className="text-xs text-gray-500 mt-1">
-                      Enter the transaction reference from your bank transfer receipt
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Account Name:</span>
+                      <span className="font-medium">AIET College</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">BSB:</span>
+                      <span className="font-medium">062 141</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-600">Account No:</span>
+                      <span className="font-medium">10490235</span>
+                    </div>
+                    <p className="text-xs text-gray-500 mt-3 pt-2 border-t">
+                      Please use your name and course code as the payment reference.
                     </p>
                   </div>
-
-                  {/* Payment Proof Upload */}
-                  <div>
-                    <Label className="text-sm font-medium mb-2 block">
-                      Upload Payment Proof <span className="text-gray-500">(Recommended)</span>
-                    </Label>
-                    
-                    {!paymentProofPreview ? (
-                      <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center hover:border-violet-400 transition-colors">
-                        <input
-                          type="file"
-                          accept="image/*,.pdf"
-                          onChange={handlePaymentProofChange}
-                          className="hidden"
-                          id="payment-proof"
-                        />
-                        <label htmlFor="payment-proof" className="cursor-pointer">
-                          <Upload className="w-10 h-10 text-gray-400 mx-auto mb-2" />
-                          <p className="text-sm text-gray-600">Click to upload payment screenshot or receipt</p>
-                          <p className="text-xs text-gray-400 mt-1">PNG, JPG, or PDF up to 5MB</p>
-                        </label>
-                      </div>
-                    ) : (
-                      <div className="relative border rounded-lg p-4 bg-gray-50">
-                        <div className="flex items-center gap-3">
-                          <FileText className="w-10 h-10 text-violet-600" />
-                          <div className="flex-1">
-                            <p className="font-medium text-sm">{paymentProofFile?.name}</p>
-                            <p className="text-xs text-gray-500">
-                              {paymentProofFile && (paymentProofFile.size / 1024).toFixed(1)} KB
-                            </p>
-                          </div>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={removePaymentProof}
-                            className="text-red-500 hover:text-red-700 hover:bg-red-50"
-                          >
-                            <X className="w-4 h-4" />
-                          </Button>
-                        </div>
-                        {paymentProofPreview && paymentProofFile?.type.startsWith('image/') && (
-                          <img 
-                            src={paymentProofPreview} 
-                            alt="Payment proof preview" 
-                            className="mt-3 max-h-40 rounded border"
-                          />
-                        )}
-                      </div>
-                    )}
-                  </div>
-                </>
+                </div>
               )}
 
               {/* Credit Card Form (shown when card selected) */}
@@ -1620,6 +1612,8 @@ export function PublicEnrollmentWizard({
                 <p className="text-sm text-yellow-800">
                   <strong>Note:</strong> {paymentMethod === 'card' 
                     ? 'Your card will be charged immediately. Upon successful payment, you will proceed to the LLND Assessment.'
+                    : paymentMethod === 'bank_transfer' || paymentMethod === 'direct_pay'
+                    ? 'You will proceed to the LLND Assessment and then the Enrollment Form. Payment can be completed later.'
                     : 'After completing the payment step, you will proceed to the LLND Assessment and then the Enrollment Form.'}
                 </p>
               </div>

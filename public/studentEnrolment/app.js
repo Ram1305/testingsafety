@@ -41,8 +41,7 @@ async function fetchEnrollmentFormData(formId) {
     // Note: Using mode: 'cors' without credentials for cross-origin requests
     const response = await fetch(`${API_BASE_URL}/api/StudentEnrollmentForm/admin/${formId}`, {
       method: 'GET',
-      mode: 'cors',
-      headers: headers
+      credentials: 'include', // Include cookies for same-origin requests
     });
     
     if (!response.ok) {
@@ -110,7 +109,7 @@ function mapApiDataToFormData(apiData) {
         number: apiData.medicareNumber || '', 
         irn: apiData.medicareIRN || '', 
         colour: apiData.medicareCardColor || '', 
-        expiry: apiData.medicareExpiry || '' 
+        expiry: formatDateForForm(apiData.medicareExpiry) 
       },
       birthCertificate: { state: apiData.birthCertificateState || '' },
       immicard: { number: apiData.immiCardNumber || '' },
@@ -121,16 +120,11 @@ function mapApiDataToFormData(apiData) {
       },
       citizenshipCertificate: { 
         stock: apiData.citizenshipStockNumber || '', 
-        acquisitionDate: apiData.citizenshipAcquisitionDate || '' 
+        acquisitionDate: formatDateForForm(apiData.citizenshipAcquisitionDate) 
       },
-      registrationByDescent: { acquisitionDate: apiData.descentAcquisitionDate || '' }
+      registrationByDescent: { acquisitionDate: formatDateForForm(apiData.descentAcquisitionDate) }
     },
-    officeUse: {
-      photoIdType: '',
-      passportNumber: '',
-      driverLicenceNumber: '',
-      otherText: ''
-    },
+    officeUse: deriveOfficeUseFromIdentity(apiData),
 
     // Page 3 - Education
     page3: {
@@ -221,7 +215,19 @@ function formatDeclarationDate(dateStr) {
     const date = new Date(dateStr);
     return date.toLocaleDateString('en-AU', { day: '2-digit', month: '2-digit', year: 'numeric' });
   } catch {
-    return dateStr;
+    return String(dateStr || '');
+  }
+}
+
+// Format date for form fields (DD/MM/YYYY)
+function formatDateForForm(value) {
+  if (value == null || value === '') return '';
+  try {
+    const date = new Date(value);
+    if (isNaN(date.getTime())) return '';
+    return date.toLocaleDateString('en-AU', { day: '2-digit', month: '2-digit', year: 'numeric' });
+  } catch {
+    return String(value);
   }
 }
 
@@ -276,6 +282,32 @@ function mapIndigenousStatus(status) {
     'Aboriginal and Torres Strait Islander': 'Both'
   };
   return mapping[status] || 'No';
+}
+
+// Derive office use photo ID from identity documents
+function deriveOfficeUseFromIdentity(apiData) {
+  if (apiData.australianPassportNumber) {
+    return {
+      photoIdType: 'Passport',
+      passportNumber: apiData.australianPassportNumber || '',
+      driverLicenceNumber: '',
+      otherText: ''
+    };
+  }
+  if (apiData.driversLicenceNumber) {
+    return {
+      photoIdType: 'DriverLicence',
+      passportNumber: '',
+      driverLicenceNumber: apiData.driversLicenceNumber || '',
+      otherText: ''
+    };
+  }
+  return {
+    photoIdType: '',
+    passportNumber: '',
+    driverLicenceNumber: '',
+    otherText: ''
+  };
 }
 
 // API configuration - will be replaced in production
@@ -448,7 +480,18 @@ function setFillLine(key, value) {
   if (!wrap) return;
   const valEl = wrap.querySelector(".fillVal");
   if (!valEl) return;
-  valEl.textContent = value ?? "";
+  const v = value ?? "";
+  if (key === "p13StudentSignature" && typeof v === "string" && v.startsWith("data:image")) {
+    valEl.textContent = "";
+    const img = document.createElement("img");
+    img.src = v;
+    img.alt = "Signature";
+    img.style.maxHeight = "24px";
+    img.style.maxWidth = "80px";
+    valEl.appendChild(img);
+  } else {
+    valEl.textContent = v;
+  }
 }
 
 /* ---------------- PAGE 1 ---------------- */
@@ -597,12 +640,18 @@ function fillPage14(d){
   setText("p14Phone", p.submission?.phone);
 }
 
-/* ---------------- PAGE 15 ---------------- */
+/* ---------------- PAGE 15 (and Page 13 declaration - same data) ---------------- */
 function fillPage15(d){
   const p = d.page15 || {};
 
   setMultiChecks("p15Ack", p.acknowledgements);
 
+  // Page 13 has the declaration in the HTML (p13*) - fill those
+  setFillLine("p13StudentName", p.studentName);
+  setFillLine("p13StudentSignature", p.signature);
+  setFillLine("p13StudentDate", p.date);
+
+  // Page 15 fields if they exist in HTML
   setFillLine("p15StudentName", p.studentName);
   setFillLine("p15Signature", p.signature);
   setFillLine("p15Date", p.date);

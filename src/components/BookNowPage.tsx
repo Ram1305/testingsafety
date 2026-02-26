@@ -53,7 +53,7 @@ export function BookNowPage({ onBack, onLogin, onRegister, onCourseDetails, onAb
   const fetchCourses = async () => {
     try {
       setLoading(true);
-      const response = await courseService.getAllCourses();
+      const response = await courseService.getAllCourses({ pageSize: 1000 });
       if (response.success && response.data) {
         setCourses(response.data.courses);
       }
@@ -491,11 +491,13 @@ export function BookNowPage({ onBack, onLogin, onRegister, onCourseDetails, onAb
                           alt={course.courseName}
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                         />
-                        <div className="absolute top-4 right-4">
-                          <Badge className="bg-cyan-500 text-white px-3 py-1 text-sm font-semibold shadow-lg">
-                            {course.validityPeriod || "5 years"}
-                          </Badge>
-                        </div>
+                        {course.validityPeriod && (
+                          <div className="absolute top-4 right-4">
+                            <Badge className="bg-cyan-500 text-white px-3 py-1 text-sm font-semibold shadow-lg">
+                              {course.validityPeriod}
+                            </Badge>
+                          </div>
+                        )}
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                           <span className="text-white font-semibold text-lg">View Details</span>
                         </div>
@@ -528,10 +530,12 @@ export function BookNowPage({ onBack, onLogin, onRegister, onCourseDetails, onAb
                         </div>
 
                         <div className="flex items-center gap-4 text-sm text-gray-600">
-                          <div className="flex items-center gap-1">
-                            <Clock className="w-4 h-4 text-cyan-500" />
-                            <span>{course.duration || "2 days"}</span>
-                          </div>
+                          {course.duration && (
+                            <div className="flex items-center gap-1">
+                              <Clock className="w-4 h-4 text-cyan-500" />
+                              <span>{course.duration}</span>
+                            </div>
+                          )}
                           <div className="flex items-center gap-1">
                             <Users className="w-4 h-4 text-cyan-500" />
                             <span>{course.enrolledStudentsCount} students</span>

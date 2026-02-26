@@ -40,7 +40,7 @@ export function AboutUsPage({ onBack, onLogin, onRegister, onContact, onViewCour
   const fetchData = async () => {
     try {
       const [coursesRes, categoriesRes] = await Promise.all([
-        courseService.getAllCourses(),
+        courseService.getAllCourses({ pageSize: 1000 }),
         categoryService.getCategoriesDropdown()
       ]);
       if (coursesRes.success && coursesRes.data) {
@@ -470,7 +470,7 @@ export function AboutUsPage({ onBack, onLogin, onRegister, onContact, onViewCour
                 <div className="absolute bottom-6 left-6 right-6">
                   <Badge className="bg-cyan-500 text-white px-4 py-2 text-lg shadow-xl">
                     <MapPin className="w-4 h-4 inline mr-2" />
-                    1-3 Mary Street, Regents Park, NSW 2143
+                    Safety Training Academy | Sydney - 3/14-16 Marjorie Street, Sefton NSW 2162
                   </Badge>
                 </div>
               </div>
@@ -762,7 +762,7 @@ export function AboutUsPage({ onBack, onLogin, onRegister, onContact, onViewCour
               <ul className="space-y-2 text-sm text-white/90">
                 <li className="flex items-start gap-2">
                   <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                  <span>1-3 Mary Street, Regents Park, NSW 2143 AUSTRALIA</span>
+                  <span>Safety Training Academy | Sydney - 3/14-16 Marjorie Street, Sefton NSW 2162 AUSTRALIA</span>
                 </li>
               </ul>
             </div>

@@ -515,7 +515,7 @@ export function AdminQuizResults({ initialSearchQuery }: AdminQuizResultsProps =
                       />
                       <div className="flex justify-between text-sm text-gray-600 mt-1">
                         <span>{section.correctAnswers}/{section.totalQuestions} correct</span>
-                        <span>{section.sectionPassed ? 'Passed' : 'Failed'} (Passing: 66%)</span>
+                        <span>{section.sectionPassed ? 'Passed' : 'Failed'} (Passing: 67%)</span>
                       </div>
                     </CardContent>
                   </Card>

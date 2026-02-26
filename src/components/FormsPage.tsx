@@ -36,7 +36,7 @@ export function FormsPage({ onBack, onLogin, onRegister, onAbout, onContact, onB
   const fetchData = async () => {
     try {
       const [coursesRes, categoriesRes] = await Promise.all([
-        courseService.getAllCourses(),
+        courseService.getAllCourses({ pageSize: 1000 }),
         categoryService.getCategoriesDropdown()
       ]);
       if (coursesRes.success && coursesRes.data) {

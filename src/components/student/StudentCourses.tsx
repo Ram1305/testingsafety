@@ -1,4 +1,14 @@
 import { useState, useEffect, useCallback } from 'react';
+
+// Debounce hook for search
+function useDebounce<T>(value: T, delay: number): T {
+  const [debouncedValue, setDebouncedValue] = useState<T>(value);
+  useEffect(() => {
+    const handler = setTimeout(() => setDebouncedValue(value), delay);
+    return () => clearTimeout(handler);
+  }, [value, delay]);
+  return debouncedValue;
+}
 import { Search, BookOpen, Clock, Users, CheckCircle, Upload, AlertTriangle, Loader2, Calendar, FileText } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '../ui/card';
 import { Button } from '../ui/button';
@@ -21,6 +31,7 @@ import { Label } from '../ui/label';
 export function StudentCourses() {
   const { user } = useAuth();
   const [searchQuery, setSearchQuery] = useState('');
+  const debouncedSearchQuery = useDebounce(searchQuery, 300);
   const [showQuiz, setShowQuiz] = useState(false);
   const [showPaymentUpload, setShowPaymentUpload] = useState(false);
   const [selectedCourseForPayment, setSelectedCourseForPayment] = useState<StudentBrowseCourse | null>(null);
@@ -76,7 +87,7 @@ export function StudentCourses() {
     }
   }, [user?.studentId]);
 
-  // Fetch available courses
+  // Fetch available courses (uses debounced search to avoid excessive API calls)
   const fetchAvailableCourses = useCallback(async () => {
     if (!user?.studentId) return;
     
@@ -84,7 +95,7 @@ export function StudentCourses() {
     setCourseError(null);
     
     try {
-      const response = await enrollmentService.getAvailableCourses(user.studentId, searchQuery || undefined);
+      const response = await enrollmentService.getAvailableCourses(user.studentId, debouncedSearchQuery.trim() || undefined);
       if (response.success && response.data) {
         setAvailableCourses(response.data);
       } else {
@@ -96,7 +107,7 @@ export function StudentCourses() {
     } finally {
       setIsLoadingCourses(false);
     }
-  }, [user?.studentId, searchQuery]);
+  }, [user?.studentId, debouncedSearchQuery]);
 
   // Fetch enrolled courses
   const fetchEnrolledCourses = useCallback(async () => {
@@ -127,16 +138,6 @@ export function StudentCourses() {
   useEffect(() => {
     fetchEnrollmentFormStatus();
   }, [fetchEnrollmentFormStatus]);
-
-  // Debounced search
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      if (user?.studentId) {
-        fetchAvailableCourses();
-      }
-    }, 300);
-    return () => clearTimeout(timer);
-  }, [searchQuery]);
 
   // NEW FLOW: Show payment screen first, create enrollment only on payment submit
   const handleEnrollClick = async (course: StudentBrowseCourse) => {
@@ -627,10 +628,12 @@ export function StudentCourses() {
                     </CardHeader>
                     <CardContent className="space-y-3">
                       <div className="flex items-center justify-between text-gray-600">
-                        <div className="flex items-center gap-1">
-                          <Clock className="w-4 h-4" />
-                          <span>{course.duration || 'Contact us'}</span>
-                        </div>
+                        {course.duration && (
+                          <div className="flex items-center gap-1">
+                            <Clock className="w-4 h-4" />
+                            <span>{course.duration}</span>
+                          </div>
+                        )}
                         <div className="flex items-center gap-1">
                           <Users className="w-4 h-4" />
                           <span>{course.enrolledStudentsCount}</span>

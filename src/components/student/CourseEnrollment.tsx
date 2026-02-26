@@ -153,7 +153,7 @@ export function CourseEnrollment({
               Unfortunately, you did not pass the pre-enrollment assessment
             </h2>
             <p className="text-gray-600 mb-4">
-              You need to pass all sections with at least 66% to proceed with enrollment.
+              You need to pass all sections with at least 67% to proceed with enrollment.
             </p>
           </div>
 

@@ -86,11 +86,11 @@ export interface CourseFilter {
 }
 
 export interface CreateCourseRequest {
-  courseCode: string;
-  courseName: string;
+  courseCode?: string;
+  courseName?: string;
   categoryId?: string;
   duration?: string;
-  price: number;
+  price?: number;
   originalPrice?: number;
   imageUrl?: string;
   hasTheory?: boolean;

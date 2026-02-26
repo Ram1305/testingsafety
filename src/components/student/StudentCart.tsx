@@ -84,7 +84,9 @@ export function StudentCart({ onCartUpdate }: StudentCartProps) {
                             <div className="mb-1">{item.courseName}</div>
                             <div className="flex gap-2 mb-2">
                               <Badge variant="secondary">{item.duration}</Badge>
-                              <Badge variant="secondary">Valid {item.validityPeriod}</Badge>
+                              {item.validityPeriod && (
+                                <Badge variant="secondary">Valid {item.validityPeriod}</Badge>
+                              )}
                             </div>
                             <p className="text-gray-600">Next batch: {item.nextBatch}</p>
                           </div>

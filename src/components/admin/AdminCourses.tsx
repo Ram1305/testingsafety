@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { Plus, Edit, Trash2, Upload, X, Tags, Loader2, Calendar as CalendarIcon, Clock, Search, GraduationCap } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { Plus, Edit, Trash2, Upload, X, Tags, Loader2, Calendar as CalendarIcon, Clock, Search, GraduationCap, FileText } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
@@ -17,6 +17,7 @@ import type { CategoryItem, CategoryDropdownItem } from '../../services/category
 import { courseDateService } from '../../services/courseDate.service';
 import type { CourseDateSimple, CreateCourseDateRequest } from '../../services/courseDate.service';
 import { adminManagementService, type AdminResponse } from '../../services/adminManagement.service';
+import { filesService } from '../../services/files.service';
 
 interface CourseFormData {
   code: string;
@@ -166,6 +167,12 @@ export function AdminCourses() {
   // Form data
   const [formData, setFormData] = useState<CourseFormData>(initialFormData);
 
+  // Resource PDF upload
+  const [resourcePdfFile, setResourcePdfFile] = useState<File | null>(null);
+  const [resourcePdfUploading, setResourcePdfUploading] = useState(false);
+  const [resourcePdfUploadError, setResourcePdfUploadError] = useState<string | null>(null);
+  const resourcePdfInputRef = useRef<HTMLInputElement>(null);
+
   // Teacher states for date management
   const [teachers, setTeachers] = useState<AdminResponse[]>([]);
   const [teacherSearchQuery, setTeacherSearchQuery] = useState('');
@@ -275,11 +282,11 @@ export function AdminCourses() {
       setError(null);
 
       const request: CreateCourseRequest = {
-        courseCode: formData.code,
-        courseName: formData.title,
+        courseCode: formData.code.trim() || undefined,
+        courseName: formData.title.trim() || undefined,
         categoryId: formData.categoryId || undefined,
-        duration: formData.duration,
-        price: formData.price,
+        duration: formData.duration || undefined,
+        price: formData.price || undefined,
         originalPrice: formData.originalPrice,
         imageUrl: formData.image,
         hasTheory: formData.hasTheory,
@@ -604,6 +611,50 @@ export function AdminCourses() {
   const clearImage = () => {
     setImagePreview('');
     setFormData(prev => ({ ...prev, image: '' }));
+  };
+
+  const handleResourcePdfFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    setResourcePdfUploadError(null);
+    if (file) {
+      if (file.type !== 'application/pdf') {
+        setResourcePdfUploadError('Please select a PDF file');
+        return;
+      }
+      if (file.size > 10 * 1024 * 1024) {
+        setResourcePdfUploadError('File size must be less than 10MB');
+        return;
+      }
+      setResourcePdfFile(file);
+    } else {
+      setResourcePdfFile(null);
+    }
+  };
+
+  const handleResourcePdfUpload = async () => {
+    if (!resourcePdfFile) return;
+    setResourcePdfUploading(true);
+    setResourcePdfUploadError(null);
+    try {
+      const url = await filesService.uploadFile(resourcePdfFile, 'course-resources');
+      setFormData(prev => ({
+        ...prev,
+        resourcePdfUrl: url,
+        resourcePdfTitle: prev.resourcePdfTitle || resourcePdfFile.name.replace(/\.pdf$/i, ''),
+      }));
+      setResourcePdfFile(null);
+      if (resourcePdfInputRef.current) resourcePdfInputRef.current.value = '';
+    } catch (err) {
+      setResourcePdfUploadError(err instanceof Error ? err.message : 'Failed to upload PDF');
+    } finally {
+      setResourcePdfUploading(false);
+    }
+  };
+
+  const clearResourcePdf = () => {
+    setFormData(prev => ({ ...prev, resourcePdfUrl: '', resourcePdfTitle: prev.resourcePdfTitle }));
+    setResourcePdfFile(null);
+    setResourcePdfUploadError(null);
   };
 
   // ==================== DATE MANAGEMENT FUNCTIONS ====================
@@ -1203,7 +1254,7 @@ export function AdminCourses() {
                 <TabsContent value="basic" className="space-y-4 mt-4">
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="code">Course Code *</Label>
+                      <Label htmlFor="code">Course Code (Optional)</Label>
                       <Input
                         id="code"
                         placeholder="e.g., RIIHAN309F"
@@ -1212,7 +1263,7 @@ export function AdminCourses() {
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="title">Course Title *</Label>
+                      <Label htmlFor="title">Course Title (Optional)</Label>
                       <Input
                         id="title"
                         placeholder="e.g., Conduct Telescopic materials handler operations"
@@ -1221,7 +1272,7 @@ export function AdminCourses() {
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="category">Category *</Label>
+                      <Label htmlFor="category">Category (Optional)</Label>
                       <Select
                         value={formData.categoryId}
                         onValueChange={(value) => setFormData({ ...formData, categoryId: value })}
@@ -1239,7 +1290,7 @@ export function AdminCourses() {
                       </Select>
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="duration">Duration *</Label>
+                      <Label htmlFor="duration">Duration (Optional)</Label>
                       <Input
                         id="duration"
                         placeholder="e.g., 1 Day Course"
@@ -1248,7 +1299,7 @@ export function AdminCourses() {
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="price">Price ($) *</Label>
+                      <Label htmlFor="price">Price ($) (Optional)</Label>
                       <Input
                         id="price"
                         type="number"
@@ -1283,7 +1334,7 @@ export function AdminCourses() {
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="delivery">Delivery Method *</Label>
+                      <Label htmlFor="delivery">Delivery Method (Optional)</Label>
                       <Input
                         id="delivery"
                         placeholder="e.g., Face to Face Training"
@@ -1294,7 +1345,7 @@ export function AdminCourses() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="location">Location *</Label>
+                    <Label htmlFor="location">Location (Optional)</Label>
                     <Select
                       value={formData.location}
                       onValueChange={(value) => setFormData({ ...formData, location: value })}
@@ -1310,7 +1361,7 @@ export function AdminCourses() {
                   </div>
 
                   <div className="space-y-4">
-                    <Label>Course Image *</Label>
+                    <Label>Course Image (Optional)</Label>
 
                     {/* Upload Method Toggle */}
                     <div className="flex gap-2 mb-3">
@@ -1413,7 +1464,7 @@ export function AdminCourses() {
                 {/* Details Tab */}
                 <TabsContent value="details" className="space-y-4 mt-4">
                   <div className="space-y-2">
-                    <Label htmlFor="courseDescription">Course Description *</Label>
+                    <Label htmlFor="courseDescription">Course Description (Optional)</Label>
                     <Textarea
                       id="courseDescription"
                       rows={5}
@@ -1424,7 +1475,7 @@ export function AdminCourses() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label>Training Overview *</Label>
+                    <Label>Training Overview (Optional)</Label>
                     {formData.trainingOverview.map((item, index) => (
                       <div key={index} className="flex gap-2">
                         <Input
@@ -1452,7 +1503,7 @@ export function AdminCourses() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label>Vocational Outcome *</Label>
+                    <Label>Vocational Outcome (Optional)</Label>
                     {formData.vocationalOutcome.map((item, index) => (
                       <div key={index} className="flex gap-2">
                         <Input
@@ -1480,7 +1531,7 @@ export function AdminCourses() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label>Fees and Charges *</Label>
+                    <Label>Fees and Charges (Optional)</Label>
                     {formData.feesAndCharges.map((item, index) => (
                       <div key={index} className="flex gap-2">
                         <Input
@@ -1508,7 +1559,7 @@ export function AdminCourses() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label>Optional Charges</Label>
+                    <Label>Optional Charges (Optional)</Label>
                     {formData.optional.map((item, index) => (
                       <div key={index} className="flex gap-2">
                         <Input
@@ -1539,7 +1590,7 @@ export function AdminCourses() {
                 {/* Requirements Tab */}
                 <TabsContent value="requirements" className="space-y-4 mt-4">
                   <div className="space-y-2">
-                    <Label>Entry Requirements *</Label>
+                    <Label>Entry Requirements (Optional)</Label>
                     {formData.entryRequirements.map((item, index) => (
                       <div key={index} className="flex gap-2">
                         <Input
@@ -1568,7 +1619,13 @@ export function AdminCourses() {
 
                   <Card>
                     <CardHeader>
-                      <CardTitle className="text-lg">Resource PDF (Optional)</CardTitle>
+                      <CardTitle className="text-lg flex items-center gap-2">
+                        <FileText className="w-5 h-5" />
+                        Resource PDF (Optional)
+                      </CardTitle>
+                      <CardDescription>
+                        Upload a PDF or enter a URL. Students will see this as a downloadable resource.
+                      </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4">
                       <div className="space-y-2">
@@ -1581,10 +1638,78 @@ export function AdminCourses() {
                         />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="resourcePdfUrl">PDF URL</Label>
+                        <Label>Upload PDF</Label>
+                        <div className="flex flex-wrap gap-2 items-center">
+                          <input
+                            ref={resourcePdfInputRef}
+                            type="file"
+                            accept=".pdf,application/pdf"
+                            className="hidden"
+                            onChange={handleResourcePdfFileChange}
+                          />
+                          <Button
+                            type="button"
+                            variant="outline"
+                            onClick={() => resourcePdfInputRef.current?.click()}
+                            disabled={resourcePdfUploading}
+                          >
+                            {resourcePdfUploading ? (
+                              <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                            ) : (
+                              <Upload className="w-4 h-4 mr-2" />
+                            )}
+                            {resourcePdfFile ? resourcePdfFile.name : 'Choose PDF'}
+                          </Button>
+                          {resourcePdfFile && (
+                            <Button
+                              type="button"
+                              onClick={handleResourcePdfUpload}
+                              disabled={resourcePdfUploading}
+                            >
+                              {resourcePdfUploading ? (
+                                <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                              ) : (
+                                <Upload className="w-4 h-4 mr-2" />
+                              )}
+                              Upload
+                            </Button>
+                          )}
+                          {formData.resourcePdfUrl && (
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              size="sm"
+                              onClick={clearResourcePdf}
+                              className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                            >
+                              <X className="w-4 h-4 mr-1" />
+                              Clear
+                            </Button>
+                          )}
+                        </div>
+                        {resourcePdfUploadError && (
+                          <p className="text-sm text-red-600">{resourcePdfUploadError}</p>
+                        )}
+                        {formData.resourcePdfUrl && (
+                          <p className="text-sm text-green-600 flex items-center gap-1">
+                            <FileText className="w-4 h-4" />
+                            PDF linked. Students can download from course details.
+                          </p>
+                        )}
+                      </div>
+                      <div className="relative">
+                        <div className="absolute inset-0 flex items-center">
+                          <span className="w-full border-t" />
+                        </div>
+                        <div className="relative flex justify-center text-xs uppercase">
+                          <span className="bg-white px-2 text-gray-500">Or</span>
+                        </div>
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="resourcePdfUrl">Enter PDF URL</Label>
                         <Input
                           id="resourcePdfUrl"
-                          placeholder="https://..."
+                          placeholder="https://... (external link)"
                           value={formData.resourcePdfUrl || ''}
                           onChange={(e) => setFormData({ ...formData, resourcePdfUrl: e.target.value })}
                         />
@@ -1596,7 +1721,7 @@ export function AdminCourses() {
                 {/* Pathways Tab */}
                 <TabsContent value="pathways" className="space-y-4 mt-4">
                   <div className="space-y-2">
-                    <Label htmlFor="pathwaysDescription">Pathways Description</Label>
+                    <Label htmlFor="pathwaysDescription">Pathways Description (Optional)</Label>
                     <Textarea
                       id="pathwaysDescription"
                       rows={3}
@@ -1607,7 +1732,7 @@ export function AdminCourses() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label>Pathway Certifications</Label>
+                    <Label>Pathway Certifications (Optional)</Label>
                     {formData.pathwaysCertifications.map((item, index) => (
                       <div key={index} className="flex gap-2">
                         <Input
@@ -1668,7 +1793,7 @@ export function AdminCourses() {
                                 ✓ Book With Experience
                               </h4>
                               <div className="space-y-2">
-                                <Label htmlFor="experiencePrice">Price ($) *</Label>
+                                <Label htmlFor="experiencePrice">Price ($) (Optional)</Label>
                                 <Input
                                   id="experiencePrice"
                                   type="number"
@@ -1695,7 +1820,7 @@ export function AdminCourses() {
                                 ✗ Book Without Experience
                               </h4>
                               <div className="space-y-2">
-                                <Label htmlFor="noExperiencePrice">Price ($) *</Label>
+                                <Label htmlFor="noExperiencePrice">Price ($) (Optional)</Label>
                                 <Input
                                   id="noExperiencePrice"
                                   type="number"
@@ -1769,7 +1894,7 @@ export function AdminCourses() {
                       {formData.comboOfferEnabled && (
                         <>
                           <div className="space-y-2">
-                            <Label htmlFor="comboDescription">Combo Description *</Label>
+                            <Label htmlFor="comboDescription">Combo Description (Optional)</Label>
                             <Input
                               id="comboDescription"
                               placeholder="e.g., RIIWHS204E + RIIWHS202E Enter and work in confined spaces"
@@ -1783,7 +1908,7 @@ export function AdminCourses() {
 
                           <div className="grid grid-cols-2 gap-4">
                             <div className="space-y-2">
-                              <Label htmlFor="comboPrice">Combo Price ($) *</Label>
+                              <Label htmlFor="comboPrice">Combo Price ($) (Optional)</Label>
                               <Input
                                 id="comboPrice"
                                 type="number"
@@ -1793,7 +1918,7 @@ export function AdminCourses() {
                               />
                             </div>
                             <div className="space-y-2">
-                              <Label htmlFor="comboDuration">Combo Duration *</Label>
+                              <Label htmlFor="comboDuration">Combo Duration (Optional)</Label>
                               <Input
                                 id="comboDuration"
                                 placeholder="e.g., 2 Days Training"
@@ -1908,7 +2033,8 @@ export function AdminCourses() {
                     </div>
                     <CardTitle>{course.courseName}</CardTitle>
                     <CardDescription>
-                      {course.categoryName || 'Uncategorized'} • {course.duration} •
+                      {course.categoryName || 'Uncategorized'}
+                      {course.duration ? ` • ${course.duration}` : ''} •{' '}
                       {course.experienceBookingEnabled ? (
                         <span className="inline-flex flex-wrap items-center gap-x-3 gap-y-1 ml-1">
                           <span>

@@ -39,10 +39,10 @@ interface CourseDetailsPageProps {
 const mapApiCourseToDisplay = (apiCourse: APICourseDetail) => {
   return {
     id: apiCourse.courseId,
-    code: apiCourse.courseCode,
-    title: apiCourse.courseName,
+    code: apiCourse.courseCode || '',
+    title: apiCourse.courseName || (apiCourse.courseCode ? 'Course' : 'Course details not available.'),
     category: apiCourse.categoryName || 'Uncategorized',
-    duration: apiCourse.duration || '1 Day Course',
+    duration: apiCourse.duration || undefined,
     students: apiCourse.enrolledStudentsCount,
     price: apiCourse.price,
     originalPrice: apiCourse.originalPrice,
@@ -50,16 +50,16 @@ const mapApiCourseToDisplay = (apiCourse: APICourseDetail) => {
     hasTheory: apiCourse.hasTheory,
     hasPractical: apiCourse.hasPractical,
     hasExam: apiCourse.hasExam,
-    validityPeriod: apiCourse.validityPeriod || '3 years',
+    validityPeriod: apiCourse.validityPeriod || undefined,
     description: apiCourse.description || '',
     delivery: apiCourse.deliveryMethod || 'Face to Face Training',
     location: apiCourse.location || 'Location to be announced',
     comboOffer: apiCourse.comboOffer ? {
       description: apiCourse.comboOffer.description,
       price: apiCourse.comboOffer.price,
-      duration: apiCourse.comboOffer.duration || '2 Days Training'
+      duration: apiCourse.comboOffer.duration || undefined
     } : undefined,
-    courseDescription: apiCourse.courseDescription || 'Course description not available.',
+    courseDescription: apiCourse.courseDescription?.trim() || 'Course description not available.',
     entryRequirements: apiCourse.entryRequirements.length > 0 
       ? apiCourse.entryRequirements 
       : ['Be at least 18 years of age.', 'Successfully complete the enrolment process.'],
@@ -117,7 +117,7 @@ export function CourseDetailsPage({
   const fetchData = async () => {
     try {
       const [coursesRes, categoriesRes] = await Promise.all([
-        courseService.getAllCourses(),
+        courseService.getAllCourses({ pageSize: 1000 }), // Fetch all courses so all categories show in dropdown
         categoryService.getCategoriesDropdown()
       ]);
       if (coursesRes.success && coursesRes.data) {
@@ -139,6 +139,14 @@ export function CourseDetailsPage({
       const response = await courseService.getCourseById(courseId);
       
       if (response.success && response.data) {
+        // Debug: Log API response to verify categoryName, courseName, courseDescription
+        console.debug('[CourseDetails] API response:', {
+          courseId: response.data.courseId,
+          courseCode: response.data.courseCode,
+          courseName: response.data.courseName,
+          categoryName: response.data.categoryName,
+          courseDescription: response.data.courseDescription?.substring(0, 100),
+        });
         const mappedCourse = mapApiCourseToDisplay(response.data);
         setCourse(mappedCourse);
       } else {
@@ -496,7 +504,7 @@ export function CourseDetailsPage({
               )}
             </div>
             <h1 className="text-4xl md:text-5xl font-bold mb-3 bg-gradient-to-r from-white to-cyan-200 bg-clip-text text-transparent">
-              {course.code} - {course.title}
+              {course.code ? `${course.code} - ${course.title}` : course.title}
             </h1>
             <p className="text-blue-100 text-lg max-w-3xl">
               {course.description || 'Professional certification program with industry-recognized credentials'}
@@ -535,18 +543,22 @@ export function CourseDetailsPage({
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent" />
-              <div className="absolute top-6 right-6 flex gap-2">
-                <Badge className="bg-cyan-500 text-white px-4 py-2 text-lg font-bold shadow-xl rounded-full">
-                  <Award className="w-4 h-4 mr-1" />
-                  {course.validityPeriod}
-                </Badge>
-              </div>
+              {course.validityPeriod && (
+                <div className="absolute top-6 right-6 flex gap-2">
+                  <Badge className="bg-cyan-500 text-white px-4 py-2 text-lg font-bold shadow-xl rounded-full">
+                    <Award className="w-4 h-4 mr-1" />
+                    {course.validityPeriod}
+                  </Badge>
+                </div>
+              )}
               <div className="absolute bottom-6 left-6 right-6">
                 <div className="flex items-center gap-4 text-white">
-                  <div className="flex items-center gap-2 bg-white/20 backdrop-blur-md px-4 py-2 rounded-full">
-                    <Clock className="w-4 h-4" />
-                    <span className="font-semibold">{course.duration}</span>
-                  </div>
+                  {course.duration && (
+                    <div className="flex items-center gap-2 bg-white/20 backdrop-blur-md px-4 py-2 rounded-full">
+                      <Clock className="w-4 h-4" />
+                      <span className="font-semibold">{course.duration}</span>
+                    </div>
+                  )}
                   <div className="flex items-center gap-2 bg-white/20 backdrop-blur-md px-4 py-2 rounded-full">
                     <Users className="w-4 h-4" />
                     <span className="font-semibold">{course.students}+ enrolled</span>
@@ -582,15 +594,17 @@ export function CourseDetailsPage({
                 </CardContent>
               </Card>
 
-              <Card className="border-2 border-purple-100 shadow-lg rounded-2xl bg-gradient-to-br from-purple-50 to-white">
-                <CardContent className="p-4 text-center">
-                  <div className="w-12 h-12 bg-purple-500 rounded-xl flex items-center justify-center mx-auto mb-2">
-                    <Calendar className="w-6 h-6 text-white" />
-                  </div>
-                  <div className="text-xs text-gray-500 mb-1">Duration</div>
-                  <div className="text-sm font-bold text-slate-900">{course.duration}</div>
-                </CardContent>
-              </Card>
+              {course.duration && (
+                <Card className="border-2 border-purple-100 shadow-lg rounded-2xl bg-gradient-to-br from-purple-50 to-white">
+                  <CardContent className="p-4 text-center">
+                    <div className="w-12 h-12 bg-purple-500 rounded-xl flex items-center justify-center mx-auto mb-2">
+                      <Calendar className="w-6 h-6 text-white" />
+                    </div>
+                    <div className="text-xs text-gray-500 mb-1">Duration</div>
+                    <div className="text-sm font-bold text-slate-900">{course.duration}</div>
+                  </CardContent>
+                </Card>
+              )}
 
               <Card className="border-2 border-orange-100 shadow-lg rounded-2xl bg-gradient-to-br from-orange-50 to-white">
                 <CardContent className="p-4 text-center">
@@ -632,10 +646,12 @@ export function CourseDetailsPage({
                           <div className="text-sm text-white/80">Combo Price</div>
                           <div className="text-3xl font-bold text-white">${course.comboOffer.price}</div>
                         </div>
-                        <div className="bg-white/20 backdrop-blur-sm rounded-2xl px-6 py-3">
-                          <div className="text-sm text-white/80">Duration</div>
-                          <div className="text-xl font-bold text-white">{course.comboOffer.duration}</div>
-                        </div>
+                        {course.comboOffer.duration && (
+                          <div className="bg-white/20 backdrop-blur-sm rounded-2xl px-6 py-3">
+                            <div className="text-sm text-white/80">Duration</div>
+                            <div className="text-xl font-bold text-white">{course.comboOffer.duration}</div>
+                          </div>
+                        )}
                         <Button 
                           onClick={() => onEnroll({
                             courseName: course.title,
@@ -728,28 +744,30 @@ export function CourseDetailsPage({
               </Card>
             </motion.div>
 
-            {/* Duration Details */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            >
-              <Card className="border-2 border-purple-100 shadow-xl rounded-3xl bg-gradient-to-br from-white to-purple-50">
-                <CardHeader>
-                  <CardTitle className="text-2xl text-slate-900 flex items-center gap-3">
-                    <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-violet-600 rounded-xl flex items-center justify-center shadow-lg">
-                      <Clock className="w-6 h-6 text-white" />
-                    </div>
-                    Duration
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-700 text-lg">
-                    The total duration is <strong className="text-purple-600">{course.duration.toLowerCase()}</strong>. Training and assessment are conducted in our modern training facilities with industry-standard equipment.
-                  </p>
-                </CardContent>
-              </Card>
-            </motion.div>
+            {/* Duration Details - only show when duration is set */}
+            {course.duration && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+              >
+                <Card className="border-2 border-purple-100 shadow-xl rounded-3xl bg-gradient-to-br from-white to-purple-50">
+                  <CardHeader>
+                    <CardTitle className="text-2xl text-slate-900 flex items-center gap-3">
+                      <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-violet-600 rounded-xl flex items-center justify-center shadow-lg">
+                        <Clock className="w-6 h-6 text-white" />
+                      </div>
+                      Duration
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-700 text-lg">
+                      The total duration is <strong className="text-purple-600">{course.duration.toLowerCase()}</strong>. Training and assessment are conducted in our modern training facilities with industry-standard equipment.
+                    </p>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            )}
 
             {/* Training Overview */}
             {course.trainingOverview.length > 0 && (
@@ -948,13 +966,15 @@ export function CourseDetailsPage({
                   <div className="space-y-4">
                     <h3 className="text-xl font-bold text-slate-900 mb-4">Course Details</h3>
                     
-                    <div className="flex items-center justify-between p-4 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl border border-blue-100">
-                      <span className="text-gray-700 flex items-center gap-2 font-semibold">
-                        <Clock className="w-5 h-5 text-cyan-600" />
-                        Duration
-                      </span>
-                      <span className="font-bold text-slate-900">{course.duration}</span>
-                    </div>
+                    {course.duration && (
+                      <div className="flex items-center justify-between p-4 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl border border-blue-100">
+                        <span className="text-gray-700 flex items-center gap-2 font-semibold">
+                          <Clock className="w-5 h-5 text-cyan-600" />
+                          Duration
+                        </span>
+                        <span className="font-bold text-slate-900">{course.duration}</span>
+                      </div>
+                    )}
 
                     <div className="flex items-center justify-between p-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl border border-green-100">
                       <span className="text-gray-700 flex items-center gap-2 font-semibold">
@@ -964,13 +984,15 @@ export function CourseDetailsPage({
                       <span className="font-bold text-slate-900">{course.students}+</span>
                     </div>
 
-                    <div className="flex items-center justify-between p-4 bg-gradient-to-r from-purple-50 to-violet-50 rounded-xl border border-purple-100">
-                      <span className="text-gray-700 flex items-center gap-2 font-semibold">
-                        <Award className="w-5 h-5 text-purple-600" />
-                        Validity
-                      </span>
-                      <span className="font-bold text-slate-900">{course.validityPeriod}</span>
-                    </div>
+                    {course.validityPeriod && (
+                      <div className="flex items-center justify-between p-4 bg-gradient-to-r from-purple-50 to-violet-50 rounded-xl border border-purple-100">
+                        <span className="text-gray-700 flex items-center gap-2 font-semibold">
+                          <Award className="w-5 h-5 text-purple-600" />
+                          Validity
+                        </span>
+                        <span className="font-bold text-slate-900">{course.validityPeriod}</span>
+                      </div>
+                    )}
 
                     <div className="flex items-center justify-between p-4 bg-gradient-to-r from-orange-50 to-red-50 rounded-xl border border-orange-100">
                       <span className="text-gray-700 flex items-center gap-2 font-semibold">
@@ -1116,7 +1138,7 @@ export function CourseDetailsPage({
               <ul className="space-y-2 text-sm text-white/90">
                 <li className="flex items-start gap-2">
                   <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                  <span>1-3 Mary Street, Regents Park, NSW 2143 AUSTRALIA</span>
+                  <span>Safety Training Academy | Sydney - 3/14-16 Marjorie Street, Sefton NSW 2162</span>
                 </li>
               </ul>
             </div>

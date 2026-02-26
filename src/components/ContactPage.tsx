@@ -47,7 +47,7 @@ export function ContactPage({ onBack, onLogin, onRegister, onAbout, onViewCourse
   const fetchData = async () => {
     try {
       const [coursesRes, categoriesRes] = await Promise.all([
-        courseService.getAllCourses(),
+        courseService.getAllCourses({ pageSize: 1000 }),
         categoryService.getCategoriesDropdown()
       ]);
       if (coursesRes.success && coursesRes.data) {
@@ -490,7 +490,7 @@ export function ContactPage({ onBack, onLogin, onRegister, onAbout, onViewCourse
                     <div className="mb-6">
                       <h3 className="text-white text-xl font-bold mb-2">Safety Training Academy | Sydney</h3>
                       <a 
-                        href="https://goo.gl/maps/yourlink" 
+                        href="https://share.google/on3U2K0R0QAidiEqg" 
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-cyan-400 hover:text-cyan-300 text-lg font-semibold transition-colors"
@@ -500,7 +500,7 @@ export function ContactPage({ onBack, onLogin, onRegister, onAbout, onViewCourse
                     </div>
                     <Button 
                       className="w-full bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white rounded-xl h-14 text-lg font-semibold shadow-lg shadow-cyan-500/50"
-                      onClick={() => window.open('https://goo.gl/maps/yourlink', '_blank')}
+                      onClick={() => window.open('https://share.google/on3U2K0R0QAidiEqg', '_blank')}
                     >
                       <MapPin className="w-5 h-5 mr-2" />
                       CLICK FOR DIRECTION
@@ -737,7 +737,7 @@ export function ContactPage({ onBack, onLogin, onRegister, onAbout, onViewCourse
               <ul className="space-y-2 text-sm text-white/90">
                 <li className="flex items-start gap-2">
                   <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" />
-                  <span>1-3 Mary Street, Regents Park, NSW 2143 AUSTRALIA</span>
+                  <span>Safety Training Academy | Sydney - 3/14-16 Marjorie Street, Sefton NSW 2162</span>
                 </li>
               </ul>
             </div>
